@@ -1,0 +1,1041 @@
+<!DOCTYPE html>
+<html lang="hr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TUM MI — Priprema za ispit</title>
+  <meta name="description" content="Kviz za pripremu međuispita iz Temelja umjetnih mišića / Medicinske instrumentacije" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --bg: #f4efe6;
+      --bg-card: #faf7f0;
+      --ink: #15181c;
+      --ink-soft: #3b4049;
+      --muted: #6b6f78;
+      --rule: #d9d1be;
+      --accent: #0f5540;
+      --accent-hover: #0c4432;
+      --correct: #1a6b4f;
+      --correct-bg: #d5e8df;
+      --wrong: #9b1c2e;
+      --wrong-bg: #f0d8dc;
+      --amber: #b7791f;
+      --shadow: 0 1px 0 rgba(21, 24, 28, 0.04), 0 8px 24px -12px rgba(21, 24, 28, 0.15);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+      background: var(--bg);
+      color: var(--ink);
+      font-family: 'DM Sans', system-ui, sans-serif;
+      font-size: 16px;
+      line-height: 1.5;
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* Subtle paper grain */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background-image: radial-gradient(rgba(21, 24, 28, 0.025) 1px, transparent 1px);
+      background-size: 3px 3px;
+      z-index: 0;
+    }
+
+    .wrap {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 32px 20px 80px;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Header */
+    .masthead {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      padding-bottom: 20px;
+      margin-bottom: 32px;
+      border-bottom: 1px solid var(--rule);
+    }
+    .brand {
+      font-family: 'Fraunces', serif;
+      font-weight: 600;
+      font-size: 20px;
+      letter-spacing: -0.01em;
+    }
+    .brand span { color: var(--accent); font-style: italic; }
+    .meta {
+      font-size: 12px;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+    }
+
+    /* Screens */
+    .screen { animation: fadeIn 0.35s ease both; }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .hidden { display: none !important; }
+
+    /* Start screen */
+    .hero {
+      text-align: left;
+      padding: 8px 0 24px;
+    }
+    .eyebrow {
+      font-size: 12px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--amber);
+      font-weight: 600;
+      margin-bottom: 20px;
+    }
+    h1 {
+      font-family: 'Fraunces', serif;
+      font-weight: 500;
+      font-size: clamp(36px, 6vw, 56px);
+      line-height: 1.02;
+      letter-spacing: -0.02em;
+      margin-bottom: 20px;
+    }
+    h1 em {
+      font-style: italic;
+      color: var(--accent);
+      font-weight: 500;
+    }
+    .lede {
+      font-size: 17px;
+      color: var(--ink-soft);
+      max-width: 52ch;
+      margin-bottom: 36px;
+    }
+
+    .options {
+      background: var(--bg-card);
+      border: 1px solid var(--rule);
+      border-radius: 4px;
+      padding: 24px;
+      margin-bottom: 28px;
+      box-shadow: var(--shadow);
+    }
+    .options h2 {
+      font-family: 'Fraunces', serif;
+      font-weight: 600;
+      font-size: 14px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 16px;
+    }
+    .option-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 0;
+      border-top: 1px dashed var(--rule);
+    }
+    .option-row:first-of-type { border-top: 0; padding-top: 4px; }
+    .option-row label {
+      font-size: 15px;
+      font-weight: 500;
+      cursor: pointer;
+    }
+    .chips { display: flex; gap: 6px; flex-wrap: wrap; }
+    .chip {
+      appearance: none;
+      border: 1px solid var(--rule);
+      background: transparent;
+      padding: 7px 14px;
+      border-radius: 999px;
+      font-family: inherit;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--ink-soft);
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+    .chip:hover { border-color: var(--ink); color: var(--ink); }
+    .chip.active {
+      background: var(--ink);
+      color: var(--bg-card);
+      border-color: var(--ink);
+    }
+
+    /* Toggle */
+    .toggle {
+      position: relative;
+      width: 44px; height: 24px;
+      background: #d8d2c2;
+      border-radius: 999px;
+      cursor: pointer;
+      transition: background 0.2s ease;
+      flex-shrink: 0;
+    }
+    .toggle::after {
+      content: '';
+      position: absolute;
+      top: 3px; left: 3px;
+      width: 18px; height: 18px;
+      background: white;
+      border-radius: 50%;
+      transition: transform 0.2s ease;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+    }
+    .toggle.on { background: var(--accent); }
+    .toggle.on::after { transform: translateX(20px); }
+
+    /* Buttons */
+    .btn {
+      appearance: none;
+      border: none;
+      font-family: inherit;
+      font-size: 16px;
+      font-weight: 600;
+      padding: 16px 28px;
+      border-radius: 2px;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      letter-spacing: 0.01em;
+    }
+    .btn-primary {
+      background: var(--ink);
+      color: var(--bg-card);
+      width: 100%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+    .btn-primary:hover { background: var(--accent); transform: translateY(-1px); }
+    .btn-primary .arrow { transition: transform 0.15s ease; }
+    .btn-primary:hover .arrow { transform: translateX(4px); }
+
+    .btn-secondary {
+      background: transparent;
+      color: var(--ink);
+      border: 1px solid var(--rule);
+      padding: 12px 20px;
+      font-size: 14px;
+    }
+    .btn-secondary:hover { border-color: var(--ink); }
+
+    /* Quiz screen */
+    .progress-bar {
+      height: 3px;
+      background: var(--rule);
+      border-radius: 2px;
+      overflow: hidden;
+      margin-bottom: 10px;
+    }
+    .progress-fill {
+      height: 100%;
+      background: var(--accent);
+      width: 0;
+      transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .progress-info {
+      display: flex;
+      justify-content: space-between;
+      font-size: 12px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 32px;
+    }
+    .progress-info .score { color: var(--accent); font-weight: 600; }
+
+    .question {
+      font-family: 'Fraunces', serif;
+      font-weight: 500;
+      font-size: clamp(22px, 3.5vw, 28px);
+      line-height: 1.3;
+      letter-spacing: -0.01em;
+      margin-bottom: 32px;
+      color: var(--ink);
+    }
+    .question-num {
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      color: var(--amber);
+      display: block;
+      margin-bottom: 8px;
+      font-family: 'DM Sans', sans-serif;
+      text-transform: uppercase;
+    }
+
+    .answers {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 24px;
+    }
+    .answer {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      padding: 16px 18px;
+      background: var(--bg-card);
+      border: 1px solid var(--rule);
+      border-radius: 3px;
+      text-align: left;
+      font-family: inherit;
+      font-size: 15px;
+      line-height: 1.45;
+      color: var(--ink);
+      cursor: pointer;
+      transition: all 0.15s ease;
+      width: 100%;
+    }
+    .answer:hover:not(:disabled) {
+      border-color: var(--ink);
+      transform: translateY(-1px);
+      box-shadow: var(--shadow);
+    }
+    .answer:disabled { cursor: default; }
+    .answer .letter {
+      flex-shrink: 0;
+      width: 24px; height: 24px;
+      border-radius: 50%;
+      border: 1px solid var(--rule);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--muted);
+      font-family: 'Fraunces', serif;
+      transition: all 0.15s ease;
+    }
+    .answer:hover:not(:disabled) .letter { border-color: var(--ink); color: var(--ink); }
+
+    .answer.correct {
+      background: var(--correct-bg);
+      border-color: var(--correct);
+      color: var(--correct);
+    }
+    .answer.correct .letter {
+      background: var(--correct);
+      color: white;
+      border-color: var(--correct);
+    }
+    .answer.wrong {
+      background: var(--wrong-bg);
+      border-color: var(--wrong);
+      color: var(--wrong);
+    }
+    .answer.wrong .letter {
+      background: var(--wrong);
+      color: white;
+      border-color: var(--wrong);
+    }
+    .answer.dimmed { opacity: 0.5; }
+
+    .feedback {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 16px 18px;
+      border-radius: 3px;
+      margin-bottom: 16px;
+      font-size: 14px;
+      animation: slideUp 0.25s ease both;
+    }
+    @keyframes slideUp {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .feedback.correct {
+      background: var(--correct-bg);
+      color: var(--correct);
+      border-left: 3px solid var(--correct);
+    }
+    .feedback.wrong {
+      background: var(--wrong-bg);
+      color: var(--wrong);
+      border-left: 3px solid var(--wrong);
+    }
+    .feedback-text { font-weight: 600; }
+
+    .next-btn {
+      background: var(--accent);
+      color: white;
+      border: none;
+      padding: 14px 24px;
+      border-radius: 3px;
+      font-family: inherit;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.15s ease;
+    }
+    .next-btn:hover { background: var(--accent-hover); transform: translateX(2px); }
+
+    .keyboard-hint {
+      text-align: center;
+      margin-top: 32px;
+      font-size: 12px;
+      color: var(--muted);
+      letter-spacing: 0.05em;
+    }
+    .keyboard-hint kbd {
+      display: inline-block;
+      padding: 2px 7px;
+      border: 1px solid var(--rule);
+      border-bottom-width: 2px;
+      border-radius: 3px;
+      background: var(--bg-card);
+      font-family: 'DM Sans', monospace;
+      font-size: 11px;
+      font-weight: 600;
+      margin: 0 2px;
+      color: var(--ink-soft);
+    }
+
+    /* Results */
+    .results-card {
+      text-align: center;
+      padding: 48px 24px;
+      background: var(--bg-card);
+      border: 1px solid var(--rule);
+      border-radius: 4px;
+      box-shadow: var(--shadow);
+      margin-bottom: 28px;
+    }
+    .score-big {
+      font-family: 'Fraunces', serif;
+      font-weight: 500;
+      font-size: clamp(72px, 14vw, 120px);
+      line-height: 1;
+      letter-spacing: -0.04em;
+      color: var(--ink);
+      display: flex;
+      align-items: baseline;
+      justify-content: center;
+      gap: 4px;
+    }
+    .score-big .slash { color: var(--muted); font-size: 0.5em; font-style: italic; }
+    .score-big .total { color: var(--muted); font-size: 0.5em; }
+    .score-pct {
+      font-family: 'Fraunces', serif;
+      font-style: italic;
+      font-size: 20px;
+      color: var(--accent);
+      margin-top: 8px;
+      margin-bottom: 20px;
+    }
+    .score-message {
+      color: var(--ink-soft);
+      font-size: 15px;
+      max-width: 40ch;
+      margin: 0 auto;
+    }
+
+    .review-section {
+      margin-bottom: 28px;
+    }
+    .review-section h3 {
+      font-family: 'Fraunces', serif;
+      font-weight: 600;
+      font-size: 14px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 12px;
+    }
+    .review-item {
+      padding: 16px 18px;
+      background: var(--bg-card);
+      border: 1px solid var(--rule);
+      border-left: 3px solid var(--wrong);
+      margin-bottom: 8px;
+      border-radius: 3px;
+      font-size: 14px;
+    }
+    .review-item .q {
+      font-family: 'Fraunces', serif;
+      font-size: 15px;
+      font-weight: 500;
+      margin-bottom: 6px;
+      color: var(--ink);
+    }
+    .review-item .your { color: var(--wrong); margin-bottom: 2px; }
+    .review-item .correct-ans { color: var(--correct); font-weight: 600; }
+
+    .actions-row {
+      display: flex;
+      gap: 10px;
+    }
+    .actions-row .btn-primary { flex: 1; }
+
+    footer {
+      margin-top: 60px;
+      padding-top: 24px;
+      border-top: 1px solid var(--rule);
+      font-size: 12px;
+      color: var(--muted);
+      text-align: center;
+      letter-spacing: 0.05em;
+    }
+
+    @media (max-width: 520px) {
+      .wrap { padding: 20px 16px 60px; }
+      .masthead { margin-bottom: 24px; }
+      .options { padding: 20px; }
+      .option-row { flex-direction: column; align-items: flex-start; gap: 12px; }
+      .keyboard-hint { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header class="masthead">
+      <div class="brand">TUM <span>MI</span></div>
+      <div class="meta">Priprema za ispit</div>
+    </header>
+
+    <!-- START SCREEN -->
+    <section id="start-screen" class="screen">
+      <div class="hero">
+        <div class="eyebrow">Medicinska instrumentacija</div>
+        <h1>Provjeri <em>znanje</em> prije ispita.</h1>
+        <p class="lede">40 pitanja iz arhiva međuispita (2017., 2021./22., 2025.) u obliku višestrukog izbora. Trenutna povratna informacija, pregled pogrešaka na kraju.</p>
+      </div>
+
+      <div class="options">
+        <h2>Postavke</h2>
+        <div class="option-row">
+          <label>Broj pitanja</label>
+          <div class="chips" id="count-chips">
+            <button class="chip" data-count="10">10</button>
+            <button class="chip" data-count="20">20</button>
+            <button class="chip active" data-count="all">Sva (40)</button>
+          </div>
+        </div>
+        <div class="option-row">
+          <label for="shuffle-toggle">Pomiješaj redoslijed</label>
+          <div class="toggle on" id="shuffle-toggle" role="switch" aria-checked="true" tabindex="0"></div>
+        </div>
+        <div class="option-row">
+          <label for="shuffle-answers-toggle">Pomiješaj odgovore</label>
+          <div class="toggle on" id="shuffle-answers-toggle" role="switch" aria-checked="true" tabindex="0"></div>
+        </div>
+      </div>
+
+      <button class="btn btn-primary" id="start-btn">
+        Započni kviz
+        <span class="arrow">→</span>
+      </button>
+    </section>
+
+    <!-- QUIZ SCREEN -->
+    <section id="quiz-screen" class="screen hidden">
+      <div class="progress-bar"><div class="progress-fill" id="progress-fill"></div></div>
+      <div class="progress-info">
+        <span id="progress-text">Pitanje 1 od 20</span>
+        <span class="score" id="score-text">0 točno</span>
+      </div>
+
+      <span class="question-num" id="question-num">Pitanje 01</span>
+      <h2 class="question" id="question-text"></h2>
+
+      <div class="answers" id="answers-container"></div>
+
+      <div id="feedback-container"></div>
+
+      <div class="keyboard-hint">
+        Odaberi tipkama <kbd>1</kbd> <kbd>2</kbd> <kbd>3</kbd> <kbd>4</kbd> · sljedeće <kbd>Enter</kbd>
+      </div>
+    </section>
+
+    <!-- RESULTS SCREEN -->
+    <section id="results-screen" class="screen hidden">
+      <div class="results-card">
+        <div class="eyebrow">Gotovo</div>
+        <div class="score-big">
+          <span id="final-score">0</span>
+          <span class="slash">/</span>
+          <span class="total" id="final-total">20</span>
+        </div>
+        <div class="score-pct" id="final-pct">0%</div>
+        <div class="score-message" id="score-message"></div>
+      </div>
+
+      <div class="review-section hidden" id="review-section">
+        <h3>Pogrešni odgovori — pregled</h3>
+        <div id="review-list"></div>
+      </div>
+
+      <div class="actions-row">
+        <button class="btn btn-primary" id="restart-btn">
+          Ponovi kviz
+          <span class="arrow">↺</span>
+        </button>
+      </div>
+    </section>
+
+    <footer>
+      Izvor: arhiva međuispita · Radi vježbe
+    </footer>
+  </div>
+
+  <script>
+    // ========================================
+    // PITANJA — 40 pitanja iz arhive
+    // ========================================
+    const ALL_QUESTIONS = [
+      {
+        q: "Najzastupljeniji element u ljudskom tijelu je?",
+        a: ["Vodik (H)", "Kisik (O)", "Ugljik (C)", "Dušik (N)"],
+        correct: 0
+      },
+      {
+        q: "U ljudskom tijelu omjer tekućine i tkiva je (tekućina : tkivo)?",
+        a: ["1:1", "2:1", "1:2", "3:1"],
+        correct: 1
+      },
+      {
+        q: "Koji je odnos koncentracija iona u stanici?",
+        a: ["Na⁺ više vani, K⁺ više unutra", "Na⁺ više unutra, K⁺ više vani", "Jednake koncentracije svih iona", "Ca²⁺ više unutra, Mg²⁺ više vani"],
+        correct: 0
+      },
+      {
+        q: "Koji je mehanizam zaslužan za povratak membranskog potencijala u početno stanje?",
+        a: ["Pasivna difuzija", "Na-K pumpa", "Osmoza", "Aktivni kotransport Ca-Mg"],
+        correct: 1
+      },
+      {
+        q: "Vrijeme kada se ponovno mogu stvarati akcijski potencijali, ali uz veći intenzitet podražaja, naziva se?",
+        a: ["Apsolutno refraktorno vrijeme", "Relativno refraktorno vrijeme", "Hiperpolarizacija", "Repolarizacija"],
+        correct: 1
+      },
+      {
+        q: "Nelinearan odnos kod osjeta vida i sluha prikazuje se kao?",
+        a: ["Linearan", "Eksponencijalan", "Logaritamski", "Kvadratni"],
+        correct: 2
+      },
+      {
+        q: "Potencijal mirovanja živčanih i mišićnih stanica iznosi?",
+        a: ["0 mV", "-40 do -50 mV", "-70 do -90 mV", "+30 do +40 mV"],
+        correct: 2
+      },
+      {
+        q: "Tipično trajanje QRS kompleksa iznosi?",
+        a: ["0.01 – 0.05 s", "0.06 – 0.1 s (80 – 120 ms)", "0.2 – 0.3 s", "0.4 – 0.6 s"],
+        correct: 1
+      },
+      {
+        q: "Faktor potiskivanja zajedničkog signala (CMRR) definira se kao?",
+        a: ["Omjer pojačanja zajedničkog i diferencijalnog signala", "Omjer pojačanja diferencijalnog (korisnog) signala i zajedničkog signala (smetnje)", "Razlika amplituda ulaznog i izlaznog signala", "Omjer izlaznog i ulaznog napona"],
+        correct: 1
+      },
+      {
+        q: "Mitralni zalistak nalazi se?",
+        a: ["Između desnog atrija i desne klijetke", "Između lijevog atrija i lijeve klijetke", "Na izlazu iz aorte", "Između plućne arterije i desne klijetke"],
+        correct: 1
+      },
+      {
+        q: "Pročišćena krv opskrbljena kisikom iz pluća putem plućnih vena dolazi u?",
+        a: ["Desni atrij", "Lijevi atrij", "Desnu klijetku", "Lijevu klijetku"],
+        correct: 1
+      },
+      {
+        q: "Što predstavlja respiracijski volumen (RV)?",
+        a: ["Volumen zraka koji ostaje u plućima nakon maksimalnog izdisaja", "Volumen zraka koji se izmjenjuje pri normalnom disanju", "Maksimalni volumen zraka koji se može udahnuti", "Ukupni kapacitet pluća"],
+        correct: 1
+      },
+      {
+        q: "U kojoj regiji mozga je smješten centar za vid?",
+        a: ["Frontalnoj", "Parijetalnoj", "Temporalnoj", "Okcipitalnoj"],
+        correct: 3
+      },
+      {
+        q: "Što je karakteristično za α-valove?",
+        a: ["Frekvencija 14 – 30 Hz, dominiraju u frontalnoj regiji", "Frekvencija 8 – 13 Hz, amplituda do 50 μV, dominiraju u okcipitalnoj regiji", "Frekvencija 4 – 7 Hz, javljaju se u snu", "Frekvencija 0.5 – 3 Hz, prisutni u dubokom snu"],
+        correct: 1
+      },
+      {
+        q: "Koje vrste valova javljaju se u mozgu?",
+        a: ["α, β, γ, ω", "α, β, δ, θ", "P, Q, R, S", "X, Y, Z, W"],
+        correct: 1
+      },
+      {
+        q: "Na crtežu sarkomere, linija koja omeđuje sarkomeru označena je kao?",
+        a: ["A-membrana", "Z-membrana", "M-linija", "Aktinska linija"],
+        correct: 1
+      },
+      {
+        q: "Tipična amplituda EMG signala je u rasponu?",
+        a: ["1 – 10 μV", "10 – 100 μV", "0.1 – 5 mV", "10 – 50 mV"],
+        correct: 2
+      },
+      {
+        q: "Izvedba umjetnog vida gdje se elektrode postavljaju na unutrašnju stranu retine naziva se?",
+        a: ["Subretinal", "Epiretinal", "Suprachoroidal", "Transcortical"],
+        correct: 1
+      },
+      {
+        q: "Tipične vrijednosti pojačanja instrumentacijskih pojačala su?",
+        a: ["10 – 20 dB", "40 – 60 dB", "100 – 120 dB", "200 – 300 dB"],
+        correct: 2
+      },
+      {
+        q: "Frekvencija glatkog pokreta mišića iznosi?",
+        a: ["5 – 10 Hz", "20 – 40 Hz", "60 – 80 Hz", "200 – 500 Hz"],
+        correct: 2
+      },
+      {
+        q: "Koji je red veličine broja senzora u implantu umjetne retine?",
+        a: ["6", "60", "600", "6000"],
+        correct: 1
+      },
+      {
+        q: "Koji od navedenih uređaja zahtijeva da tijelo pacijenta bude u zabrtvljenom kućištu?",
+        a: ["Respirator s pozitivnim tlakom", "Respirator s negativnim tlakom", "CPAP uređaj", "EKG monitor"],
+        correct: 1
+      },
+      {
+        q: "Načelo rada pulsnog oksimetra je?",
+        a: ["Mjerenje električne provodljivosti tkiva", "Usporedba crvene i infracrvene svjetlosti u tkivu", "Mjerenje temperature kože", "Ultrazvučna analiza krvi"],
+        correct: 1
+      },
+      {
+        q: "Tipične značajke stanične membrane (debljina, specifični kapacitet, dielektrična konstanta)?",
+        a: ["1 nm; 5 μF/cm²; 80", "10 nm; 0.5 – 1 μF/cm²; 5", "100 nm; 10 μF/cm²; 50", "1 μm; 0.1 μF/cm²; 1"],
+        correct: 1
+      },
+      {
+        q: "Koje su karakteristike β-valova?",
+        a: ["0.5 – 3 Hz, do 100 μV, u dubokom snu", "4 – 7 Hz, 10 – 30 μV, javljaju se kod djece", "8 – 13 Hz, do 50 μV, u okcipitalnoj regiji", "14 – 30 Hz (do 50 Hz), do 20 μV, u frontalnim i parijetalnim regijama"],
+        correct: 3
+      },
+      {
+        q: "Ishodište neke nove zarazne bolesti naziva se traženjem?",
+        a: ["Patogena", "Prvog simptoma", "Nultog pacijenta", "Inkubacijskog razdoblja"],
+        correct: 2
+      },
+      {
+        q: "Svojstva površinskog EMG signala su?",
+        a: ["Amplituda 1 – 5 μV, 1 – 10 Hz", "Amplituda 100 μV do 5 mV, 10 – 500 Hz, umor pomiče spektar prema nižim frekvencijama", "Amplituda 10 – 100 mV, 500 – 1000 Hz", "Amplituda 0.1 μV, DC signal"],
+        correct: 1
+      },
+      {
+        q: "Nastanak i širenje akcijskog potencijala posljedica je?",
+        a: ["Mehaničkog tlaka na membranu", "Brze promjene polarnosti membrane mijenjanjem njene propusnosti za Na⁺ i K⁺ u pobuđenoj stanici", "Kemijske reakcije proteina", "Termalnog gradijenta"],
+        correct: 1
+      },
+      {
+        q: "Što vrijedi za deterministički model (za razliku od stohastičkog)?",
+        a: ["Izlaz je potpuno slučajan", "Izlaz je određen definiranim ulazima i njihovim odnosima", "Ulazi su slučajne varijable", "Model koristi vjerojatnosne distribucije"],
+        correct: 1
+      },
+      {
+        q: "Hodgkin-Huxleyev model opisuje?",
+        a: ["Strukturu DNA", "Teoriju nastanka i širenja akcijskog potencijala", "Funkciju srca", "Model disanja"],
+        correct: 1
+      },
+      {
+        q: "In vitro modeli su modeli u kojima se?",
+        a: ["Eksperimentira na živim organizmima (in vivo)", "Izolira specifični živi proces i reproducira u laboratorijskim uvjetima", "Koriste isključivo matematičke simulacije", "Promatraju pacijenti u bolnici"],
+        correct: 1
+      },
+      {
+        q: "Ex vivo modeli su modeli u kojima se?",
+        a: ["Koriste samo matematičke jednadžbe", "Eksperimentira na stanicama, tkivima ili organima izvađenim iz organizma, uz minimalnu izmjenu prirodnih uvjeta", "Testira na živom pacijentu", "Simulira računalno"],
+        correct: 1
+      },
+      {
+        q: "Što je anizotropnost?",
+        a: ["Ista svojstva u svim smjerovima", "Različita svojstva u različitim smjerovima, tipično uzduž stanice-vlakna", "Promjena svojstava tijekom vremena", "Neusmjereni prijenos signala"],
+        correct: 1
+      },
+      {
+        q: "Raspon frekvencijskog signala kirurškog noža iznosi?",
+        a: ["50 – 100 Hz", "1 – 10 kHz", "300 kHz do 5 MHz", "1 – 10 GHz"],
+        correct: 2
+      },
+      {
+        q: "Koje su vrste prijenosa kroz staničnu membranu?",
+        a: ["Samo difuzija", "Difuzija, osmoza i aktivni prijenos", "Isključivo aktivni prijenos", "Mehanička abrazija"],
+        correct: 1
+      },
+      {
+        q: "Koji je algoritam za detekciju QRS-a na EKG-u?",
+        a: ["Fourierov algoritam", "Pan-Tompkins", "Karhunen-Loève", "Gaussov filtar"],
+        correct: 1
+      },
+      {
+        q: "Koji su normalni tlakovi sistole i dijastole?",
+        a: ["80/60 mmHg", "100/70 mmHg", "120/80 mmHg", "160/100 mmHg"],
+        correct: 2
+      },
+      {
+        q: "Koji je električni model elektrode (osnovna konfiguracija)?",
+        a: ["Samo kondenzator", "Samo otpornik", "U paraleli kondenzator i otpornik", "Serijski spojeni induktori"],
+        correct: 2
+      },
+      {
+        q: "Kakav je odnos frekvencije impulsa i intenziteta podražaja kod osjetila velike dinamike (vid, sluh)?",
+        a: ["Linearno proporcionalan", "Eksponencijalno proporcionalan", "Logaritamski proporcionalan", "Obrnuto proporcionalan"],
+        correct: 2
+      },
+      {
+        q: "Koja tvrdnja o koncentracijama iona je točna?",
+        a: ["Jednake koncentracije unutar i izvan stanice", "K⁺ veća UNUTAR stanice, Na⁺ veća IZVAN stanice", "K⁺ veća IZVAN stanice, Na⁺ veća UNUTAR stanice", "Ovisi o trenutku srčanog ciklusa"],
+        correct: 1
+      }
+    ];
+
+    // ========================================
+    // STATE
+    // ========================================
+    const state = {
+      questions: [],
+      current: 0,
+      correctCount: 0,
+      answered: false,
+      wrongs: [],      // {q, correct, chosen}
+      count: 'all',
+      shuffleQuestions: true,
+      shuffleAnswers: true,
+    };
+
+    // ========================================
+    // HELPERS
+    // ========================================
+    function shuffle(arr) {
+      const a = [...arr];
+      for (let i = a.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [a[i], a[j]] = [a[j], a[i]];
+      }
+      return a;
+    }
+
+    function show(id) {
+      document.querySelectorAll('.screen').forEach(s => s.classList.add('hidden'));
+      const el = document.getElementById(id);
+      el.classList.remove('hidden');
+      // retrigger animation
+      el.style.animation = 'none';
+      requestAnimationFrame(() => { el.style.animation = ''; });
+    }
+
+    // ========================================
+    // START SCREEN
+    // ========================================
+    document.querySelectorAll('#count-chips .chip').forEach(chip => {
+      chip.addEventListener('click', () => {
+        document.querySelectorAll('#count-chips .chip').forEach(c => c.classList.remove('active'));
+        chip.classList.add('active');
+        state.count = chip.dataset.count;
+      });
+    });
+
+    const shuffleToggle = document.getElementById('shuffle-toggle');
+    const shuffleAnswersToggle = document.getElementById('shuffle-answers-toggle');
+
+    function wireToggle(el, key) {
+      const handler = () => {
+        state[key] = !state[key];
+        el.classList.toggle('on', state[key]);
+        el.setAttribute('aria-checked', state[key]);
+      };
+      el.addEventListener('click', handler);
+      el.addEventListener('keydown', e => {
+        if (e.key === ' ' || e.key === 'Enter') { e.preventDefault(); handler(); }
+      });
+    }
+    wireToggle(shuffleToggle, 'shuffleQuestions');
+    wireToggle(shuffleAnswersToggle, 'shuffleAnswers');
+
+    document.getElementById('start-btn').addEventListener('click', startQuiz);
+
+    function startQuiz() {
+      let pool = state.shuffleQuestions ? shuffle(ALL_QUESTIONS) : [...ALL_QUESTIONS];
+      const n = state.count === 'all' ? pool.length : parseInt(state.count, 10);
+      pool = pool.slice(0, n);
+
+      // optionally shuffle answers inside each question
+      state.questions = pool.map(q => {
+        if (!state.shuffleAnswers) return { ...q };
+        const indexed = q.a.map((text, i) => ({ text, wasCorrect: i === q.correct }));
+        const shuffled = shuffle(indexed);
+        return {
+          q: q.q,
+          a: shuffled.map(x => x.text),
+          correct: shuffled.findIndex(x => x.wasCorrect)
+        };
+      });
+
+      state.current = 0;
+      state.correctCount = 0;
+      state.answered = false;
+      state.wrongs = [];
+
+      renderQuestion();
+      show('quiz-screen');
+    }
+
+    // ========================================
+    // QUIZ SCREEN
+    // ========================================
+    function renderQuestion() {
+      const { questions, current } = state;
+      const q = questions[current];
+      state.answered = false;
+
+      const total = questions.length;
+      document.getElementById('progress-text').textContent = `Pitanje ${current + 1} od ${total}`;
+      document.getElementById('score-text').textContent = `${state.correctCount} točno`;
+      document.getElementById('progress-fill').style.width = `${(current / total) * 100}%`;
+      document.getElementById('question-num').textContent = `Pitanje ${String(current + 1).padStart(2, '0')}`;
+      document.getElementById('question-text').textContent = q.q;
+
+      const container = document.getElementById('answers-container');
+      container.innerHTML = '';
+      const letters = ['A', 'B', 'C', 'D', 'E'];
+      q.a.forEach((text, i) => {
+        const btn = document.createElement('button');
+        btn.className = 'answer';
+        btn.dataset.index = i;
+        btn.innerHTML = `<span class="letter">${letters[i]}</span><span>${text}</span>`;
+        btn.addEventListener('click', () => chooseAnswer(i));
+        container.appendChild(btn);
+      });
+
+      document.getElementById('feedback-container').innerHTML = '';
+    }
+
+    function chooseAnswer(idx) {
+      if (state.answered) return;
+      state.answered = true;
+
+      const q = state.questions[state.current];
+      const isCorrect = idx === q.correct;
+      if (isCorrect) {
+        state.correctCount++;
+      } else {
+        state.wrongs.push({
+          q: q.q,
+          correct: q.a[q.correct],
+          chosen: q.a[idx]
+        });
+      }
+
+      document.querySelectorAll('.answer').forEach((btn, i) => {
+        btn.disabled = true;
+        if (i === q.correct) btn.classList.add('correct');
+        else if (i === idx) btn.classList.add('wrong');
+        else btn.classList.add('dimmed');
+      });
+
+      const fb = document.createElement('div');
+      fb.className = `feedback ${isCorrect ? 'correct' : 'wrong'}`;
+      fb.innerHTML = `
+        <div class="feedback-text">${isCorrect ? '✓ Točno!' : '✗ Netočno'}</div>
+        <button class="next-btn" id="next-btn">
+          ${state.current === state.questions.length - 1 ? 'Rezultati' : 'Sljedeće'}
+          <span>→</span>
+        </button>
+      `;
+      document.getElementById('feedback-container').appendChild(fb);
+      document.getElementById('next-btn').addEventListener('click', nextQuestion);
+
+      document.getElementById('score-text').textContent = `${state.correctCount} točno`;
+    }
+
+    function nextQuestion() {
+      state.current++;
+      if (state.current >= state.questions.length) {
+        showResults();
+      } else {
+        renderQuestion();
+      }
+    }
+
+    // ========================================
+    // KEYBOARD
+    // ========================================
+    document.addEventListener('keydown', (e) => {
+      if (!document.getElementById('quiz-screen').classList.contains('hidden')) {
+        if (!state.answered && ['1', '2', '3', '4'].includes(e.key)) {
+          const idx = parseInt(e.key, 10) - 1;
+          const q = state.questions[state.current];
+          if (idx < q.a.length) chooseAnswer(idx);
+        } else if (state.answered && (e.key === 'Enter' || e.key === ' ')) {
+          e.preventDefault();
+          nextQuestion();
+        }
+      } else if (!document.getElementById('start-screen').classList.contains('hidden')) {
+        if (e.key === 'Enter') startQuiz();
+      } else if (!document.getElementById('results-screen').classList.contains('hidden')) {
+        if (e.key === 'Enter') show('start-screen');
+      }
+    });
+
+    // ========================================
+    // RESULTS
+    // ========================================
+    function showResults() {
+      const total = state.questions.length;
+      const score = state.correctCount;
+      const pct = Math.round((score / total) * 100);
+
+      document.getElementById('final-score').textContent = score;
+      document.getElementById('final-total').textContent = total;
+      document.getElementById('final-pct').textContent = pct + '%';
+
+      const msgEl = document.getElementById('score-message');
+      let msg;
+      if (pct >= 90) msg = 'Izvrsno — spreman/na si za ispit.';
+      else if (pct >= 75) msg = 'Solidno. Još malo ponoviti slabije teme i u redu je.';
+      else if (pct >= 50) msg = 'Srednje. Vrijedi proći još nekoliko krugova.';
+      else msg = 'Vrijeme je za još jedan krug uz gradivo.';
+      msgEl.textContent = msg;
+
+      const reviewSection = document.getElementById('review-section');
+      const reviewList = document.getElementById('review-list');
+      reviewList.innerHTML = '';
+
+      if (state.wrongs.length === 0) {
+        reviewSection.classList.add('hidden');
+      } else {
+        reviewSection.classList.remove('hidden');
+        state.wrongs.forEach(w => {
+          const item = document.createElement('div');
+          item.className = 'review-item';
+          item.innerHTML = `
+            <div class="q">${w.q}</div>
+            <div class="your">Tvoj odgovor: ${w.chosen}</div>
+            <div class="correct-ans">Točan odgovor: ${w.correct}</div>
+          `;
+          reviewList.appendChild(item);
+        });
+      }
+
+      show('results-screen');
+    }
+
+    document.getElementById('restart-btn').addEventListener('click', () => {
+      show('start-screen');
+    });
+  </script>
+</body>
+</html>
