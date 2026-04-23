@@ -3,12 +3,11 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>UUI — Pretraživanje prostora stanja · Priprema za ispit</title>
-  <meta name="description" content="Kviz za pripremu iz poglavlja Pretraživanje prostora stanja (Uvod u umjetnu inteligenciju, FER)" />
+  <title>OEHV — Priprema za ispit</title>
+  <meta name="description" content="Kviz za pripremu ispita iz Osnova električnih i hibridnih vozila" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
-
   <style>
     :root {
       --bg: #f4efe6;
@@ -25,11 +24,9 @@
       --wrong-bg: #f0d8dc;
       --amber: #b7791f;
       --amber-bg: #f5e9d2;
-      --shadow: 0 1px 0 rgba(21, 24, 28, 0.04), 0 8px 24px -12px rgba(21, 24, 28, 0.15);
+      --shadow: 0 1px 0 rgba(21,24,28,.04), 0 8px 24px -12px rgba(21,24,28,.15);
     }
-
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html, body {
       background: var(--bg);
       color: var(--ink);
@@ -39,17 +36,15 @@
       min-height: 100vh;
       -webkit-font-smoothing: antialiased;
     }
-
     body::before {
       content: '';
       position: fixed;
       inset: 0;
       pointer-events: none;
-      background-image: radial-gradient(rgba(21, 24, 28, 0.025) 1px, transparent 1px);
+      background-image: radial-gradient(rgba(21,24,28,.025) 1px, transparent 1px);
       background-size: 3px 3px;
       z-index: 0;
     }
-
     .wrap {
       max-width: 720px;
       margin: 0 auto;
@@ -57,7 +52,6 @@
       position: relative;
       z-index: 1;
     }
-
     .masthead {
       display: flex;
       align-items: baseline;
@@ -66,53 +60,20 @@
       margin-bottom: 32px;
       border-bottom: 1px solid var(--rule);
     }
-    .brand {
-      font-family: 'Fraunces', serif;
-      font-weight: 600;
-      font-size: 20px;
-      letter-spacing: -0.01em;
-    }
+    .brand { font-family: 'Fraunces', serif; font-weight: 600; font-size: 20px; letter-spacing: -0.01em; }
     .brand span { color: var(--accent); font-style: italic; }
-    .meta {
-      font-size: 12px;
-      color: var(--muted);
-      text-transform: uppercase;
-      letter-spacing: 0.12em;
-    }
+    .meta { font-size: 12px; color: var(--muted); text-transform: uppercase; letter-spacing: .12em; }
 
-    .screen { animation: fadeIn 0.35s ease both; }
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(8px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
+    .screen { animation: fadeIn .35s ease both; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
     .hidden { display: none !important; }
 
-    .hero { text-align: left; padding: 8px 0 24px; }
-    .eyebrow {
-      font-size: 12px;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: var(--amber);
-      font-weight: 600;
-      margin-bottom: 20px;
-    }
-    h1 {
-      font-family: 'Fraunces', serif;
-      font-weight: 500;
-      font-size: clamp(36px, 6vw, 56px);
-      line-height: 1.02;
-      letter-spacing: -0.02em;
-      margin-bottom: 20px;
-    }
+    .eyebrow { font-size: 12px; letter-spacing: .18em; text-transform: uppercase; color: var(--amber); font-weight: 600; margin-bottom: 20px; }
+    h1 { font-family: 'Fraunces', serif; font-weight: 500; font-size: clamp(36px,6vw,56px); line-height: 1.02; letter-spacing: -.02em; margin-bottom: 20px; }
     h1 em { font-style: italic; color: var(--accent); font-weight: 500; }
-    .lede {
-      font-size: 17px;
-      color: var(--ink-soft);
-      max-width: 52ch;
-      margin-bottom: 36px;
-    }
+    .lede { font-size: 17px; color: var(--ink-soft); max-width: 52ch; margin-bottom: 36px; }
 
-    .options {
+    .options-box {
       background: var(--bg-card);
       border: 1px solid var(--rule);
       border-radius: 4px;
@@ -120,374 +81,81 @@
       margin-bottom: 28px;
       box-shadow: var(--shadow);
     }
-    .options h2 {
-      font-family: 'Fraunces', serif;
-      font-weight: 600;
-      font-size: 14px;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: var(--muted);
-      margin-bottom: 16px;
-    }
-    .option-row {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 12px 0;
-      border-top: 1px dashed var(--rule);
-      gap: 12px;
-    }
+    .options-box h2 { font-family: 'Fraunces', serif; font-weight: 600; font-size: 14px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); margin-bottom: 16px; }
+    .option-row { display: flex; align-items: center; justify-content: space-between; padding: 12px 0; border-top: 1px dashed var(--rule); gap: 12px; }
     .option-row:first-of-type { border-top: 0; padding-top: 4px; }
     .option-row label { font-size: 15px; font-weight: 500; cursor: pointer; }
     .chips { display: flex; gap: 6px; flex-wrap: wrap; }
-    .chip {
-      appearance: none;
-      border: 1px solid var(--rule);
-      background: transparent;
-      padding: 7px 14px;
-      border-radius: 999px;
-      font-family: inherit;
-      font-size: 14px;
-      font-weight: 500;
-      color: var(--ink-soft);
-      cursor: pointer;
-      transition: all 0.15s ease;
-    }
+    .chip { appearance: none; border: 1px solid var(--rule); background: transparent; padding: 7px 14px; border-radius: 999px; font-family: inherit; font-size: 14px; font-weight: 500; color: var(--ink-soft); cursor: pointer; transition: all .15s; }
     .chip:hover { border-color: var(--ink); color: var(--ink); }
     .chip.active { background: var(--ink); color: var(--bg-card); border-color: var(--ink); }
 
-    .toggle {
-      position: relative;
-      width: 44px; height: 24px;
-      background: #d8d2c2;
-      border-radius: 999px;
-      cursor: pointer;
-      transition: background 0.2s ease;
-      flex-shrink: 0;
-    }
-    .toggle::after {
-      content: '';
-      position: absolute;
-      top: 3px; left: 3px;
-      width: 18px; height: 18px;
-      background: white;
-      border-radius: 50%;
-      transition: transform 0.2s ease;
-      box-shadow: 0 1px 3px rgba(0,0,0,0.2);
-    }
+    .toggle { position: relative; width: 44px; height: 24px; background: #d8d2c2; border-radius: 999px; cursor: pointer; transition: background .2s; flex-shrink: 0; }
+    .toggle::after { content: ''; position: absolute; top: 3px; left: 3px; width: 18px; height: 18px; background: white; border-radius: 50%; transition: transform .2s; box-shadow: 0 1px 3px rgba(0,0,0,.2); }
     .toggle.on { background: var(--accent); }
     .toggle.on::after { transform: translateX(20px); }
 
-    .btn {
-      appearance: none;
-      border: none;
-      font-family: inherit;
-      font-size: 16px;
-      font-weight: 600;
-      padding: 16px 28px;
-      border-radius: 2px;
-      cursor: pointer;
-      transition: all 0.15s ease;
-      letter-spacing: 0.01em;
-    }
-    .btn-primary {
-      background: var(--ink);
-      color: var(--bg-card);
-      width: 100%;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-    }
+    .btn { appearance: none; border: none; font-family: inherit; font-size: 16px; font-weight: 600; padding: 16px 28px; border-radius: 2px; cursor: pointer; transition: all .15s; letter-spacing: .01em; }
+    .btn-primary { background: var(--ink); color: var(--bg-card); width: 100%; display: inline-flex; align-items: center; justify-content: center; gap: 10px; }
     .btn-primary:hover { background: var(--accent); transform: translateY(-1px); }
-    .btn-primary .arrow { transition: transform 0.15s ease; }
+    .btn-primary .arrow { transition: transform .15s; }
     .btn-primary:hover .arrow { transform: translateX(4px); }
 
-    .progress-bar {
-      height: 3px;
-      background: var(--rule);
-      border-radius: 2px;
-      overflow: hidden;
-      margin-bottom: 10px;
-    }
-    .progress-fill {
-      height: 100%;
-      background: var(--accent);
-      width: 0;
-      transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-    .progress-info {
-      display: flex;
-      justify-content: space-between;
-      font-size: 12px;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--muted);
-      margin-bottom: 24px;
-    }
+    .progress-bar { height: 3px; background: var(--rule); border-radius: 2px; overflow: hidden; margin-bottom: 10px; }
+    .progress-fill { height: 100%; background: var(--accent); width: 0; transition: width .4s cubic-bezier(.4,0,.2,1); }
+    .progress-info { display: flex; justify-content: space-between; font-size: 12px; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); margin-bottom: 24px; }
     .progress-info .score { color: var(--accent); font-weight: 600; }
 
-    .source-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      padding: 4px 10px 4px 8px;
-      border-radius: 999px;
-      font-size: 11px;
-      font-weight: 600;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      margin-bottom: 16px;
-      border: 1px solid transparent;
-    }
-    .source-badge::before {
-      content: '';
-      width: 6px; height: 6px;
-      border-radius: 50%;
-    }
-    .source-badge.theory {
-      background: var(--correct-bg);
-      color: var(--correct);
-      border-color: rgba(26, 107, 79, 0.15);
-    }
-    .source-badge.theory::before { background: var(--correct); }
-    .source-badge.algo {
-      background: var(--amber-bg);
-      color: var(--amber);
-      border-color: rgba(183, 121, 31, 0.2);
-    }
-    .source-badge.algo::before { background: var(--amber); }
+    .question-num { font-size: 12px; font-weight: 700; letter-spacing: .12em; color: var(--amber); display: block; margin-bottom: 6px; font-family: 'DM Sans', sans-serif; text-transform: uppercase; }
+    .question { font-family: 'Fraunces', serif; font-weight: 500; font-size: clamp(22px,3.5vw,28px); line-height: 1.3; letter-spacing: -.01em; margin-bottom: 28px; color: var(--ink); }
 
-    .question {
-      font-family: 'Fraunces', serif;
-      font-weight: 500;
-      font-size: clamp(22px, 3.5vw, 28px);
-      line-height: 1.3;
-      letter-spacing: -0.01em;
-      margin-bottom: 28px;
-      color: var(--ink);
-    }
-    .question code, .answer code {
-      font-family: 'DM Sans', ui-monospace, monospace;
-      background: rgba(15, 85, 64, 0.08);
-      padding: 1px 6px;
-      border-radius: 3px;
-      font-weight: 600;
-      font-size: 0.92em;
-      color: var(--accent);
-    }
-    .answer.correct code { background: rgba(26, 107, 79, 0.18); color: var(--correct); }
-    .answer.wrong code { background: rgba(155, 28, 46, 0.12); color: var(--wrong); }
-    .question-num {
-      font-size: 12px;
-      font-weight: 700;
-      letter-spacing: 0.12em;
-      color: var(--amber);
-      display: block;
-      margin-bottom: 6px;
-      font-family: 'DM Sans', sans-serif;
-      text-transform: uppercase;
-    }
-
-    .answers {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      margin-bottom: 24px;
-    }
-    .answer {
-      display: flex;
-      align-items: flex-start;
-      gap: 14px;
-      padding: 16px 18px;
-      background: var(--bg-card);
-      border: 1px solid var(--rule);
-      border-radius: 3px;
-      text-align: left;
-      font-family: inherit;
-      font-size: 15px;
-      line-height: 1.45;
-      color: var(--ink);
-      cursor: pointer;
-      transition: all 0.15s ease;
-      width: 100%;
-    }
-    .answer:hover:not(:disabled) {
-      border-color: var(--ink);
-      transform: translateY(-1px);
-      box-shadow: var(--shadow);
-    }
+    .answers { display: flex; flex-direction: column; gap: 10px; margin-bottom: 24px; }
+    .answer { display: flex; align-items: flex-start; gap: 14px; padding: 16px 18px; background: var(--bg-card); border: 1px solid var(--rule); border-radius: 3px; text-align: left; font-family: inherit; font-size: 15px; line-height: 1.45; color: var(--ink); cursor: pointer; transition: all .15s; width: 100%; }
+    .answer:hover:not(:disabled) { border-color: var(--ink); transform: translateY(-1px); box-shadow: var(--shadow); }
     .answer:disabled { cursor: default; }
-    .answer .letter {
-      flex-shrink: 0;
-      width: 24px; height: 24px;
-      border-radius: 50%;
-      border: 1px solid var(--rule);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 12px;
-      font-weight: 700;
-      color: var(--muted);
-      font-family: 'Fraunces', serif;
-      transition: all 0.15s ease;
-    }
+    .answer .letter { flex-shrink: 0; width: 24px; height: 24px; border-radius: 50%; border: 1px solid var(--rule); display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; color: var(--muted); font-family: 'Fraunces', serif; transition: all .15s; }
     .answer:hover:not(:disabled) .letter { border-color: var(--ink); color: var(--ink); }
     .answer.correct { background: var(--correct-bg); border-color: var(--correct); color: var(--correct); }
     .answer.correct .letter { background: var(--correct); color: white; border-color: var(--correct); }
     .answer.wrong { background: var(--wrong-bg); border-color: var(--wrong); color: var(--wrong); }
     .answer.wrong .letter { background: var(--wrong); color: white; border-color: var(--wrong); }
-    .answer.dimmed { opacity: 0.5; }
+    .answer.dimmed { opacity: .5; }
 
-    .feedback {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 16px;
-      padding: 16px 18px;
-      border-radius: 3px;
-      margin-bottom: 16px;
-      font-size: 14px;
-      animation: slideUp 0.25s ease both;
-    }
-    @keyframes slideUp {
-      from { opacity: 0; transform: translateY(6px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
+    .feedback { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 16px 18px; border-radius: 3px; margin-bottom: 16px; font-size: 14px; animation: slideUp .25s ease both; }
+    @keyframes slideUp { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
     .feedback.correct { background: var(--correct-bg); color: var(--correct); border-left: 3px solid var(--correct); }
     .feedback.wrong { background: var(--wrong-bg); color: var(--wrong); border-left: 3px solid var(--wrong); }
     .feedback-text { font-weight: 600; }
 
-    .next-btn {
-      background: var(--accent);
-      color: white;
-      border: none;
-      padding: 14px 24px;
-      border-radius: 3px;
-      font-family: inherit;
-      font-size: 15px;
-      font-weight: 600;
-      cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      transition: all 0.15s ease;
-      flex-shrink: 0;
-    }
+    .next-btn { background: var(--accent); color: white; border: none; padding: 14px 24px; border-radius: 3px; font-family: inherit; font-size: 15px; font-weight: 600; cursor: pointer; display: inline-flex; align-items: center; gap: 8px; transition: all .15s; flex-shrink: 0; }
     .next-btn:hover { background: var(--accent-hover); transform: translateX(2px); }
 
-    .keyboard-hint {
-      text-align: center;
-      margin-top: 32px;
-      font-size: 12px;
-      color: var(--muted);
-      letter-spacing: 0.05em;
-    }
-    .keyboard-hint kbd {
-      display: inline-block;
-      padding: 2px 7px;
-      border: 1px solid var(--rule);
-      border-bottom-width: 2px;
-      border-radius: 3px;
-      background: var(--bg-card);
-      font-family: 'DM Sans', monospace;
-      font-size: 11px;
-      font-weight: 600;
-      margin: 0 2px;
-      color: var(--ink-soft);
-    }
+    .keyboard-hint { text-align: center; margin-top: 32px; font-size: 12px; color: var(--muted); letter-spacing: .05em; }
+    .keyboard-hint kbd { display: inline-block; padding: 2px 7px; border: 1px solid var(--rule); border-bottom-width: 2px; border-radius: 3px; background: var(--bg-card); font-family: 'DM Sans', monospace; font-size: 11px; font-weight: 600; margin: 0 2px; color: var(--ink-soft); }
 
-    .results-card {
-      text-align: center;
-      padding: 48px 24px;
-      background: var(--bg-card);
-      border: 1px solid var(--rule);
-      border-radius: 4px;
-      box-shadow: var(--shadow);
-      margin-bottom: 28px;
-    }
-    .score-big {
-      font-family: 'Fraunces', serif;
-      font-weight: 500;
-      font-size: clamp(72px, 14vw, 120px);
-      line-height: 1;
-      letter-spacing: -0.04em;
-      color: var(--ink);
-      display: flex;
-      align-items: baseline;
-      justify-content: center;
-      gap: 4px;
-    }
-    .score-big .slash { color: var(--muted); font-size: 0.5em; font-style: italic; }
-    .score-big .total { color: var(--muted); font-size: 0.5em; }
-    .score-pct {
-      font-family: 'Fraunces', serif;
-      font-style: italic;
-      font-size: 20px;
-      color: var(--accent);
-      margin-top: 8px;
-      margin-bottom: 20px;
-    }
+    .results-card { text-align: center; padding: 48px 24px; background: var(--bg-card); border: 1px solid var(--rule); border-radius: 4px; box-shadow: var(--shadow); margin-bottom: 28px; }
+    .score-big { font-family: 'Fraunces', serif; font-weight: 500; font-size: clamp(72px,14vw,120px); line-height: 1; letter-spacing: -.04em; color: var(--ink); display: flex; align-items: baseline; justify-content: center; gap: 4px; }
+    .score-big .slash { color: var(--muted); font-size: .5em; font-style: italic; }
+    .score-big .total { color: var(--muted); font-size: .5em; }
+    .score-pct { font-family: 'Fraunces', serif; font-style: italic; font-size: 20px; color: var(--accent); margin-top: 8px; margin-bottom: 20px; }
     .score-message { color: var(--ink-soft); font-size: 15px; max-width: 40ch; margin: 0 auto; }
 
     .review-section { margin-bottom: 28px; }
-    .review-section h3 {
-      font-family: 'Fraunces', serif;
-      font-weight: 600;
-      font-size: 14px;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: var(--muted);
-      margin-bottom: 12px;
-    }
-    .review-item {
-      padding: 16px 18px;
-      background: var(--bg-card);
-      border: 1px solid var(--rule);
-      border-left: 3px solid var(--wrong);
-      margin-bottom: 8px;
-      border-radius: 3px;
-      font-size: 14px;
-    }
-    .review-item .review-badge {
-      display: inline-block;
-      font-size: 10px;
-      font-weight: 700;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      padding: 2px 7px;
-      border-radius: 3px;
-      margin-bottom: 6px;
-    }
-    .review-item .review-badge.theory { background: var(--correct-bg); color: var(--correct); }
-    .review-item .review-badge.algo { background: var(--amber-bg); color: var(--amber); }
-    .review-item .q {
-      font-family: 'Fraunces', serif;
-      font-size: 15px;
-      font-weight: 500;
-      margin-bottom: 6px;
-      color: var(--ink);
-    }
+    .review-section h3 { font-family: 'Fraunces', serif; font-weight: 600; font-size: 14px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); margin-bottom: 12px; }
+    .review-item { padding: 16px 18px; background: var(--bg-card); border: 1px solid var(--rule); border-left: 3px solid var(--wrong); margin-bottom: 8px; border-radius: 3px; font-size: 14px; }
+    .review-item .q { font-family: 'Fraunces', serif; font-size: 15px; font-weight: 500; margin-bottom: 6px; color: var(--ink); }
     .review-item .your { color: var(--wrong); margin-bottom: 2px; }
     .review-item .correct-ans { color: var(--correct); font-weight: 600; }
 
     .actions-row { display: flex; gap: 10px; }
     .actions-row .btn-primary { flex: 1; }
 
-    footer {
-      margin-top: 60px;
-      padding-top: 24px;
-      border-top: 1px solid var(--rule);
-      font-size: 12px;
-      color: var(--muted);
-      text-align: center;
-      letter-spacing: 0.05em;
-    }
+    footer { margin-top: 60px; padding-top: 24px; border-top: 1px solid var(--rule); font-size: 12px; color: var(--muted); text-align: center; letter-spacing: .05em; }
 
     @media (max-width: 520px) {
       .wrap { padding: 20px 16px 60px; }
       .masthead { margin-bottom: 24px; }
-      .options { padding: 20px; }
+      .options-box { padding: 20px; }
       .option-row { flex-direction: column; align-items: flex-start; gap: 10px; }
       .keyboard-hint { display: none; }
       .feedback { flex-direction: column; align-items: stretch; }
@@ -496,858 +164,297 @@
   </style>
 </head>
 <body>
-  <div class="wrap">
-    <header class="masthead">
-      <div class="brand">UUI <span>— Pretraživanje</span></div>
-      <div class="meta">Priprema za ispit</div>
-    </header>
+<div class="wrap">
+  <header class="masthead">
+    <div class="brand">OEHV <span>FER</span></div>
+    <div class="meta">Priprema za ispit</div>
+  </header>
 
-    <section id="start-screen" class="screen">
-      <div class="hero">
-        <div class="eyebrow">Uvod u umjetnu inteligenciju · FER</div>
-        <h1>Provjeri <em>znanje</em> prije ispita.</h1>
-        <p class="lede">50 pitanja s višestrukim izborom, temeljeno na poglavlju <em>Pretraživanje prostora stanja</em> (Šnajder &amp; Čupić, 2024./25.). Podijeljeno u dvije tematske cjeline — teorija i algoritmi — tako da znaš što rješavaš.</p>
-      </div>
-
-      <div class="options">
-        <h2>Postavke</h2>
-        <div class="option-row">
-          <label>Tematska cjelina</label>
-          <div class="chips" id="source-chips">
-            <button class="chip active" data-source="all">Sve (50)</button>
-            <button class="chip" data-source="theory">Teorija (19)</button>
-            <button class="chip" data-source="algo">Algoritmi (31)</button>
-          </div>
-        </div>
-        <div class="option-row">
-          <label>Broj pitanja</label>
-          <div class="chips" id="count-chips">
-            <button class="chip" data-count="10">10</button>
-            <button class="chip" data-count="20">20</button>
-            <button class="chip" data-count="30">30</button>
-            <button class="chip active" data-count="all" id="count-all-chip">Sva (50)</button>
-          </div>
-        </div>
-        <div class="option-row">
-          <label for="shuffle-toggle">Pomiješaj redoslijed</label>
-          <div class="toggle on" id="shuffle-toggle" role="switch" aria-checked="true" tabindex="0"></div>
-        </div>
-        <div class="option-row">
-          <label for="shuffle-answers-toggle">Pomiješaj odgovore</label>
-          <div class="toggle on" id="shuffle-answers-toggle" role="switch" aria-checked="true" tabindex="0"></div>
+  <!-- START SCREEN -->
+  <section id="start-screen" class="screen">
+    <div style="padding: 8px 0 24px;">
+      <div class="eyebrow">Osnove električnih i hibridnih vozila</div>
+      <h1>Provjeri <em>znanje</em> prije ispita.</h1>
+      <p class="lede">40 pitanja iz predavanja: električni motori, baterije i baterijski paketi, hibridna i električna vozila, dinamika pogona. Bez formula — samo koncepti.</p>
+    </div>
+    <div class="options-box">
+      <h2>Postavke</h2>
+      <div class="option-row">
+        <label>Broj pitanja</label>
+        <div class="chips" id="count-chips">
+          <button class="chip" data-count="10">10</button>
+          <button class="chip" data-count="20">20</button>
+          <button class="chip active" data-count="40">Sva (40)</button>
         </div>
       </div>
-
-      <button class="btn btn-primary" id="start-btn">
-        Započni kviz
-        <span class="arrow">→</span>
-      </button>
-    </section>
-
-    <section id="quiz-screen" class="screen hidden">
-      <div class="progress-bar"><div class="progress-fill" id="progress-fill"></div></div>
-      <div class="progress-info">
-        <span id="progress-text">Pitanje 1 od 50</span>
-        <span class="score" id="score-text">0 točno</span>
+      <div class="option-row">
+        <label for="shuffle-toggle">Pomiješaj redoslijed</label>
+        <div class="toggle on" id="shuffle-toggle" role="switch" aria-checked="true" tabindex="0"></div>
       </div>
-
-      <div id="source-badge-container"></div>
-      <span class="question-num" id="question-num">Pitanje 01</span>
-      <h2 class="question" id="question-text"></h2>
-
-      <div class="answers" id="answers-container"></div>
-      <div id="feedback-container"></div>
-
-      <div class="keyboard-hint">
-        Odaberi tipkama <kbd>1</kbd> <kbd>2</kbd> <kbd>3</kbd> <kbd>4</kbd> · sljedeće <kbd>Enter</kbd>
+      <div class="option-row">
+        <label for="shuffle-answers-toggle">Pomiješaj odgovore</label>
+        <div class="toggle on" id="shuffle-answers-toggle" role="switch" aria-checked="true" tabindex="0"></div>
       </div>
-    </section>
+    </div>
+    <button class="btn btn-primary" id="start-btn">
+      Započni kviz <span class="arrow">→</span>
+    </button>
+  </section>
 
-    <section id="results-screen" class="screen hidden">
-      <div class="results-card">
-        <div class="eyebrow">Gotovo</div>
-        <div class="score-big">
-          <span id="final-score">0</span>
-          <span class="slash">/</span>
-          <span class="total" id="final-total">50</span>
-        </div>
-        <div class="score-pct" id="final-pct">0%</div>
-        <div class="score-message" id="score-message"></div>
+  <!-- QUIZ SCREEN -->
+  <section id="quiz-screen" class="screen hidden">
+    <div class="progress-bar"><div class="progress-fill" id="progress-fill"></div></div>
+    <div class="progress-info">
+      <span id="progress-text">Pitanje 1 od 40</span>
+      <span class="score" id="score-text">0 točno</span>
+    </div>
+    <span class="question-num" id="question-num">Pitanje 01</span>
+    <h2 class="question" id="question-text"></h2>
+    <div class="answers" id="answers-container"></div>
+    <div id="feedback-container"></div>
+    <div class="keyboard-hint">
+      Odaberi tipkama <kbd>1</kbd> <kbd>2</kbd> <kbd>3</kbd> <kbd>4</kbd> · sljedeće <kbd>Enter</kbd>
+    </div>
+  </section>
+
+  <!-- RESULTS SCREEN -->
+  <section id="results-screen" class="screen hidden">
+    <div class="results-card">
+      <div class="eyebrow">Gotovo</div>
+      <div class="score-big">
+        <span id="final-score">0</span>
+        <span class="slash">/</span>
+        <span class="total" id="final-total">40</span>
       </div>
+      <div class="score-pct" id="final-pct">0%</div>
+      <div class="score-message" id="score-message"></div>
+    </div>
+    <div class="review-section hidden" id="review-section">
+      <h3>Pogrešni odgovori — pregled</h3>
+      <div id="review-list"></div>
+    </div>
+    <div class="actions-row">
+      <button class="btn btn-primary" id="restart-btn">Ponovi kviz <span class="arrow">↺</span></button>
+    </div>
+  </section>
 
-      <div class="review-section hidden" id="review-section">
-        <h3>Pogrešni odgovori — pregled</h3>
-        <div id="review-list"></div>
-      </div>
+  <footer>FER Zagreb · Osnove električnih i hibridnih vozila · Predavanja 2024./25.</footer>
+</div>
 
-      <div class="actions-row">
-        <button class="btn btn-primary" id="restart-btn">
-          Ponovi kviz
-          <span class="arrow">↺</span>
-        </button>
-      </div>
-    </section>
+<script>
+const ALL_QUESTIONS = [
+  { q: "Koja je glavna prednost asinkronog motora u odnosu na kolektorski motor?", a: ["Viša cijena i složenija konstrukcija", "Manje dimenzije i masa, niža cijena, veća robusnost bez četkica i kolektora", "Bolji moment pri malim brzinama vrtnje", "Potreba za elektroničkim regulatorom"], correct: 1 },
+  { q: "Koji je glavni nedostatak motora s trajnim magnetima u usporedbi s asinkronim motorom?", a: ["Manja korisnost rada", "Veće dimenzije za istu snagu", "Znatno viša cijena zbog magneta na bazi rijetkih zemalja", "Uži raspon brzina vrtnje"], correct: 2 },
+  { q: "Koji je najstariji tip punjive baterije?", a: ["Nikal-kadmij (NiCd)", "Litij-ion (Li-ion)", "Olovni akumulator", "Nikal-metal-hibrid (NiMH)"], correct: 2 },
+  { q: "Koji tip rotora se redovito koristi u suvremenim vučnim pogonima s reguliranim asinkronim motorima?", a: ["Kolutni rotor", "Masivni rotor", "Kavezni rotor", "Rotor s trajnim magnetima"], correct: 2 },
+  { q: "Što radi regenerativno kočenje u hibridnom ili električnom vozilu?", a: ["Zagrijava kočione pločice", "Pretvara kinetičku energiju u električnu i puni baterije", "Smanjuje brzinu motora mehanički", "Povećava potrošnju goriva"], correct: 1 },
+  { q: "Kratica BEV označava:", a: ["Bi-directional Electric Vehicle", "Basic Electro Variant", "Battery Electric Vehicle", "Brushless Engine Vehicle"], correct: 2 },
+  { q: "U serijskom hibridu (REV), koja je uloga motora s unutarnjim izgaranjem (MUI)?", a: ["Direktno pogoni kotače", "Djeluje kao generator i puni baterije", "Pruža dodatni moment kotačima", "Hladi baterijski paket"], correct: 1 },
+  { q: "Kolika je okvirna korisnost asinkronog motora snage 4 MW?", a: ["Oko 30 %", "Oko 60 %", "Oko 80 %", "Oko 97 %"], correct: 3 },
+  { q: "Koliki postotak ukupno proizvedene električne energije u svijetu elektromotorni pogoni pretvore?", a: ["10 – 20 %", "20 – 30 %", "30 – 40 %", "55 – 65 %"], correct: 3 },
+  { q: "Koja kemija baterijskih ćelija ima najveću specifičnu energiju (Wh/kg) od navedenih?", a: ["NiMH", "Olovni akumulator", "Litij-ion (kobalt, 150–250 Wh/kg)", "NiCd"], correct: 2 },
+  { q: "Kolika je okvirna korisnost elektroničkih energetskih pretvarača (frekvencijskih pretvarača)?", a: ["Do 50 %", "Do 70 %", "Do 90 %", "Do 98,5 %"], correct: 3 },
+  { q: "Koji je ključni izazov pri primjeni vozila na gorivne ćelije (vodik)?", a: ["Previše brzo punjenje", "Niska korisnost elektromotora", "Komplicirana i ekonomski neisplativa proizvodnja, transport i skladištenje vodika", "Visoka cijena baterija"], correct: 2 },
+  { q: "Koliki je električni domet serijskog hibridnog vozila (REV) prema predavanjima?", a: ["10 km", "50 km", "100 km", "200 km"], correct: 1 },
+  { q: "Koliki je tipični električni domet plug-in hibridnog vozila?", a: ["5 – 10 km", "20 – 30 km", "50 km", "100 km"], correct: 1 },
+  { q: "Koji kvadrant u prikazu četverokvarantnog radnog područja označava motorski rad s pozitivnim momentom i pozitivnom brzinom?", a: ["Drugi kvadrant", "Treći kvadrant", "Četvrti kvadrant", "Prvi kvadrant"], correct: 3 },
+  { q: "Koja je glavna prednost cilindričnih Li-ion baterijskih ćelija?", a: ["Najbolje iskorištenje prostora u paketu", "Fleksibilan dizajn kućišta", "Jednostavna proizvodnja i mehanička stabilnost", "Nema potrebe za prekostrujnom zaštitom"], correct: 2 },
+  { q: "Koji postotak ukupne cijene električnog vozila može otpadati na baterijski paket?", a: ["Više od 50 %", "Oko 20 %", "Oko 10 %", "Oko 30 %"], correct: 0 },
+  { q: "Koja kemija baterija zamjenjuje NiCd zbog ekološki povoljnijeg sastava?", a: ["Olovne baterije", "Litij-ion", "NiMH", "LiFePO₄"], correct: 2 },
+  { q: "Čemu služi kompenzacijski namot u istosmjernom kolektorskom motoru?", a: ["Povećava brzinu vrtnje", "Smanjuje trošenje četkica", "Poništava poprečno magnetsko polje reakcije armature", "Poboljšava komutaciju bez poništavanja polja"], correct: 2 },
+  { q: "Na što se primarno oslanja električno vozilo kategorije BEV za pohrane i pogon?", a: ["Gorivne ćelije s vodikom", "Solarni paneli", "Baterije", "Superkondenzatori"], correct: 2 },
+  { q: "Koji izvor energije ima najveću gustoću energije po kilogramu od navedenih opcija?", a: ["Dizelsko gorivo", "Benzin", "Vodik", "Prirodni plin"], correct: 2 },
+  { q: "Koji problem karakterizira vrećaste (pouch) Li-ion ćelije pri cikličkom korištenju?", a: ["Pregrijavanje kolektora", "Napuhavanje ćelije uslijed korištenja (8–10 % na 500 ciklusa)", "Kratki spojevi zbog krutog kućišta", "Nagli porast unutarnjeg otpora"], correct: 1 },
+  { q: "Kolika je okvirna korisnost velikih energetskih transformatora?", a: ["Do 70 %", "Do 85 %", "Do 95 %", "Do 99 %"], correct: 3 },
+  { q: "Što predstavlja C-rate baterijske ćelije?", a: ["Kemijski sastav ćelije", "Kapacitet ćelije u Wh", "Faktor skaliranja struje u odnosu na kapacitet ćelije", "Napon punjenja ćelije"], correct: 2 },
+  { q: "Čemu služi komutacijski (pomoćni) pol u istosmjernom motoru?", a: ["Pojačava magnetski tok", "Poništava djelovanje reakcije armature u međupolnom prostoru i olakšava komutaciju", "Omogućava bezkontaktni rad", "Smanjuje dimenzije motora"], correct: 1 },
+  { q: "Koji tip asinkronog motora se koristi u suvremenim vučnim pogonima s energetskim pretvaračem?", a: ["Serijski istosmjerni motor", "Jednofazni izmjenični kolektorski motor", "Regulirani kavezni asinkroni motor", "Istosmjerni motor s neovisnom uzbudom"], correct: 2 },
+  { q: "Zašto su superkondenzatori korisni u kombinaciji s baterijama u elektr. vozilima?", a: ["Pohrane više energije od baterija", "U kratkom vremenu mogu primiti i predati velike količine energije — pogodni za regenerativno kočenje", "Potpuno zamjenjuju baterije i jeftiniji su", "Smanjuju napon baterijskog paketa"], correct: 1 },
+  { q: "Što sustav Start/Stop (mikro hibrid) primarno radi?", a: ["Pogoni vozilo električki na kratkim dionicama", "Gasi i ponovno pali MUI kako bi smanjio potrošnju goriva pri mirovanju", "Koristi isključivo regenerativno kočenje", "Zamjenjuje mjenjač"], correct: 1 },
+  { q: "Zašto su sinkroni motori s unutarnjim (ugrađenim) magnetima pogodniji za električna vučna vozila?", a: ["Jednostavnija konstrukcija od površinskih magneta", "Pogodni su za široki raspon brzina vrtnje (npr. električna vuča)", "Koriste samo magnete visoke remanencije bez rizika od prenapona", "Niža cijena magneta"], correct: 1 },
+  { q: "Koja sila ometa gibanje vozila zbog deformacije gume i podloge?", a: ["Sila otpora zraka", "Sila otpora kotrljanja", "Sila otpora uspona", "Sila ubrzanja"], correct: 1 },
+  { q: "Koja sila otpora se javlja pri vožnji uzbrdo?", a: ["Otpor kotrljanja", "Otpor zraka", "Otpor uspona", "Otpor ubrzanja (inercija)"], correct: 2 },
+  { q: "U paralelnom hibridu tko može pogoniti kotače?", a: ["Samo električni motor", "Samo MUI", "I električni motor i MUI mogu neovisno ili zajedno pogoniti kotače", "Samo generator"], correct: 2 },
+  { q: "Koji je ključni problem pri razvoju potpuno električnih teretnih vozila?", a: ["Premalo dostupnih motora dovoljne snage", "Predugo trajanje punjenja", "Teškoća pohrane dovoljne energije zbog niske gustoće energije baterija", "Previsoka korisnost motora"], correct: 2 },
+  { q: "Za što se koristi Haversinova formula u obradi podataka cestovnih vozila?", a: ["Proračun otpora kotrljanja", "Proračun prijeđenog puta iz GPS podataka (zemljopisna dužina i širina)", "Proračun otpora zraka", "Procjena kapaciteta baterija"], correct: 1 },
+  { q: "Čime se bavi energetska elektronika prema definiciji?", a: ["Obradom signala i prijenosom podataka", "Pretvorba obilježja električne energije i upravljanje tokom električne energije", "Proizvodnjom elektromotora", "Digitalnom regulacijom temperature"], correct: 1 },
+  { q: "Koliki je tipični raspon maksimalnog momenta asinkronog motora (Mmax) u odnosu na nazivni moment (Mn)?", a: ["0,3 – 0,6 Mn", "0,6 – 1,0 Mn", "1,0 – 1,5 Mn", "1,8 – 2,8 Mn"], correct: 3 },
+  { q: "Koji je tipični raspon nazivnog klizanja (sn) asinkronog motora?", a: ["0,5 – 8 %", "10 – 20 %", "25 – 40 %", "50 – 60 %"], correct: 0 },
+  { q: "Što razlikuje serijsko-paralelni hibrid od serijskog hibrida?", a: ["Samo MUI može pogoniti kotače", "Samo električni motor pogoni kotače", "I električni motor i MUI mogu neovisno ili zajedno pogoniti vozilo, a MUI može i puniti baterije", "MUI ne puni baterije"], correct: 2 },
+  { q: "Zašto se NiCd baterije sve više zamjenjuju u primjenama?", a: ["Preniska specifična energija i ekološki problemi (kadmij je toksičan)", "Previsoka cijena u odnosu na Li-ion", "Kratki vijek trajanja i neujednačenost", "Nisu pogodne za visoke struje pražnjenja"], correct: 0 },
+  { q: "Što je definicija korisnosti (η) nekog uređaja ili procesa?", a: ["Omjer izlazne i ulazne snage (ili energije)", "Razlika između ulazne i izlazne snage", "Umnožak napona i struje", "Omjer maksimalne i nominalne snage"], correct: 0 },
+];
 
-    <footer>
-      Izvor: predavanje "Pretraživanje prostora stanja" (Šnajder &amp; Čupić, FER, 2024./25., v3.8) · Za vježbu.
-    </footer>
-  </div>
+let cfg = { count: 40, shuffle: true, shuffleAnswers: true };
+let queue = [], current = 0, score = 0;
+let userAnswers = [];
+let answerMaps = [];
+let answered = false;
 
-  <script>
-  // ============ BANK OF QUESTIONS ============
-  // source: "theory" = foundations/concepts, "algo" = specific algorithms
-  const QUESTIONS = [
-    // --- THEORY (formalization, tree, node, properties) ---
-    {
-      q: "Od kojih se komponenata sastoji problem pretraživanja?",
-      a: [
-        "<code>(s₀, succ, goal)</code> — početno stanje, funkcija sljedbenika, ispitni predikat cilja",
-        "<code>(S, succ)</code> — skup stanja i funkcija prijelaza",
-        "<code>(s₀, s_cilj, c)</code> — početno stanje, ciljno stanje i cijena",
-        "<code>(S, A, T, R)</code> — stanja, akcije, tranzicije, nagrade"
-      ],
-      correct: 0, source: "theory"
-    },
-    {
-      q: "Što označava oznaka <code>℘(S)</code> u domeni funkcije sljedbenika <code>succ : S → ℘(S)</code>?",
-      a: [
-        "Partitivni skup — skup svih podskupova <code>S</code>",
-        "Broj stanja u <code>S</code>",
-        "Prioritetni red koji sadrži <code>S</code>",
-        "Skup svih permutacija <code>S</code>"
-      ],
-      correct: 0, source: "theory"
-    },
-    {
-      q: "Kako se funkcija sljedbenika može definirati <em>implicitno</em>?",
-      a: [
-        "Pomoću skupa operatora — različiti operatori daju različita sljedna stanja",
-        "Pomoću matrice susjedstva svih stanja",
-        "Hash tablicom svih parova stanja",
-        "Rekurzivno preko funkcije cilja"
-      ],
-      correct: 0, source: "theory"
-    },
-    {
-      q: "Kada funkcija <code>goal(s)</code> vraća <code>⊤</code>?",
-      a: [
-        "Samo i isključivo za ciljna stanja",
-        "Za sva stanja osim početnog",
-        "Za stanja s najmanjom cijenom puta",
-        "Za sva dohvatljiva stanja iz <code>s₀</code>"
-      ],
-      correct: 0, source: "theory"
-    },
-    {
-      q: "Što je <em>prostor stanja</em>?",
-      a: [
-        "Skup svih mogućih stanja problema, promatran kao usmjereni graf (po potrebi težinski)",
-        "Stablo koje nastaje tijekom rada algoritma pretraživanja",
-        "Lista otvorenih čvorova u fronti pretraživanja",
-        "Memorijski spremnik za zatvorene čvorove"
-      ],
-      correct: 0, source: "theory"
-    },
-    {
-      q: "Koja je razlika između prostora stanja i stabla pretraživanja?",
-      a: [
-        "Prostor je statičan graf definiran problemom; stablo nastaje dinamički, proširivanjem čvorova",
-        "Prostor je uvijek beskonačan, a stablo uvijek konačno",
-        "Prostor sadrži cijene prijelaza, stablo ih ne može sadržavati",
-        "Prostor se koristi za BFS, a stablo samo za DFS"
-      ],
-      correct: 0, source: "theory"
-    },
-    {
-      q: "Pod kojim uvjetom je stablo pretraživanja zajamčeno beskonačno iako je prostor stanja konačan?",
-      a: [
-        "Ako prostor stanja sadrži cikluse",
-        "Ako je faktor grananja <code>b &gt; 2</code>",
-        "Ako cijene prijelaza nisu konstantne",
-        "Ako ne postoji ciljno stanje"
-      ],
-      correct: 0, source: "theory"
-    },
-    {
-      q: "Što su <em>otvoreni</em>, a što <em>zatvoreni</em> čvorovi?",
-      a: [
-        "Otvoreni (fronta) su generirani ali još neprošireni; zatvoreni su već prošireni",
-        "Otvoreni su u stablu, a zatvoreni su odbačeni iz stabla",
-        "Otvoreni su dostupni, a zatvoreni su blokirani operatorima",
-        "Otvoreni su ciljna stanja, zatvoreni su međustanja"
-      ],
-      correct: 0, source: "theory"
-    },
-    {
-      q: "Što određuje <em>strategiju pretraživanja</em>?",
-      a: [
-        "Redoslijed kojim proširujemo čvorove (tj. način umetanja i vađenja iz liste <code>open</code>)",
-        "Izbor početnog stanja <code>s₀</code>",
-        "Definicija ciljnog predikata <code>goal</code>",
-        "Sama veličina prostora stanja <code>|S|</code>"
-      ],
-      correct: 0, source: "theory"
-    },
-    {
-      q: "Objasnite razliku između <em>stanja</em> i <em>čvora</em>.",
-      a: [
-        "Stanje je element skupa <code>S</code>; čvor je podatkovna struktura u stablu koja pohranjuje stanje i dodatne podatke (dubinu, cijenu, roditelja)",
-        "Stanje je konačno, a čvor može biti beskonačan",
-        "Stanje je atomsko, a čvor sadrži više stanja",
-        "Nema razlike — to su sinonimi"
-      ],
-      correct: 0, source: "theory"
-    },
-    {
-      q: "Kako izgleda osnovna struktura čvora (bez cijena prijelaza)?",
-      a: [
-        "<code>n = (s, d)</code> — stanje i dubina",
-        "<code>n = (s, c)</code> — stanje i cijena",
-        "<code>n = (s)</code> — isključivo stanje",
-        "<code>n = (s, d, h)</code> — stanje, dubina i heuristička procjena"
-      ],
-      correct: 0, source: "theory"
-    },
-    {
-      q: "Što radi funkcija <code>expand(n, succ)</code> u osnovnom slučaju?",
-      a: [
-        "Vraća <code>{ (s, depth(n)+1) | s ∈ succ(state(n)) }</code> — sljedbenici s povećanom dubinom",
-        "Uklanja čvor <code>n</code> iz liste <code>open</code>",
-        "Provjerava je li stanje u <code>n</code> ciljno",
-        "Sortira listu <code>open</code> po cijeni"
-      ],
-      correct: 0, source: "theory"
-    },
-    {
-      q: "Kako se mijenja struktura čvora kada prijelazi imaju cijene?",
-      a: [
-        "Umjesto dubine pohranjuje se ukupna cijena puta <code>g(n)</code>",
-        "Pohranjuju se i dubina i cijena istovremeno kao dvije nezavisne vrijednosti",
-        "Čvor sadrži listu svih pojedinačnih cijena prijelaza",
-        "Struktura se uopće ne mijenja, mijenja se samo algoritam"
-      ],
-      correct: 0, source: "theory"
-    },
-    {
-      q: "Zašto u čvor dodajemo pokazivač na roditelja <code>parent(n)</code>?",
-      a: [
-        "Da bismo mogli rekonstruirati put od cilja unazad do početnog stanja",
-        "Radi detekcije ciklusa u stablu",
-        "Kako bismo uštedjeli memoriju",
-        "Zbog zahtjeva hash tablice posjećenih stanja"
-      ],
-      correct: 0, source: "theory"
-    },
-    {
-      q: "Što označavaju veličine <code>|S|</code>, <code>b</code>, <code>d</code>, <code>m</code>?",
-      a: [
-        "<code>|S|</code> = broj stanja, <code>b</code> = faktor grananja, <code>d</code> = dubina optimalnog rješenja, <code>m</code> = maks. dubina stabla",
-        "<code>|S|</code> = sljedbenici, <code>b</code> = grana, <code>d</code> = duljina puta, <code>m</code> = memorija",
-        "<code>|S|</code> = skup, <code>b</code> = brzina, <code>d</code> = decimala, <code>m</code> = modulo",
-        "<code>|S|</code> = veličina, <code>b</code> = iteracije, <code>d</code> = dubina, <code>m</code> = min. dubina"
-      ],
-      correct: 0, source: "theory"
-    },
-    {
-      q: "Kada je algoritam <em>potpun</em>?",
-      a: [
-        "Kada pronalazi rješenje uvijek kada ono postoji",
-        "Kada pronalazi rješenje s najmanjom cijenom",
-        "Kada ima polinomnu vremensku složenost",
-        "Kada uvijek završava u konačnom vremenu, neovisno o postojanju rješenja"
-      ],
-      correct: 0, source: "theory"
-    },
-    {
-      q: "Kada je algoritam <em>optimalan</em> (admisibilan)?",
-      a: [
-        "Kada pronalazi rješenje s najmanjom cijenom",
-        "Kada koristi najmanje memorije među dostupnim algoritmima",
-        "Kada je najbrži mogući za dani problem",
-        "Kada radi ispravno za bilo koji problem pretraživanja"
-      ],
-      correct: 0, source: "theory"
-    },
-    {
-      q: "Koje dvije vrste složenosti razlikujemo i što točno broje?",
-      a: [
-        "Vremenska = broj <em>generiranih</em> čvorova; prostorna = broj <em>pohranjenih</em> čvorova",
-        "Vremenska se mjeri u sekundama, prostorna u megabajtima",
-        "Vremenska je <code>O(n)</code>, a prostorna <code>O(log n)</code>",
-        "Vremenska mjeri dubinu, prostorna širinu stabla"
-      ],
-      correct: 0, source: "theory"
-    },
-    {
-      q: "Koja je složenost rekonstrukcije puta preko <code>parent</code> pokazivača?",
-      a: [
-        "<code>O(d)</code>",
-        "<code>O(b·d)</code>",
-        "<code>O(b^d)</code>",
-        "<code>O(1)</code>"
-      ],
-      correct: 0, source: "theory"
-    },
+// --- Settings toggles ---
+const shuffleToggle = document.getElementById('shuffle-toggle');
+const shuffleAnswersToggle = document.getElementById('shuffle-answers-toggle');
 
-    // --- ALGORITHMS (BFS, uniform, DFS, IDS, state repetition, examples) ---
-    {
-      q: "Kako BFS koristi listu <code>open</code>?",
-      a: [
-        "<code>insertBack</code> — lista je red (queue), FIFO",
-        "<code>insertFront</code> — lista je stog (stack), LIFO",
-        "<code>insertSortedBy(g, …)</code> — prioritetni red po cijeni",
-        "Nasumično umetanje"
-      ],
-      correct: 0, source: "algo"
-    },
-    {
-      q: "Vremenska složenost BFS-a?",
-      a: [
-        "<code>O(b^(d+1))</code>",
-        "<code>O(b^d)</code>",
-        "<code>O(b·d)</code>",
-        "<code>O(b^m)</code>"
-      ],
-      correct: 0, source: "algo"
-    },
-    {
-      q: "Prostorna složenost BFS-a i glavna posljedica?",
-      a: [
-        "<code>O(b^(d+1))</code> — eksponencijalna, glavni nedostatak BFS-a",
-        "<code>O(b·d)</code> — linearna, bez praktičnih problema",
-        "<code>O(b^m)</code> — problem samo kada je <code>m</code> malen",
-        "<code>O(|S|)</code> — samo kad prostor ima cikluse"
-      ],
-      correct: 0, source: "algo"
-    },
-    {
-      q: "Je li BFS optimalan?",
-      a: [
-        "Da, uz pretpostavku konstantne (ili barem neopadajuće) cijene prijelaza",
-        "Da, uvijek i bezuvjetno",
-        "Ne, BFS nikad nije optimalan algoritam",
-        "Samo ako se kombinira s heurističkom funkcijom"
-      ],
-      correct: 0, source: "algo"
-    },
-    {
-      q: "Je li BFS potpun? Obrazloženje?",
-      a: [
-        "Da — pretražuje razinu po razinu pa uvijek nalazi rješenje ako ono postoji (uz konačan <code>b</code>)",
-        "Ne — može zaglaviti u beskonačnoj grani stabla",
-        "Ne — jer koristi red umjesto stoga",
-        "Samo uz obavezan <code>visited</code> skup"
-      ],
-      correct: 0, source: "algo"
-    },
-    {
-      q: "Iz predavanja: koliko memorije treba BFS za <code>b=4</code>, <code>d=16</code>, 10 B/čvor?",
-      a: [
-        "~43 GB — primjenjivo samo na male probleme",
-        "~43 MB — potpuno uporabivo",
-        "~430 GB — BFS je ovdje praktički neupotrebljiv",
-        "~4.3 TB — standardni slučaj"
-      ],
-      correct: 0, source: "algo"
-    },
-    {
-      q: "Zašto se u vremenskoj složenosti BFS-a pojavljuje član <code>(b^(d+1) − b)</code>?",
-      a: [
-        "Na zadnjoj razini generiraju se sljedbenici svih čvorova <em>osim</em> ciljnog",
-        "Od ukupnog broja čvorova oduzima se broj duplikata stanja",
-        "To je izraz za prostornu, ne vremensku složenost",
-        "Kompenzacija zbog postojanja ciklusa u grafu"
-      ],
-      correct: 0, source: "algo"
-    },
-    {
-      q: "Kako pretraživanje s jednolikom cijenom održava listu <code>open</code>?",
-      a: [
-        "<code>insertSortedBy(g, m, open)</code> — sortirano uzlazno po <code>g(n)</code>; prioritetni red",
-        "<code>insertFront</code> — stog",
-        "<code>insertBack</code> — red",
-        "Nasumičnim redoslijedom umetanja"
-      ],
-      correct: 0, source: "algo"
-    },
-    {
-      q: "Vremenska i prostorna složenost pretraživanja s jednolikom cijenom?",
-      a: [
-        "<code>O(b^(1 + ⌊C*/ε⌋))</code>",
-        "<code>O(b^d)</code>",
-        "<code>O(b^m)</code>",
-        "<code>O(|S| · b)</code>"
-      ],
-      correct: 0, source: "algo"
-    },
-    {
-      q: "Zašto je pretraživanje s jednolikom cijenom optimalno?",
-      a: [
-        "Uvijek proširuje čvor s najmanjom ukupnom cijenom <code>g(n)</code> pa je prvi pronađeni cilj nužno najjeftiniji",
-        "Jer koristi heurističku funkciju procjene cijene",
-        "Jer automatski čuva <code>visited</code> skup",
-        "Jer kombinira BFS i DFS strategije"
-      ],
-      correct: 0, source: "algo"
-    },
-    {
-      q: "U kakvom je odnosu jednolika cijena prema BFS-u?",
-      a: [
-        "Jednolika cijena je generalizacija BFS-a za slučaj nejednakih cijena prijelaza",
-        "BFS je specijalni slučaj jednolike cijene samo uz cikluse",
-        "Jednolika cijena je specijalni slučaj BFS-a",
-        "Algoritmi nemaju nikakve formalne veze"
-      ],
-      correct: 0, source: "algo"
-    },
-    {
-      q: "Kako DFS implementira listu <code>open</code>?",
-      a: [
-        "<code>insertFront</code> — lista je stog (LIFO)",
-        "<code>insertBack</code> — lista je red (FIFO)",
-        "<code>insertSortedBy</code> po dubini čvora",
-        "Kao min-heap"
-      ],
-      correct: 0, source: "algo"
-    },
-    {
-      q: "Složenost iterativnog DFS-a (s eksplicitnom listom <code>open</code>)?",
-      a: [
-        "Vrijeme <code>O(b^m)</code>, prostor <code>O(b·m)</code>",
-        "Vrijeme <code>O(b^d)</code>, prostor <code>O(b·d)</code>",
-        "Vrijeme <code>O(b^(d+1))</code>, prostor <code>O(b^(d+1))</code>",
-        "Vrijeme <code>O(|S|)</code>, prostor <code>O(1)</code>"
-      ],
-      correct: 0, source: "algo"
-    },
-    {
-      q: "Zašto DFS <em>nije</em> potpun?",
-      a: [
-        "Može zaglaviti u beskonačnoj petlji / beskonačnoj grani stabla",
-        "Zato što zahtijeva previše memorije",
-        "Jer ne podržava rekonstrukciju puta",
-        "Jer koristi stog za pohranu"
-      ],
-      correct: 0, source: "algo"
-    },
-    {
-      q: "Zašto DFS <em>nije</em> optimalan?",
-      a: [
-        "Ne pretražuje razinu po razinu — može vratiti dublje rješenje prije nego što naiđe na pliće",
-        "Zbog eksponencijalne vremenske složenosti <code>O(b^m)</code>",
-        "Jer zahtijeva poznavanje cijena prijelaza",
-        "Optimalnost direktno proizlazi iz nepotpunosti"
-      ],
-      correct: 0, source: "algo"
-    },
-    {
-      q: "Kolika je prostorna složenost <em>rekurzivne</em> izvedbe DFS-a uz lijenu evaluaciju?",
-      a: [
-        "<code>O(m)</code>",
-        "<code>O(b·m)</code>",
-        "<code>O(b^m)</code>",
-        "<code>O(b·d)</code>"
-      ],
-      correct: 0, source: "algo"
-    },
-    {
-      q: "Koji je uvjet proširivanja u ograničenom pretraživanju u dubinu?",
-      a: [
-        "<code>depth(n) &lt; k</code>",
-        "<code>depth(n) ≤ k</code>",
-        "<code>depth(n) &gt; k</code>",
-        "<code>cost(n) &lt; k</code>"
-      ],
-      correct: 0, source: "algo"
-    },
-    {
-      q: "Je li ograničeni DFS potpun?",
-      a: [
-        "Nije općenito — ako je <code>d &gt; k</code>, rješenje se ne pronalazi. Uporabiv je ako znamo <code>d</code> (npr. <code>k = |S|</code>)",
-        "Da, uvijek i bezuvjetno",
-        "Da, pod uvjetom <code>k ≥ 1</code>",
-        "Ne, ni pod kojim uvjetom"
-      ],
-      correct: 0, source: "algo"
-    },
-    {
-      q: "Kako radi iterativno produbljivanje (IDS)?",
-      a: [
-        "Poziva ograničeni DFS redom za <code>k = 0, 1, 2, …</code> dok ne pronađe rješenje",
-        "Kombinira BFS i uniform-cost s adaptivnim pragom",
-        "Heuristički procjenjuje dubinu rješenja i pretražuje direktno",
-        "Rekurzivno dijeli prostor stanja na polovice"
-      ],
-      correct: 0, source: "algo"
-    },
-    {
-      q: "Vremenska i prostorna složenost IDS-a?",
-      a: [
-        "Vrijeme <code>O(b^d)</code>, prostor <code>O(b·d)</code>",
-        "Vrijeme <code>O(b^(d+1))</code>, prostor <code>O(b^(d+1))</code>",
-        "Vrijeme <code>O(b^m)</code>, prostor <code>O(b·m)</code>",
-        "Vrijeme <code>O(d·b^d)</code>, prostor <code>O(b^d)</code>"
-      ],
-      correct: 0, source: "algo"
-    },
-    {
-      q: "Zašto IDS <em>nije</em> neučinkovit unatoč ponovljenim proširivanjima plićih čvorova?",
-      a: [
-        "Većina čvorova nalazi se na najdubljim razinama; ponovljena pliće proširivanja čine zanemariv udio",
-        "Jer IDS ipak ne ponavlja proširivanja",
-        "Jer interno koristi <code>visited</code> skup",
-        "Jer je faktor grananja uvijek malen"
-      ],
-      correct: 0, source: "algo"
-    },
-    {
-      q: "Za koju vrijednost faktora grananja overhead IDS-a u odnosu na BFS iznosi samo ~11%?",
-      a: [
-        "<code>b = 10</code>",
-        "<code>b = 2</code>",
-        "<code>b = 3</code>",
-        "<code>b = 100</code>"
-      ],
-      correct: 0, source: "algo"
-    },
-    {
-      q: "Koja je preporučena slijepa strategija za velike prostore i nepoznatu dubinu rješenja?",
-      a: [
-        "Iterativno produbljivanje (IDS)",
-        "Pretraživanje u širinu (BFS)",
-        "Pretraživanje u dubinu (DFS)",
-        "Pretraživanje s jednolikom cijenom"
-      ],
-      correct: 0, source: "algo"
-    },
-    {
-      q: "Koji slijepi algoritam je istovremeno potpun, optimalan i prostorno linearan?",
-      a: [
-        "IDS — prostor <code>O(b·d)</code>",
-        "BFS — prostor <code>O(b^(d+1))</code>",
-        "DFS — prostor <code>O(b·m)</code>",
-        "Uniform-cost — prostor <code>O(b^(1+⌊C*/ε⌋))</code>"
-      ],
-      correct: 0, source: "algo"
-    },
-    {
-      q: "Zašto <em>zatvorene</em> čvorove moramo čuvati u memoriji za rekonstrukciju puta?",
-      a: [
-        "Rekonstrukcija prati <code>parent</code> pokazivače unatrag — a ti roditelji su upravo zatvoreni čvorovi",
-        "Da se ne bi ponavljali u <code>visited</code> skupu",
-        "Kako bismo naknadno provjerili je li algoritam potpun",
-        "Kako bismo smanjili ukupnu prostornu složenost algoritma"
-      ],
-      correct: 0, source: "algo"
-    },
-    {
-      q: "Koja tri pristupa postoje za rukovanje ponavljanjem stanja, poredana po rastućoj snazi?",
-      a: [
-        "1) provjera roditelja, 2) provjera cijelog puta <code>path(n)</code>, 3) <code>visited</code> skup",
-        "1) <code>visited</code> skup, 2) provjera roditelja, 3) provjera puta",
-        "1) provjera puta, 2) <code>visited</code> skup, 3) provjera roditelja",
-        "Sva tri pristupa su potpuno ekvivalentna"
-      ],
-      correct: 0, source: "algo"
-    },
-    {
-      q: "Koje cikluse detektira <em>samo</em> provjera \"stanje ≠ stanje roditelja\"?",
-      a: [
-        "Samo cikluse duljine 2 (tzv. transpozicije)",
-        "Sve cikluse, neovisno o duljini",
-        "Samo cikluse neparne duljine",
-        "Ne detektira nikakve cikluse"
-      ],
-      correct: 0, source: "algo"
-    },
-    {
-      q: "Kako <code>visited</code> skup mijenja složenost BFS-a?",
-      a: [
-        "<code>O(b^(d+1))</code> → <code>O(min(b^(d+1), b·|S|))</code>",
-        "<code>O(b^(d+1))</code> → <code>O(b·|S|)</code> bez minimuma",
-        "<code>O(b^(d+1))</code> → <code>O(b^d)</code>",
-        "Ne mijenja složenost"
-      ],
-      correct: 0, source: "algo"
-    },
-    {
-      q: "Zašto se skup posjećenih stanja (<code>visited</code>) obično implementira hash tablicom?",
-      a: [
-        "Omogućuje provjeru <code>state(m) ∉ visited</code> u vremenu <code>O(1)</code>",
-        "Jer hash tablice pohranjuju podatke deterministički sortirano",
-        "Hash tablice koriste manje memorije od obične liste",
-        "Jer je to obvezno propisano specifikacijom općeg algoritma"
-      ],
-      correct: 0, source: "algo"
-    },
-    {
-      q: "Misionari i kanibali — kako je prikazano stanje?",
-      a: [
-        "<code>(m, c, b)</code> — broj misionara lijevo, broj kanibala lijevo, pozicija čamca",
-        "<code>(m, c)</code> — samo misionari i kanibali na lijevoj obali",
-        "<code>(mL, cL, mR, cR, b)</code> — sve kombinacije na obje obale",
-        "<code>(l, r)</code> — stanja lijeve i desne obale"
-      ],
-      correct: 0, source: "algo"
-    },
-    {
-      q: "Koji se algoritam preporuča za laboratorijski zadatak <em>Igra brojki</em> i zašto?",
-      a: [
-        "IDS — velik prostor stanja, nepoznata dubina rješenja, linearni prostorni trošak",
-        "BFS — jer automatski garantira optimalnost",
-        "DFS — jer je najbrži od slijepih algoritama",
-        "Uniform-cost — zbog različitih cijena aritmetičkih operacija"
-      ],
-      correct: 0, source: "algo"
-    }
+function toggleEl(el, key) {
+  cfg[key] = !cfg[key];
+  el.classList.toggle('on', cfg[key]);
+  el.setAttribute('aria-checked', cfg[key]);
+}
+shuffleToggle.addEventListener('click', () => toggleEl(shuffleToggle, 'shuffle'));
+shuffleAnswersToggle.addEventListener('click', () => toggleEl(shuffleAnswersToggle, 'shuffleAnswers'));
+shuffleToggle.addEventListener('keydown', e => { if (e.key === ' ' || e.key === 'Enter') { e.preventDefault(); toggleEl(shuffleToggle, 'shuffle'); } });
+shuffleAnswersToggle.addEventListener('keydown', e => { if (e.key === ' ' || e.key === 'Enter') { e.preventDefault(); toggleEl(shuffleAnswersToggle, 'shuffleAnswers'); } });
+
+// Count chips
+document.querySelectorAll('#count-chips .chip').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('#count-chips .chip').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    cfg.count = parseInt(btn.dataset.count) || 40;
+  });
+});
+
+document.getElementById('start-btn').addEventListener('click', startQuiz);
+document.getElementById('restart-btn').addEventListener('click', () => {
+  show('start-screen');
+  hide('results-screen');
+});
+
+function shuffle(arr) {
+  const a = [...arr];
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+function show(id) { document.getElementById(id).classList.remove('hidden'); }
+function hide(id) { document.getElementById(id).classList.add('hidden'); }
+
+function startQuiz() {
+  let pool = cfg.shuffle ? shuffle(ALL_QUESTIONS) : [...ALL_QUESTIONS];
+  const n = Math.min(cfg.count, pool.length);
+  queue = pool.slice(0, n);
+  answerMaps = queue.map(q => {
+    if (!cfg.shuffleAnswers) return q.a.map((_, i) => i);
+    const order = shuffle(q.a.map((_, i) => i));
+    return order;
+  });
+  current = 0; score = 0; userAnswers = []; answered = false;
+  hide('start-screen');
+  show('quiz-screen');
+  renderQ();
+}
+
+function renderQ() {
+  answered = false;
+  const q = queue[current];
+  const map = answerMaps[current];
+  const total = queue.length;
+  const n = current + 1;
+
+  document.getElementById('question-num').textContent = `Pitanje ${String(n).padStart(2,'0')}`;
+  document.getElementById('question-text').textContent = q.q;
+  document.getElementById('progress-text').textContent = `Pitanje ${n} od ${total}`;
+  document.getElementById('score-text').textContent = `${score} točno`;
+  document.getElementById('progress-fill').style.width = ((current / total) * 100) + '%';
+  document.getElementById('feedback-container').innerHTML = '';
+
+  const letters = ['A','B','C','D'];
+  const container = document.getElementById('answers-container');
+  container.innerHTML = '';
+  map.forEach((origIdx, displayIdx) => {
+    const btn = document.createElement('button');
+    btn.className = 'answer';
+    btn.innerHTML = `<span class="letter">${letters[displayIdx]}</span><span>${q.a[origIdx]}</span>`;
+    btn.addEventListener('click', () => pick(origIdx, displayIdx, btn));
+    container.appendChild(btn);
+  });
+}
+
+function pick(origIdx, displayIdx, clickedBtn) {
+  if (answered) return;
+  answered = true;
+  const q = queue[current];
+  const map = answerMaps[current];
+  const btns = document.querySelectorAll('#answers-container .answer');
+  userAnswers[current] = origIdx;
+
+  btns.forEach((btn, di) => {
+    btn.disabled = true;
+    const oi = map[di];
+    if (oi === q.correct) btn.classList.add('correct');
+    else if (oi === origIdx) btn.classList.add('wrong');
+    else btn.classList.add('dimmed');
+  });
+
+  const isCorrect = origIdx === q.correct;
+  if (isCorrect) score++;
+
+  const fb = document.createElement('div');
+  fb.className = `feedback ${isCorrect ? 'correct' : 'wrong'}`;
+  fb.innerHTML = `<span class="feedback-text">${isCorrect ? '✓ Točno!' : '✗ Netočno — provjeri označeni odgovor.'}</span>
+    <button class="next-btn" id="next-btn">${current < queue.length - 1 ? 'Dalje →' : 'Rezultati →'}</button>`;
+  document.getElementById('feedback-container').appendChild(fb);
+  document.getElementById('next-btn').addEventListener('click', next);
+  document.getElementById('score-text').textContent = `${score} točno`;
+}
+
+function next() {
+  current++;
+  if (current < queue.length) renderQ();
+  else showResults();
+}
+
+function showResults() {
+  hide('quiz-screen');
+  show('results-screen');
+  const total = queue.length;
+  const pct = Math.round((score / total) * 100);
+  document.getElementById('final-score').textContent = score;
+  document.getElementById('final-total').textContent = total;
+  document.getElementById('final-pct').textContent = `${pct}%`;
+  const msgs = [
+    [90, 'Izvrsno! Spreman/na za ispit.'],
+    [75, 'Vrlo dobro — još malo vježbe i odlično.'],
+    [60, 'Dobro — ponovi poglavlja gdje si pogriješio/la.'],
+    [50, 'Dovoljan temelj, ali preporuča se ponavljanje.'],
+    [0,  'Prolazi gradivo iznova — ima prostora za napredak.'],
   ];
+  document.getElementById('score-message').textContent = msgs.find(([t]) => pct >= t)[1];
 
-  // ============ STATE ============
-  const state = {
-    source: "all",
-    count: "all",
-    shuffleOrder: true,
-    shuffleAnswers: true,
-    quiz: [],
-    current: 0,
-    score: 0,
-    wrong: [],
-    answered: false
-  };
-
-  // ============ HELPERS ============
-  const $ = (id) => document.getElementById(id);
-  const shuffle = (arr) => {
-    const a = arr.slice();
-    for (let i = a.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [a[i], a[j]] = [a[j], a[i]];
-    }
-    return a;
-  };
-
-  const sourceLabel = (s) => s === "theory" ? "Teorija" : "Algoritmi";
-
-  // ============ START SCREEN ============
-  document.querySelectorAll("#source-chips .chip").forEach(chip => {
-    chip.addEventListener("click", () => {
-      document.querySelectorAll("#source-chips .chip").forEach(c => c.classList.remove("active"));
-      chip.classList.add("active");
-      state.source = chip.dataset.source;
-      updateCountAllLabel();
-    });
-  });
-
-  document.querySelectorAll("#count-chips .chip").forEach(chip => {
-    chip.addEventListener("click", () => {
-      document.querySelectorAll("#count-chips .chip").forEach(c => c.classList.remove("active"));
-      chip.classList.add("active");
-      state.count = chip.dataset.count;
-    });
-  });
-
-  function filteredBank() {
-    if (state.source === "all") return QUESTIONS;
-    return QUESTIONS.filter(q => q.source === state.source);
-  }
-
-  function updateCountAllLabel() {
-    const total = filteredBank().length;
-    $("count-all-chip").textContent = `Sva (${total})`;
-  }
-
-  function setupToggle(id, key) {
-    const el = $(id);
-    const flip = () => {
-      el.classList.toggle("on");
-      state[key] = el.classList.contains("on");
-      el.setAttribute("aria-checked", state[key] ? "true" : "false");
-    };
-    el.addEventListener("click", flip);
-    el.addEventListener("keydown", (e) => {
-      if (e.key === " " || e.key === "Enter") { e.preventDefault(); flip(); }
+  const wrong = queue.filter((_, i) => userAnswers[i] !== undefined && userAnswers[i] !== _.correct);
+  if (wrong.length) {
+    show('review-section');
+    const list = document.getElementById('review-list');
+    list.innerHTML = '';
+    queue.forEach((q, i) => {
+      if (userAnswers[i] === q.correct) return;
+      const item = document.createElement('div');
+      item.className = 'review-item';
+      item.innerHTML = `<div class="q">${q.q}</div>
+        <div class="your">Tvoj odgovor: ${q.a[userAnswers[i]] ?? '—'}</div>
+        <div class="correct-ans">Točno: ${q.a[q.correct]}</div>`;
+      list.appendChild(item);
     });
   }
-  setupToggle("shuffle-toggle", "shuffleOrder");
-  setupToggle("shuffle-answers-toggle", "shuffleAnswers");
+}
 
-  $("start-btn").addEventListener("click", startQuiz);
-
-  function startQuiz() {
-    let bank = filteredBank().slice();
-    if (state.shuffleOrder) bank = shuffle(bank);
-    let count = state.count === "all" ? bank.length : Math.min(parseInt(state.count), bank.length);
-    bank = bank.slice(0, count);
-
-    // Build quiz items with (optionally) shuffled answer positions
-    state.quiz = bank.map(item => {
-      const pairs = item.a.map((text, idx) => ({ text, isCorrect: idx === item.correct }));
-      const order = state.shuffleAnswers ? shuffle(pairs) : pairs;
-      const correctIdx = order.findIndex(p => p.isCorrect);
-      return {
-        q: item.q,
-        answers: order.map(p => p.text),
-        correct: correctIdx,
-        source: item.source
-      };
-    });
-
-    state.current = 0;
-    state.score = 0;
-    state.wrong = [];
-    state.answered = false;
-
-    $("start-screen").classList.add("hidden");
-    $("results-screen").classList.add("hidden");
-    $("quiz-screen").classList.remove("hidden");
-    $("final-total").textContent = state.quiz.length;
-    window.scrollTo({ top: 0, behavior: "smooth" });
-    renderQuestion();
+// Keyboard support
+document.addEventListener('keydown', e => {
+  const screen = document.getElementById('quiz-screen');
+  if (screen.classList.contains('hidden')) return;
+  if (['1','2','3','4'].includes(e.key)) {
+    const idx = parseInt(e.key) - 1;
+    const btns = document.querySelectorAll('#answers-container .answer');
+    if (btns[idx] && !answered) btns[idx].click();
+    return;
   }
-
-  // ============ QUIZ SCREEN ============
-  function renderQuestion() {
-    const item = state.quiz[state.current];
-    const n = state.current + 1;
-    const total = state.quiz.length;
-
-    $("progress-fill").style.width = ((state.current) / total * 100) + "%";
-    $("progress-text").textContent = `Pitanje ${n} od ${total}`;
-    $("score-text").textContent = `${state.score} točno`;
-
-    // source badge
-    const badgeClass = item.source;
-    $("source-badge-container").innerHTML =
-      `<span class="source-badge ${badgeClass}">${sourceLabel(item.source)}</span>`;
-
-    $("question-num").textContent = `Pitanje ${String(n).padStart(2, "0")}`;
-    $("question-text").innerHTML = item.q;
-
-    // answers
-    const letters = ["A", "B", "C", "D"];
-    const container = $("answers-container");
-    container.innerHTML = "";
-    item.answers.forEach((ans, idx) => {
-      const btn = document.createElement("button");
-      btn.className = "answer";
-      btn.setAttribute("data-idx", idx);
-      btn.innerHTML = `<span class="letter">${letters[idx]}</span><span class="text">${ans}</span>`;
-      btn.addEventListener("click", () => handleAnswer(idx));
-      container.appendChild(btn);
-    });
-
-    $("feedback-container").innerHTML = "";
-    state.answered = false;
+  if (e.key === 'Enter') {
+    const nb = document.getElementById('next-btn');
+    if (nb) nb.click();
   }
-
-  function handleAnswer(chosen) {
-    if (state.answered) return;
-    state.answered = true;
-    const item = state.quiz[state.current];
-    const isCorrect = chosen === item.correct;
-    if (isCorrect) state.score += 1;
-    else state.wrong.push({
-      q: item.q,
-      yourAns: item.answers[chosen],
-      correctAns: item.answers[item.correct],
-      source: item.source
-    });
-
-    // visual feedback on buttons
-    const btns = document.querySelectorAll(".answer");
-    btns.forEach((b, idx) => {
-      b.disabled = true;
-      if (idx === item.correct) b.classList.add("correct");
-      else if (idx === chosen) b.classList.add("wrong");
-      else b.classList.add("dimmed");
-    });
-
-    // score tick
-    $("score-text").textContent = `${state.score} točno`;
-
-    // feedback bar + next button
-    const isLast = state.current === state.quiz.length - 1;
-    const nextLabel = isLast ? "Završi →" : "Sljedeće →";
-    const fb = document.createElement("div");
-    fb.className = `feedback ${isCorrect ? "correct" : "wrong"}`;
-    fb.innerHTML = `
-      <span class="feedback-text">${isCorrect ? "Točno." : "Netočno."}</span>
-      <button class="next-btn" id="next-btn">${nextLabel}</button>
-    `;
-    $("feedback-container").appendChild(fb);
-    $("next-btn").addEventListener("click", advance);
-  }
-
-  function advance() {
-    if (state.current < state.quiz.length - 1) {
-      state.current += 1;
-      renderQuestion();
-      window.scrollTo({ top: 0, behavior: "smooth" });
-    } else {
-      showResults();
-    }
-  }
-
-  // ============ KEYBOARD ============
-  document.addEventListener("keydown", (e) => {
-    if ($("quiz-screen").classList.contains("hidden")) return;
-    if (!state.answered && ["1","2","3","4"].includes(e.key)) {
-      const idx = parseInt(e.key) - 1;
-      if (idx < state.quiz[state.current].answers.length) handleAnswer(idx);
-    } else if (state.answered && (e.key === "Enter" || e.key === " ")) {
-      e.preventDefault();
-      advance();
-    }
-  });
-
-  // ============ RESULTS ============
-  function showResults() {
-    $("quiz-screen").classList.add("hidden");
-    $("results-screen").classList.remove("hidden");
-    const total = state.quiz.length;
-    const pct = Math.round((state.score / total) * 100);
-    $("final-score").textContent = state.score;
-    $("final-total").textContent = total;
-    $("final-pct").textContent = pct + "%";
-
-    const msg = $("score-message");
-    if (pct === 100) msg.textContent = "Besprijekorno. Ispit te ne bi trebao iznenaditi.";
-    else if (pct >= 85) msg.textContent = "Odlično. Solidna temeljna priprema — prođi još krive i spreman si.";
-    else if (pct >= 70) msg.textContent = "Dobro. Pogledaj krive odgovore ispod i ponovi sporna mjesta.";
-    else if (pct >= 50) msg.textContent = "Ima prostora. Vrati se na pitanja ispod i na odgovarajući dio predavanja.";
-    else msg.textContent = "Preporuka: ponovi predavanje od početka pa se vrati na kviz. Svaki ponovni pokušaj pomiče te naprijed.";
-
-    const reviewSection = $("review-section");
-    const reviewList = $("review-list");
-    reviewList.innerHTML = "";
-    if (state.wrong.length > 0) {
-      reviewSection.classList.remove("hidden");
-      state.wrong.forEach(w => {
-        const item = document.createElement("div");
-        item.className = "review-item";
-        item.innerHTML = `
-          <span class="review-badge ${w.source}">${sourceLabel(w.source)}</span>
-          <div class="q">${w.q}</div>
-          <div class="your">Tvoj odgovor: ${w.yourAns}</div>
-          <div class="correct-ans">Točan odgovor: ${w.correctAns}</div>
-        `;
-        reviewList.appendChild(item);
-      });
-    } else {
-      reviewSection.classList.add("hidden");
-    }
-
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  }
-
-  $("restart-btn").addEventListener("click", () => {
-    $("results-screen").classList.add("hidden");
-    $("start-screen").classList.remove("hidden");
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  });
-
-  // initial
-  updateCountAllLabel();
-  </script>
+});
+</script>
 </body>
 </html>
